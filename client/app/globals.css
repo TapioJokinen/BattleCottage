@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-color: #121212;
+  --base-dark: #26282a;
+  --base-light: #e7e7e7;
+  --palette-main: #00adb5;
+  --palette-secondary: #982176;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--base-light);
+}
+
+.main {
+  @apply flex min-h-screen flex-col;
+}
+
+.typed-text {
+  @apply w-fit animate-typing overflow-hidden whitespace-nowrap border-r-2 border-r-[var(--base-light)] text-4xl leading-tight md:text-5xl;
+}
+
+.icon-size-1 {
+  @apply h-7 w-7;
+}
+
+.button-slide-main {
+  @apply shadow-sliding_main hover:shadow-right_main m-2 flex w-full cursor-pointer items-center bg-[var(--base-light)] text-[var(--base-dark)] transition duration-1000 ease-out;
+}
+
+.button-slide-secondary {
+  @apply shadow-sliding_secondary hover:shadow-right_secondary m-2 flex w-full cursor-pointer items-center bg-[var(--base-dark)] text-[var(--base-light)] transition duration-1000 ease-out;
+}
