@@ -27,7 +27,7 @@
     <ProjectReference Include="..\..\Libraries\BattleCottage.Data\BattleCottage.Data.csproj" />
     <ProjectReference Include="..\..\Libraries\BattleCottage.Services\BattleCottage.Services.csproj" />
     <ProjectReference Include="..\..\BattleCottage.Web\BattleCottage.Web.csproj" />
-    <ProjectReference Include="..\BattleCottage.Tests\BattleCottage.Tests.csproj" />
+    <ProjectReference Include="..\BatteCottage.Tests\BattleCottage.Tests.csproj" />
   </ItemGroup>
 
 </Project>

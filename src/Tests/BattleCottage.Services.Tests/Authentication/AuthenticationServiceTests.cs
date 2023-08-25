@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.IdentityModel.Tokens.Jwt;
-using BattleCottage.Core.Entities;
+﻿using BattleCottage.Core.Entities;
 using BattleCottage.Data.Repositories.UserRepository;
 using BattleCottage.Services.Authentication;
 using BattleCottage.Services.Models;
 using BattleCottage.Tests;
+using Microsoft.Extensions.DependencyInjection;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace BattleCottage.Services.Tests.Authentication
 {
@@ -32,17 +32,23 @@ namespace BattleCottage.Services.Tests.Authentication
         [Fact]
         public async Task Register_EmailIsInvalid()
         {
-            string? errorCode1 = await _authService.Register(new RegisterCredentials() { Email = "Foo" });
+            RegisterError? registerError1 = await _authService.Register(new RegisterCredentials() { Email = "Foo" });
 
-            Assert.Equal(ErrorCodes.InvalidEmailFormat, errorCode1);
+            if (registerError1 == null) Assert.Fail("RegisterError was null");
 
-            string? errorCode2 = await _authService.Register(new RegisterCredentials() { Email = "" });
+            Assert.Equal(ErrorMessages.InvalidEmailFormat, registerError1.ErrorMessage);
 
-            Assert.Equal(ErrorCodes.InvalidEmailFormat, errorCode2);
+            RegisterError? registerError2 = await _authService.Register(new RegisterCredentials() { Email = "" });
 
-            string? errorCode3 = await _authService.Register(new RegisterCredentials() { });
+            if (registerError2 == null) Assert.Fail("RegisterError was null");
 
-            Assert.Equal(ErrorCodes.InvalidEmailFormat, errorCode3);
+            Assert.Equal(ErrorMessages.InvalidEmailFormat, registerError2.ErrorMessage);
+
+            RegisterError? registerError3 = await _authService.Register(new RegisterCredentials() { });
+
+            if (registerError3 == null) Assert.Fail("RegisterError was null");
+
+            Assert.Equal(ErrorMessages.InvalidEmailFormat, registerError3.ErrorMessage);
 
         }
 
@@ -56,28 +62,30 @@ namespace BattleCottage.Services.Tests.Authentication
                 PasswordAgain = passwordAgain
             };
 
-            string? errorCode = await _authService.Register(creds);
+            RegisterError? registerError = await _authService.Register(creds);
 
-            Assert.Equal(expectedErrorCode, errorCode);
+            if (registerError == null) Assert.Fail("RegisterError was null");
+
+            Assert.Equal(expectedErrorCode, registerError.ErrorMessage);
 
         }
 
         [Fact]
         public async Task Register_PasswordsAreInvalid()
         {
-            await TestPasswordErrorCode("", "", ErrorCodes.EmptyPassword);
-            await TestPasswordErrorCode("", "foo", ErrorCodes.EmptyPassword);
-            await TestPasswordErrorCode("foo", "", ErrorCodes.EmptyPassword);
-            await TestPasswordErrorCode("foo123456789!", "foo123456789!", ErrorCodes.PasswordMissingUppercase);
-            await TestPasswordErrorCode("FOO123456789!", "FOO123456789!", ErrorCodes.PasswordMissingLowercase);
-            await TestPasswordErrorCode("FOo123456789", "FOo123456789", ErrorCodes.PasswordMissingAlphanumeric);
-            await TestPasswordErrorCode("FOoooooooooo!", "FOoooooooooo!", ErrorCodes.PasswordMissingNumeric);
-            await TestPasswordErrorCode("Fo0!", "Fo0!", ErrorCodes.PasswordTooShort);
+            await TestPasswordErrorCode("", "", ErrorMessages.EmptyPassword);
+            await TestPasswordErrorCode("", "foo", ErrorMessages.EmptyPassword);
+            await TestPasswordErrorCode("foo", "", ErrorMessages.EmptyPassword);
+            await TestPasswordErrorCode("foo123456789!", "foo123456789!", ErrorMessages.PasswordMissingUppercase);
+            await TestPasswordErrorCode("FOO123456789!", "FOO123456789!", ErrorMessages.PasswordMissingLowercase);
+            await TestPasswordErrorCode("FOo123456789", "FOo123456789", ErrorMessages.PasswordMissingAlphanumeric);
+            await TestPasswordErrorCode("FOoooooooooo!", "FOoooooooooo!", ErrorMessages.PasswordMissingNumeric);
+            await TestPasswordErrorCode("Fo0!", "Fo0!", ErrorMessages.PasswordTooShort);
             await TestPasswordErrorCode("FOO", "FOO",
-                ErrorCodes.PasswordTooShort + " " +
-                ErrorCodes.PasswordMissingAlphanumeric + " " +
-                ErrorCodes.PasswordMissingNumeric + " " +
-                ErrorCodes.PasswordMissingLowercase
+                ErrorMessages.PasswordTooShort + " " +
+                ErrorMessages.PasswordMissingAlphanumeric + " " +
+                ErrorMessages.PasswordMissingNumeric + " " +
+                ErrorMessages.PasswordMissingLowercase
                 );
         }
 
@@ -95,7 +103,7 @@ namespace BattleCottage.Services.Tests.Authentication
                     PasswordAgain = "SuperStrongPassword123!"
                 };
 
-                string? errorCode = await _authService.Register(creds);
+                RegisterError? errorCode = await _authService.Register(creds);
 
                 Assert.Null(errorCode);
 
@@ -127,13 +135,15 @@ namespace BattleCottage.Services.Tests.Authentication
                 PasswordAgain = "SuperStrongPassword123!"
             };
 
-            string? errorCode1 = await _authService.Register(creds);
+            RegisterError? registerError1 = await _authService.Register(creds);
 
-            Assert.Null(errorCode1);
+            Assert.Null(registerError1);
 
-            string? errorCode2 = await _authService.Register(creds);
+            RegisterError? registerError2 = await _authService.Register(creds);
 
-            Assert.Equal(ErrorCodes.UserAlreadyExists, errorCode2);
+            if (registerError2 == null) Assert.Fail("RegisterError was null");
+
+            Assert.Equal(ErrorMessages.UserAlreadyExists, registerError2.ErrorMessage);
 
         }
 
@@ -147,7 +157,7 @@ namespace BattleCottage.Services.Tests.Authentication
                 PasswordAgain = "SuperStrongPassword123!"
             };
 
-            string? errorCode1 = await _authService.Register(creds);
+            RegisterError? errorCode1 = await _authService.Register(creds);
 
             Assert.Null(errorCode1);
 
@@ -172,9 +182,9 @@ namespace BattleCottage.Services.Tests.Authentication
                 PasswordAgain = "SuperStrongPassword123!"
             };
 
-            string? errorCode1 = await _authService.Register(creds);
+            RegisterError? registerError1 = await _authService.Register(creds);
 
-            Assert.Null(errorCode1);
+            Assert.Null(registerError1);
 
             LoginCredentials creds2 = new()
             {
