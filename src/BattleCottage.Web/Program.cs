@@ -1,14 +1,29 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using BattleCottage.Core.Entities;
 using BattleCottage.Data;
 using BattleCottage.Data.Repositories.UserRepository;
 using BattleCottage.Services.Authentication;
 using BattleCottage.Services.HealthCheck;
+using BattleCottage.Services.Token;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000", "https://localhost:7069")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+        });
+});
 
 // Add services to the container.
 
@@ -84,6 +99,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthentication();
 

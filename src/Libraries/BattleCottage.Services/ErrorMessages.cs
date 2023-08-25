@@ -1,6 +1,6 @@
-﻿namespace BattleCottage.Services.Authentication
+﻿namespace BattleCottage.Services
 {
-    public static class ErrorCodes
+    public static class ErrorMessages
     {
         public const string EmptyPassword = "Password must not be empty.";
         public const string InvalidEmailFormat = "The provided email was not in correct format.";

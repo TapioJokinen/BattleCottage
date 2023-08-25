@@ -1,5 +1,5 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using BattleCottage.Services.Models;
+﻿using BattleCottage.Services.Models;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace BattleCottage.Services.Authentication
 {
@@ -7,6 +7,8 @@ namespace BattleCottage.Services.Authentication
     {
         public Task<JwtSecurityToken?> Login(LoginCredentials credentials);
 
-        public Task<string?> Register(RegisterCredentials credentials);
+        public Task<RegisterError?> Register(RegisterCredentials credentials);
+
+        public bool VerifyToken(string token);
     }
 }

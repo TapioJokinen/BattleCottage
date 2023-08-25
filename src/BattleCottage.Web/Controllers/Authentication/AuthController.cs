@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
-using BattleCottage.Data.Repositories.UserRepository;
+﻿using BattleCottage.Data.Repositories.UserRepository;
 using BattleCottage.Services.Authentication;
 using BattleCottage.Services.Models;
+using BattleCottage.Services.Token;
+using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace BattleCottage.Web.Controllers.AuthController
 {
@@ -23,10 +24,10 @@ namespace BattleCottage.Web.Controllers.AuthController
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Route("/[controller]/login")]
-        public async Task<IActionResult> Login([FromBody] LoginCredentials loginDto)
+        [Route("/api/[controller]/login")]
+        public async Task<IActionResult> Login([FromBody] LoginCredentials loginCredentials)
         {
-            JwtSecurityToken? token = await _authService.Login(loginDto);
+            JwtSecurityToken? token = await _authService.Login(loginCredentials);
 
             if (token == null) return Unauthorized(new { Message = "Invalid credentials." });
 
@@ -43,23 +44,49 @@ namespace BattleCottage.Web.Controllers.AuthController
                 }
                 );
 
-            return Ok();
+            return Ok(new { loginCredentials.Email });
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Route("/[controller]/register")]
-        public async Task<IActionResult> Register([FromBody] RegisterCredentials registerDto)
+        [Route("/api/[controller]/register")]
+        public async Task<IActionResult> Register([FromBody] RegisterCredentials registerCredentials)
         {
-            string? errorMessage = await _authService.Register(registerDto);
+            RegisterError? registerError = await _authService.Register(registerCredentials);
 
-            if (errorMessage != null)
+            if (registerError != null)
             {
-                return BadRequest(new { Message = errorMessage });
+                return BadRequest(new { Message = registerError.ErrorMessage });
             }
 
             return CreatedAtAction(nameof(Register), new { Message = "User created." });
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Route("/api/[controller]/verify")]
+        public IActionResult Verify()
+        {
+            string cookieName = _tokenService.GetCookieName();
+
+            if (Request.Cookies[cookieName] != null)
+            {
+                string? jwtToken = Request.Cookies[cookieName];
+
+                if (jwtToken != null)
+                {
+                    bool valid = _authService.VerifyToken(jwtToken);
+
+                    if (valid)
+                    {
+                        return Ok(new { Message = "Token was valid." });
+                    }
+                }
+            }
+
+            return Unauthorized(new { Message = "Token was invalid." });
         }
     }
 }

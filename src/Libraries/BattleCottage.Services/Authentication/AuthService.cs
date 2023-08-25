@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using BattleCottage.Core.Entities;
+﻿using BattleCottage.Core.Entities;
 using BattleCottage.Core.Utils;
 using BattleCottage.Data.Repositories.UserRepository;
 using BattleCottage.Services.Models;
+using BattleCottage.Services.Token;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace BattleCottage.Services.Authentication
 {
@@ -12,21 +14,22 @@ namespace BattleCottage.Services.Authentication
     {
         private readonly IUserRepository _userRepository;
         private readonly ITokenService _tokenService;
-        private readonly SignInManager<User> _signInManager;
 
         public AuthService(IUserRepository userRepository, ITokenService tokenService, SignInManager<User> signInManager)
         {
             _userRepository = userRepository;
             _tokenService = tokenService;
-            _signInManager = signInManager;
 
         }
 
         /// <summary>
-        /// Validates credentials and returns <see cref="JwtSecurityToken"/> if everything was ok.
+        /// Attempts to authenticate a user using the provided login credentials.
+        /// If the provided credentials are valid, a JSON Web Token (JWT) is generated and returned.
         /// </summary>
-        /// <param name="credentials"></param>
-        /// <returns></returns>
+        /// <param name="credentials">The login credentials containing the user's email and password.</param>
+        /// <returns>
+        /// A JWT if the provided credentials are valid; otherwise, returns null.
+        /// </returns>
         public async Task<JwtSecurityToken?> Login(LoginCredentials credentials)
         {
             if (string.IsNullOrEmpty(credentials.Email) || string.IsNullOrEmpty(credentials.Password)) return null;
@@ -57,25 +60,32 @@ namespace BattleCottage.Services.Authentication
         }
 
         /// <summary>
-        /// Validates the registering credentials and creates a user.
+        /// Registers a new user based on the provided registration credentials.
+        /// If the registration is successful, null is returned; otherwise, a RegisterError containing the specific error message is returned.
         /// </summary>
-        /// <param name="credentials"></param>
-        /// <returns>A string indicating the error. On success returns null.</returns>
-        public async Task<string?> Register(RegisterCredentials credentials)
+        /// <param name="credentials">The registration credentials including email and password information.</param>
+        /// <returns>
+        /// Null if the registration is successful; otherwise, a RegisterError containing the error message.
+        /// </returns>
+        public async Task<RegisterError?> Register(RegisterCredentials credentials)
         {
-            if (!Validator.ValidateEmail(credentials.Email)) return ErrorCodes.InvalidEmailFormat;
+            if (!Validator.ValidateEmail(credentials.Email)) return new RegisterError(ErrorMessages.InvalidEmailFormat);
 
-            if (string.IsNullOrEmpty(credentials.Password) || string.IsNullOrEmpty(credentials.PasswordAgain)) return ErrorCodes.EmptyPassword;
+            if (string.IsNullOrEmpty(credentials.Password) || string.IsNullOrEmpty(credentials.PasswordAgain))
+                return new RegisterError(ErrorMessages.EmptyPassword);
 
-            if (credentials.Password != credentials.PasswordAgain) return ErrorCodes.PasswordsDoNotMatch;
+            if (credentials.Password != credentials.PasswordAgain)
+                return new RegisterError(ErrorMessages.PasswordsDoNotMatch);
 
             IList<string> passwordErrors = await _userRepository.ValidatePasswordAsync(credentials.Password);
 
-            if (passwordErrors.Count > 0) return string.Join(" ", passwordErrors.ToArray());
+            if (passwordErrors.Count > 0)
+                return new RegisterError(string.Join(" ", passwordErrors.ToArray()));
 
             User? userExists = await _userRepository.FindByEmailAsync(credentials.Email);
 
-            if (userExists != null) return ErrorCodes.UserAlreadyExists;
+            if (userExists != null)
+                return new RegisterError(ErrorMessages.UserAlreadyExists);
 
             User user = new()
             {
@@ -86,9 +96,41 @@ namespace BattleCottage.Services.Authentication
 
             IdentityResult result = await _userRepository.AddUserAsync(user, credentials.Password);
 
-            if (result != IdentityResult.Success) return "Failed to create user. Try again later.";
+            if (result != IdentityResult.Success)
+                return new RegisterError("Failed to create user. Try again later.");
 
             return null;
+        }
+
+        /// <summary>
+        /// Verifies the validity of a given JSON Web Token (JWT).
+        /// </summary>
+        /// <param name="token">The token string to be verified.</param>
+        /// <returns>
+        /// True if the token is valid; otherwise, false.
+        /// </returns>
+        public bool VerifyToken(string token)
+        {
+            JwtSecurityTokenHandler handler = new();
+
+            TokenValidationParameters validationParameters = new()
+            {
+                ValidIssuer = _tokenService.GetIssuer(),
+                ValidAudience = _tokenService.GetAudience(),
+                IssuerSigningKey = _tokenService.GetSymmetricSecurityKey(),
+            };
+
+            try
+            {
+                handler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+
         }
     }
 }
