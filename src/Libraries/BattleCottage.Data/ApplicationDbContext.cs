@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using BattleCottage.Core.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using BattleCottage.Core.Entities;
 
 namespace BattleCottage.Data
 {
@@ -19,5 +19,17 @@ namespace BattleCottage.Data
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"));
         }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<Game>()
+                .HasIndex(x => x.Name)
+                .IsUnique();
+        }
+
+        public virtual DbSet<Game> Games { get; set; }
     }
 }

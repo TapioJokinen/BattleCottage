@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BattleCottage.Core.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using BattleCottage.Core.Entities;
+using System.Linq.Expressions;
 
 namespace BattleCottage.Data.Repositories.UserRepository
 {
@@ -51,6 +52,11 @@ namespace BattleCottage.Data.Repositories.UserRepository
         }
 
         public Task<User> DeleteAsync(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<User?>> Filter(Expression<Func<User, bool>> filter)
         {
             throw new NotImplementedException();
         }

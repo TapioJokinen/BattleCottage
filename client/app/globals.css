@@ -7,7 +7,8 @@
   --base-dark: #26282a;
   --base-light: #e7e7e7;
   --palette-main: #00adb5;
-  --palette-secondary: #982176;
+  --palette-secondary: #454545;
+  --palette-border: #252525;
 }
 
 body {
@@ -15,22 +16,84 @@ body {
   color: var(--base-light);
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px #454545;
+}
+
 .main {
   @apply flex min-h-screen flex-col;
 }
 
 .typed-text {
-  @apply w-fit animate-typing overflow-hidden whitespace-nowrap border-r-2 border-r-[var(--base-light)] text-4xl leading-tight md:text-5xl;
+  @apply h-[55px] w-fit animate-typing overflow-hidden whitespace-nowrap border-r-2 border-r-[var(--base-light)] text-[1.813rem] sm:text-5xl;
 }
 
 .icon-size-1 {
-  @apply h-7 w-7;
+  @apply absolute ml-2 h-7 w-7;
 }
 
 .button-slide-main {
-  @apply shadow-sliding_main hover:shadow-right_main m-2 flex w-full cursor-pointer items-center bg-[var(--base-light)] text-[var(--base-dark)] transition duration-1000 ease-out;
+  @apply m-2 flex w-full cursor-pointer items-center rounded border-2 border-[var(--palette-border)] bg-[var(--base-light)] p-3 font-sourcecodepro text-[var(--base-dark)] shadow-sliding_main transition duration-1000 ease-out hover:shadow-right_main;
 }
 
 .button-slide-secondary {
-  @apply shadow-sliding_secondary hover:shadow-right_secondary m-2 flex w-full cursor-pointer items-center bg-[var(--base-dark)] text-[var(--base-light)] transition duration-1000 ease-out;
+  @apply relative m-2 flex w-full cursor-pointer items-center rounded border-2 border-[var(--palette-border)] bg-[var(--base-dark)] p-3 text-[var(--base-light)] shadow-sliding_secondary transition duration-1000 ease-out hover:shadow-right_secondary;
+}
+
+.header-container {
+  @apply mt-6 flex w-full justify-center p-3 font-sourcecodepro text-[#e7e7e7] md:mt-20;
+}
+
+.header-text-container {
+  @apply flex max-w-[600px] flex-col items-center justify-center pt-5;
+}
+
+.header-title-wrapper {
+  @apply flex pb-5 md:pb-10;
+}
+
+.header-secondary-text {
+  @apply max-w-[350px] text-center text-sm italic sm:max-w-full md:text-base;
+}
+
+.auth-nav-container {
+  @apply mt-20 flex w-full flex-col items-center font-sourcecodepro text-[var(--text-dark)] md:mt-48;
+}
+
+.auth-nav-link-container {
+  @apply flex h-full w-full flex-col items-center justify-center;
+}
+
+.auth-nav-link-wrapper {
+  @apply flex w-9/12 max-w-[425px] flex-col items-center justify-center;
+}
+
+.auth-nav-link-text {
+  @apply w-full text-center text-xl;
+}
+
+.auth-form-container {
+  @apply flex w-full justify-center p-5;
+}
+
+.auth-form-input-container {
+  @apply mt-5 flex w-full max-w-[425px] flex-col items-center rounded-xl bg-[var(--base-dark)] p-8 font-sourcecodepro text-xl sm:mt-20 sm:w-9/12;
+}
+
+.form-input-wrapper {
+  @apply flex w-full flex-col;
+}
+
+.form-input {
+  @apply mb-3 rounded bg-[var(--palette-secondary)] p-2 py-3 text-sm sm:text-base;
+}
+
+.secondary-link {
+  @apply p-1 text-sm hover:text-[var(--palette-secondary)] sm:text-base;
 }

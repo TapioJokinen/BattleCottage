@@ -19,7 +19,6 @@ namespace BattleCottage.Services.Authentication
         {
             _userRepository = userRepository;
             _tokenService = tokenService;
-
         }
 
         /// <summary>

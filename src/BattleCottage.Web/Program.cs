@@ -1,8 +1,10 @@
 using BattleCottage.Core.Entities;
 using BattleCottage.Data;
+using BattleCottage.Data.Repositories.GameRepository;
 using BattleCottage.Data.Repositories.UserRepository;
 using BattleCottage.Services.Authentication;
 using BattleCottage.Services.HealthCheck;
+using BattleCottage.Services.RAWG;
 using BattleCottage.Services.Token;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -21,7 +23,8 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("http://localhost:3000", "https://localhost:7069")
             .AllowAnyMethod()
-            .AllowAnyHeader();
+            .AllowAnyHeader()
+            .AllowCredentials();
         });
 });
 
@@ -80,10 +83,16 @@ builder.Services.AddAuthentication(options =>
     });
 
 
+builder.Services.AddHttpClient();
+
+builder.Services.AddHostedService<ConsumeRAWGGamesService>();
+
 builder.Services.AddScoped<IHealthCheckService, HealthCheckService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IRAWGGamesService, RAWGGamesService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

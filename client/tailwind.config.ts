@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         sourcecodepro: ['var(--font-sourcecodepro)'],
+        roboto: ['var(--font-roboto)'],
       },
       screens: {
         '3xl': '1600px',

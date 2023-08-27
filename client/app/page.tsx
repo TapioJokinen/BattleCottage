@@ -4,11 +4,8 @@ import AuthNav from './components/home/AuthNav';
 function getHeader() {
   return (
     <Header
-      textMain="&#123; BattleCottage &#125;"
-      textSecondary='Introducing the "BattleCottage" app &ndash; your digital partner in the mundane
-            marathon of life. Experience the thrill of checking off tasks as they blend seamlessly
-            into a canvas of monotony. Join us in a dance with the void, where every routine is a
-            step closer to becoming a human hamster wheel champion...'
+      textMain="🔥 Battle Cottage 🔥"
+      textSecondary='Discover the ultimate app for connecting with gaming partners! Easily post your "Looking for Group" messages in a centralized hub or explore a curated list of potential gaming companions tailored to your preferences. Engage in rating exchanges with your gaming buddies to enhance your standing within the Battle Cottage community!'
     />
   );
 }

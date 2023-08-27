@@ -81,7 +81,16 @@ namespace BattleCottage.Web.Controllers.AuthController
 
                     if (valid)
                     {
-                        return Ok(new { Message = "Token was valid." });
+                        JwtSecurityTokenHandler handler = new();
+                        JwtSecurityToken jwtSecurityToken = handler.ReadJwtToken(jwtToken);
+
+                        return Ok(new
+                        {
+                            Email = jwtSecurityToken.Claims.Where(
+                            claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")
+                            .First()
+                            .Value
+                        });
                     }
                 }
             }
