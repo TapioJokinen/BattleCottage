@@ -1,5 +1,5 @@
-import Header from './components/home/Header';
-import AuthNav from './components/home/AuthNav';
+import Header from '@/components/home/Header';
+import AuthNav from '@/components/home/AuthNav';
 
 function getHeader() {
   return (

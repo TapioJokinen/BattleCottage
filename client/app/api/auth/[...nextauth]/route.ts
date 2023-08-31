@@ -16,7 +16,6 @@ const handler = NextAuth({
       },
 
       async authorize(credentials, req) {
-        console.log('Here!');
         const data = await authLogin({
           email: credentials?.email,
           password: credentials?.password,
@@ -26,7 +25,7 @@ const handler = NextAuth({
           return data as any;
         }
 
-        return null;
+        return Promise.reject(new Error(data.message));
       },
     }),
   ],

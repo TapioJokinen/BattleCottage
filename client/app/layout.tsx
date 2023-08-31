@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Source_Code_Pro, Open_Sans } from 'next/font/google';
-import Providers from './context/Providers';
+import Providers from '@/context/Providers';
 
 const sourceCodePro = Source_Code_Pro({
   subsets: ['latin'],

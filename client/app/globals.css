@@ -6,9 +6,10 @@
   --bg-color: #121212;
   --base-dark: #26282a;
   --base-light: #e7e7e7;
-  --palette-main: #00adb5;
+  --palette-main: #ff6000;
   --palette-secondary: #454545;
   --palette-border: #252525;
+  --palette-error: #f44336;
 }
 
 body {
@@ -78,16 +79,16 @@ input:-webkit-autofill:active {
   @apply w-full text-center text-xl;
 }
 
-.auth-form-container {
+.form-container {
   @apply flex w-full justify-center p-5;
 }
 
-.auth-form-input-container {
+.form-input-container {
   @apply mt-5 flex w-full max-w-[425px] flex-col items-center border-2 border-[var(--palette-border)] bg-[var(--base-dark)] p-8 font-sourcecodepro text-xl sm:mt-20 sm:w-9/12;
 }
 
 .form-input-wrapper {
-  @apply font-opensans flex w-full flex-col;
+  @apply flex w-full flex-col font-opensans;
 }
 
 .form-input {
@@ -96,4 +97,8 @@ input:-webkit-autofill:active {
 
 .secondary-link {
   @apply p-1 text-sm hover:text-[var(--palette-secondary)] sm:text-base;
+}
+
+.error-text {
+  @apply text-sm text-[var(--palette-error)];
 }

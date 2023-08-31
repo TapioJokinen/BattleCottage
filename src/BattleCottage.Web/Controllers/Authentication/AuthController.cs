@@ -1,8 +1,10 @@
-﻿using BattleCottage.Data.Repositories.UserRepository;
+﻿using BattleCottage.Core.Entities;
+using BattleCottage.Data.Repositories.UserRepository;
 using BattleCottage.Services.Authentication;
 using BattleCottage.Services.Models;
 using BattleCottage.Services.Models.ConstrollerResponses;
 using BattleCottage.Services.Token;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BattleCottage.Web.Controllers.AuthController
@@ -65,6 +67,32 @@ namespace BattleCottage.Web.Controllers.AuthController
             }
 
             return Unauthorized(new { Message = "Tokens were expired or invalid." });
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("/api/[controller]/revoke")]
+        public async Task<IActionResult> Revoke()
+        {
+            string? email = HttpContext.User.Identity?.Name;
+
+            if (email == null)
+            {
+                return Unauthorized(new { Message = "Failed to authorize user." });
+            }
+
+            User? user = await _userRepository.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return NotFound(new { Message = "User not found." });
+            }
+
+            user.RefreshToken = null;
+
+            await _userRepository.UpdateUserAsync(user);
+
+            return Ok(new { Message = "Revoked token successfully." });
         }
     }
 }
