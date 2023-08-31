@@ -40,7 +40,7 @@ namespace BattleCottage.Data.Repositories.GameRepository
             throw new NotImplementedException();
         }
 
-        public Task<Game> UpdateAsync(Game entity)
+        public Task<Game> UpdateEntityAsync(Game entity)
         {
             throw new NotImplementedException();
         }

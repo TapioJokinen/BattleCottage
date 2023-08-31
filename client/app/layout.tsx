@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Source_Code_Pro, Roboto } from 'next/font/google';
+import { Source_Code_Pro, Open_Sans } from 'next/font/google';
 import Providers from './context/Providers';
 
 const sourceCodePro = Source_Code_Pro({
@@ -9,10 +9,10 @@ const sourceCodePro = Source_Code_Pro({
   variable: '--font-sourcecodepro',
 });
 
-const roboto = Roboto({
+const roboto = Open_Sans({
   subsets: ['latin'],
   weight: ['300', '400', '500', '700'],
-  variable: '--font-roboto',
+  variable: '--font-opensans',
 });
 
 export const metadata: Metadata = {

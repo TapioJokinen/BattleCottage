@@ -2,9 +2,9 @@
 using BattleCottage.Core.Utils;
 using BattleCottage.Data.Repositories.UserRepository;
 using BattleCottage.Services.Models;
+using BattleCottage.Services.Models.ConstrollerResponses;
 using BattleCottage.Services.Token;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
@@ -15,11 +15,12 @@ namespace BattleCottage.Services.Authentication
         private readonly IUserRepository _userRepository;
         private readonly ITokenService _tokenService;
 
-        public AuthService(IUserRepository userRepository, ITokenService tokenService, SignInManager<User> signInManager)
+        public AuthService(IUserRepository userRepository, ITokenService tokenService)
         {
             _userRepository = userRepository;
             _tokenService = tokenService;
         }
+
 
         /// <summary>
         /// Attempts to authenticate a user using the provided login credentials.
@@ -29,7 +30,7 @@ namespace BattleCottage.Services.Authentication
         /// <returns>
         /// A JWT if the provided credentials are valid; otherwise, returns null.
         /// </returns>
-        public async Task<JwtSecurityToken?> Login(LoginCredentials credentials)
+        public async Task<LoginResponse?> Login(LoginCredentials credentials)
         {
             if (string.IsNullOrEmpty(credentials.Email) || string.IsNullOrEmpty(credentials.Password)) return null;
 
@@ -50,13 +51,85 @@ namespace BattleCottage.Services.Authentication
                     authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                 }
 
-                JwtSecurityToken token = _tokenService.GetToken(authClaims);
+                JwtSecurityToken accessToken = _tokenService.GetToken(authClaims);
+                string refreshToken = _tokenService.GenerateRefreshToken();
 
-                return token;
+                user.RefreshToken = refreshToken;
+                user.RefreshTokenExpiryTime = _tokenService.GetRefreshTokenExpiryTime();
+
+                await _userRepository.UpdateUserAsync(user);
+
+                return new LoginResponse()
+                {
+                    Email = credentials.Email,
+                    AccessToken = new JwtSecurityTokenHandler().WriteToken(accessToken),
+                    RefreshToken = user.RefreshToken,
+                    AccessTokenExpiration = _tokenService.GetAccessTokenExpiryTime(),
+                    RefreshTokenExpiration = user.RefreshTokenExpiryTime
+                };
             }
 
             return null;
         }
+
+
+        /// <summary>
+        /// Refreshes the access token using the provided token information.
+        /// </summary>
+        /// <param name="tokens">The token information containing the access token and refresh token.</param>
+        /// <returns>
+        /// A <see cref="TokenModel"/> containing the refreshed access token and its expiration,
+        /// or <c>null</c> if the provided tokens are invalid or the refresh process fails.
+        /// </returns>
+        /// <remarks>
+        /// This method attempts to refresh the access token by validating the provided access token,
+        /// checking the associated user's refresh token, and generating a new access token with extended validity.
+        /// If the refresh process is successful, a new <see cref="TokenModel"/> is returned with the refreshed tokens.
+        /// If any validation step fails, or if the user's refresh token is invalid or expired,
+        /// the method returns <c>null</c> to indicate a failed refresh attempt.
+        /// </remarks>
+        public async Task<TokenModel?> RefreshAccessToken(TokenModel tokens)
+        {
+            if (tokens == null || tokens.AccessToken == null || tokens.RefreshToken == null)
+            {
+                return null;
+            }
+
+            string? accessToken = tokens.AccessToken;
+            string? refreshToken = tokens.RefreshToken;
+
+            ClaimsPrincipal? principal = _tokenService.GetPrincipalFromExpiredToken(accessToken);
+
+            if (principal == null)
+            {
+                return null;
+            }
+
+            if (principal.Identity == null || principal.Identity.Name == null)
+            {
+                return null;
+            }
+
+            string email = principal.Identity.Name;
+
+            User? user = await _userRepository.FindByEmailAsync(email);
+
+            if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            {
+                return null;
+            }
+
+            JwtSecurityToken newAccessToken = _tokenService.GetToken(principal.Claims.ToList());
+
+            return new TokenModel()
+            {
+                AccessToken = new JwtSecurityTokenHandler().WriteToken(newAccessToken),
+                RefreshToken = user.RefreshToken,
+                AccessTokenExpiration = _tokenService.GetAccessTokenExpiryTime(),
+                RefreshTokenExpiration = user.RefreshTokenExpiryTime
+            };
+        }
+
 
         /// <summary>
         /// Registers a new user based on the provided registration credentials.
@@ -99,37 +172,6 @@ namespace BattleCottage.Services.Authentication
                 return new RegisterError("Failed to create user. Try again later.");
 
             return null;
-        }
-
-        /// <summary>
-        /// Verifies the validity of a given JSON Web Token (JWT).
-        /// </summary>
-        /// <param name="token">The token string to be verified.</param>
-        /// <returns>
-        /// True if the token is valid; otherwise, false.
-        /// </returns>
-        public bool VerifyToken(string token)
-        {
-            JwtSecurityTokenHandler handler = new();
-
-            TokenValidationParameters validationParameters = new()
-            {
-                ValidIssuer = _tokenService.GetIssuer(),
-                ValidAudience = _tokenService.GetAudience(),
-                IssuerSigningKey = _tokenService.GetSymmetricSecurityKey(),
-            };
-
-            try
-            {
-                handler.ValidateToken(token, validationParameters, out SecurityToken securityToken);
-                return true;
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-
         }
     }
 }

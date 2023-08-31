@@ -39,11 +39,11 @@ input:-webkit-autofill:active {
 }
 
 .button-slide-main {
-  @apply m-2 flex w-full cursor-pointer items-center rounded border-2 border-[var(--palette-border)] bg-[var(--base-light)] p-3 font-sourcecodepro text-[var(--base-dark)] shadow-sliding_main transition duration-1000 ease-out hover:shadow-right_main;
+  @apply m-2 flex w-full cursor-pointer items-center border-2 border-[var(--palette-border)] bg-[var(--base-light)] p-3 font-sourcecodepro text-[var(--base-dark)] shadow-sliding_main transition duration-1000 ease-out hover:shadow-right_main;
 }
 
 .button-slide-secondary {
-  @apply relative m-2 flex w-full cursor-pointer items-center rounded border-2 border-[var(--palette-border)] bg-[var(--base-dark)] p-3 text-[var(--base-light)] shadow-sliding_secondary transition duration-1000 ease-out hover:shadow-right_secondary;
+  @apply relative m-2 flex w-full cursor-pointer items-center border-2 border-[var(--palette-border)] bg-[var(--base-dark)] p-3 text-[var(--base-light)] shadow-sliding_secondary transition duration-1000 ease-out hover:shadow-right_secondary;
 }
 
 .header-container {
@@ -83,15 +83,15 @@ input:-webkit-autofill:active {
 }
 
 .auth-form-input-container {
-  @apply mt-5 flex w-full max-w-[425px] flex-col items-center rounded-xl bg-[var(--base-dark)] p-8 font-sourcecodepro text-xl sm:mt-20 sm:w-9/12;
+  @apply mt-5 flex w-full max-w-[425px] flex-col items-center border-2 border-[var(--palette-border)] bg-[var(--base-dark)] p-8 font-sourcecodepro text-xl sm:mt-20 sm:w-9/12;
 }
 
 .form-input-wrapper {
-  @apply flex w-full flex-col;
+  @apply font-opensans flex w-full flex-col;
 }
 
 .form-input {
-  @apply mb-3 rounded bg-[var(--palette-secondary)] p-2 py-3 text-sm sm:text-base;
+  @apply mb-3 border-2 border-[var(--palette-border)] bg-[var(--palette-secondary)] p-2 py-3 text-base;
 }
 
 .secondary-link {

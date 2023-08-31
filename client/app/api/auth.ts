@@ -1,4 +1,10 @@
-import { LoginCredentialType, LoginResponseType, VerifyResponseType } from '../types';
+import {
+  LoginCredentialType,
+  LoginResponseType,
+  RefreshResponse,
+  Tokens,
+  VerifyResponseType,
+} from '../types';
 import { handleResponse, makeRequestHeaders } from './base';
 
 export async function authLogin(credentials: LoginCredentialType) {
@@ -21,4 +27,14 @@ export async function authVerify() {
   });
 
   return handleResponse<VerifyResponseType>(response);
+}
+
+export async function authRefresh(tokens: Tokens) {
+  const response = await fetch('https://localhost:7069/api/auth/refresh', {
+    method: 'POST',
+    headers: makeRequestHeaders(),
+    body: JSON.stringify(tokens),
+  });
+
+  return handleResponse<RefreshResponse>(response);
 }

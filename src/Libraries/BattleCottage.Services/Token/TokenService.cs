@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace BattleCottage.Services.Token
@@ -10,8 +10,6 @@ namespace BattleCottage.Services.Token
     public class TokenService : ITokenService
     {
         private readonly IConfiguration _configuration;
-
-        private const int _lifeTimeHours = 24;
 
         private const string _cookieName = "X-Token";
 
@@ -34,21 +32,13 @@ namespace BattleCottage.Services.Token
             JwtSecurityToken token = new(
                 issuer: GetIssuer(),
                 audience: GetAudience(),
-                expires: GetExpirationDate(),
+                expires: GetAccessTokenExpiryTime(),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );
 
             return token;
         }
-
-        /// <summary>
-        /// Calculates and retrieves the expiration date for the JSON Web Token (JWT).
-        /// The expiration date is determined by adding the specified lifetime hours to the current date and time.
-        /// </summary>
-        /// <returns>The calculated expiration date for the JWT.</returns>
-
-        public DateTime GetExpirationDate() => DateTime.Now.AddHours(_lifeTimeHours);
 
         /// <summary>
         /// Retrieves the valid issuer (issuer) for the JSON Web Token (JWT).
@@ -74,79 +64,6 @@ namespace BattleCottage.Services.Token
             return _configuration["JWT:ValidAudience"] ?? throw new ArgumentException("JWT:ValidAudience not found.");
         }
 
-        /// <summary>
-        /// Retrieves the domain for which the cookie is valid.
-        /// The domain setting is obtained from the application's configuration settings.
-        /// </summary>
-        /// <returns>The domain for which the cookie is valid.</returns>
-        /// <exception cref="ArgumentException">Thrown when the Domain configuration is not found.</exception>
-
-        public string GetCookieDomain()
-        {
-            return _configuration["JWT:CookieOptions:Domain"] ?? throw new ArgumentException("JWT:CookieOptions:Domain not found.");
-        }
-
-        /// <summary>
-        /// Retrieves a boolean value indicating whether the cookie can be accessed through client side script.
-        /// The HttpOnly setting is obtained from the application's configuration settings.
-        /// </summary>
-        /// <returns>True if the cookie should be HttpOnly; otherwise, false.</returns>
-        /// <exception cref="ArgumentException">Thrown when the HttpOnly configuration is not found.</exception>
-
-        public bool GetCookieHttpOnly()
-        {
-            if (_configuration["JWT:CookieOptions:HttpOnly"] == null)
-            {
-                throw new ArgumentException("JWT:CookieOptions:HttpOnly not found.");
-            }
-
-            return _configuration.GetValue<bool>("JWT:CookieOptions:HttpOnly");
-        }
-
-        /// <summary>
-        /// Retrieves the SameSite attribute setting for the cookie, which controls when the cookie is sent in cross-origin requests.
-        /// The SameSite setting is obtained from the application's configuration settings.
-        /// </summary>
-        /// <returns>The SameSiteMode enum value representing the desired cookie behavior.</returns>
-        /// <exception cref="ArgumentException">Thrown when the SameSite configuration is not found.</exception>
-        public SameSiteMode GetCookieSameSite()
-        {
-            string sameSite = _configuration["JWT:CookieOptions:SameSite"] ?? throw new ArgumentException("JWT:CookieOptions:SameSite not found.");
-
-            return sameSite switch
-            {
-                "Strict" => SameSiteMode.Strict,
-                "Lax" => SameSiteMode.Lax,
-                "None" => SameSiteMode.None,
-                _ => SameSiteMode.Strict,
-            };
-        }
-
-        /// <summary>
-        /// Retrieves a boolean value indicating whether the cookie should only be transmitted over secure (HTTPS) connections.
-        /// The secure setting is obtained from the application's configuration settings.
-        /// </summary>
-        /// <returns>True if the cookie should only be transmitted over secure connections; otherwise, false.</returns>
-        /// <exception cref="ArgumentException">Thrown when the secure configuration is not found.</exception>
-        public bool GetCookieSecure()
-        {
-            if (_configuration["JWT:CookieOptions:Secure"] == null)
-            {
-                throw new ArgumentException("JWT:CookieOptions:Secure not found.");
-            }
-
-            return _configuration.GetValue<bool>("JWT:CookieOptions:Secure");
-        }
-
-        /// <summary>
-        /// Retrieves the name of the cookie used for storing or identifying data.
-        /// The cookie name is determined by the value assigned during object initialization.
-        /// </summary>
-        /// <returns>The name of the cookie.</returns>
-        public string GetCookieName()
-        {
-            return _cookieName;
-        }
 
         /// <summary>
         /// Retrieves a secret string used for cryptographic operations, such as generating tokens.
@@ -167,6 +84,49 @@ namespace BattleCottage.Services.Token
         public SymmetricSecurityKey GetSymmetricSecurityKey()
         {
             return new(Encoding.UTF8.GetBytes(GetSecret()));
+        }
+
+        public string GenerateRefreshToken()
+        {
+            byte[] randomNumber = new byte[64];
+            using RandomNumberGenerator rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNumber);
+            return Convert.ToBase64String(randomNumber);
+        }
+
+        public ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
+        {
+            TokenValidationParameters tokenValidationParameters = new()
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(GetSecret())),
+                ValidateLifetime = false
+            };
+
+            JwtSecurityTokenHandler tokenHandler = new();
+
+            ClaimsPrincipal principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+
+            if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+                throw new SecurityTokenException("Invalid token");
+
+            return principal;
+        }
+
+        public DateTime GetAccessTokenExpiryTime()
+        {
+            _ = int.TryParse(_configuration["JWT:AccessTokenLifeTimeInMinutes"], out int accessTokenLifeTimeInMinutes);
+
+            return DateTime.UtcNow.AddMinutes(accessTokenLifeTimeInMinutes);
+        }
+
+        public DateTime GetRefreshTokenExpiryTime()
+        {
+            _ = int.TryParse(_configuration["JWT:RefreshTokenLifeTimeInDays"], out int refreshTokenLifeTImeInDays);
+
+            return DateTime.UtcNow.AddDays(refreshTokenLifeTImeInDays);
         }
     }
 }

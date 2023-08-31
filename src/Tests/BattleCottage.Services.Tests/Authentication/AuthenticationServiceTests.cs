@@ -2,9 +2,9 @@
 using BattleCottage.Data.Repositories.UserRepository;
 using BattleCottage.Services.Authentication;
 using BattleCottage.Services.Models;
+using BattleCottage.Services.Models.ConstrollerResponses;
 using BattleCottage.Tests;
 using Microsoft.Extensions.DependencyInjection;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace BattleCottage.Services.Tests.Authentication
 {
@@ -167,7 +167,7 @@ namespace BattleCottage.Services.Tests.Authentication
                 Password = "SuperStrongPassword123!"
             };
 
-            JwtSecurityToken? token = await _authService.Login(creds2);
+            LoginResponse? token = await _authService.Login(creds2);
 
             Assert.NotNull(token);
         }
@@ -192,7 +192,7 @@ namespace BattleCottage.Services.Tests.Authentication
                 Password = "InvalidPassword123!"
             };
 
-            JwtSecurityToken? token = await _authService.Login(creds2);
+            LoginResponse? token = await _authService.Login(creds2);
 
             Assert.Null(token);
         }

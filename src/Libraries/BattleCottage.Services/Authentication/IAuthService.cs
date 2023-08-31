@@ -1,14 +1,14 @@
 ﻿using BattleCottage.Services.Models;
-using System.IdentityModel.Tokens.Jwt;
+using BattleCottage.Services.Models.ConstrollerResponses;
 
 namespace BattleCottage.Services.Authentication
 {
     public interface IAuthService
     {
-        public Task<JwtSecurityToken?> Login(LoginCredentials credentials);
+        public Task<LoginResponse?> Login(LoginCredentials credentials);
 
         public Task<RegisterError?> Register(RegisterCredentials credentials);
 
-        public bool VerifyToken(string token);
+        public Task<TokenModel?> RefreshAccessToken(TokenModel tokens);
     }
 }

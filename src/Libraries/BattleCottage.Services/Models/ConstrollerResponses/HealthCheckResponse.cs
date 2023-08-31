@@ -1,4 +1,4 @@
-﻿namespace BattleCottage.Services.Models
+﻿namespace BattleCottage.Services.Models.ConstrollerResponses
 {
     public class HealthCheckResponse
     {

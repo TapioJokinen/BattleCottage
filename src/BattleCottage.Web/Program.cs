@@ -68,18 +68,6 @@ builder.Services.AddAuthentication(options =>
             ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"] ?? throw new ArgumentException("JWT Secret not found.")))
         };
-
-        options.Events = new JwtBearerEvents
-        {
-            OnMessageReceived = context =>
-            {
-                if (context.Request.Cookies.ContainsKey("X-Token"))
-                {
-                    context.Token = context.Request.Cookies["X-Token"];
-                }
-                return Task.CompletedTask;
-            }
-        };
     });
 
 

@@ -1,9 +1,9 @@
 ﻿using BattleCottage.Data.Repositories.UserRepository;
 using BattleCottage.Services.Authentication;
 using BattleCottage.Services.Models;
+using BattleCottage.Services.Models.ConstrollerResponses;
 using BattleCottage.Services.Token;
 using Microsoft.AspNetCore.Mvc;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace BattleCottage.Web.Controllers.AuthController
 {
@@ -27,24 +27,12 @@ namespace BattleCottage.Web.Controllers.AuthController
         [Route("/api/[controller]/login")]
         public async Task<IActionResult> Login([FromBody] LoginCredentials loginCredentials)
         {
-            JwtSecurityToken? token = await _authService.Login(loginCredentials);
+            LoginResponse? loginResponse = await _authService.Login(loginCredentials);
 
-            if (token == null) return Unauthorized(new { Message = "Invalid credentials." });
+            if (loginResponse == null)
+                return Unauthorized(new { Message = "Invalid credentials." });
 
-            Response.Cookies.Append(
-                _tokenService.GetCookieName(),
-                new JwtSecurityTokenHandler().WriteToken(token),
-                new CookieOptions()
-                {
-                    HttpOnly = _tokenService.GetCookieHttpOnly(),
-                    SameSite = _tokenService.GetCookieSameSite(),
-                    Domain = _tokenService.GetCookieDomain(),
-                    Secure = _tokenService.GetCookieSecure(),
-                    Expires = _tokenService.GetExpirationDate()
-                }
-                );
-
-            return Ok(new { loginCredentials.Email });
+            return Ok(loginResponse);
         }
 
         [HttpPost]
@@ -66,36 +54,17 @@ namespace BattleCottage.Web.Controllers.AuthController
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Route("/api/[controller]/verify")]
-        public IActionResult Verify()
+        [Route("/api/[controller]/refresh")]
+        public async Task<IActionResult> Refresh(TokenModel tokens)
         {
-            string cookieName = _tokenService.GetCookieName();
+            TokenModel? refreshedTokens = await _authService.RefreshAccessToken(tokens);
 
-            if (Request.Cookies[cookieName] != null)
+            if (refreshedTokens != null)
             {
-                string? jwtToken = Request.Cookies[cookieName];
-
-                if (jwtToken != null)
-                {
-                    bool valid = _authService.VerifyToken(jwtToken);
-
-                    if (valid)
-                    {
-                        JwtSecurityTokenHandler handler = new();
-                        JwtSecurityToken jwtSecurityToken = handler.ReadJwtToken(jwtToken);
-
-                        return Ok(new
-                        {
-                            Email = jwtSecurityToken.Claims.Where(
-                            claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")
-                            .First()
-                            .Value
-                        });
-                    }
-                }
+                return Ok(refreshedTokens);
             }
 
-            return Unauthorized(new { Message = "Token was invalid." });
+            return Unauthorized(new { Message = "Tokens were expired or invalid." });
         }
     }
 }

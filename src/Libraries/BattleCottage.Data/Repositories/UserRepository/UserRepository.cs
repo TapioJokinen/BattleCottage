@@ -98,9 +98,14 @@ namespace BattleCottage.Data.Repositories.UserRepository
             return await _userManager.GetRolesAsync(user);
         }
 
-        public Task<User> UpdateAsync(User entity)
+        public Task<User> UpdateEntityAsync(User entity)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IdentityResult> UpdateUserAsync(User entity)
+        {
+            return await _userManager.UpdateAsync(entity);
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BattleCottage.Services.HealthCheck;
-using BattleCottage.Services.Models;
+using BattleCottage.Services.Models.ConstrollerResponses;
 
 namespace BattleCottage.Web.Controllers.HealthCheck
 {

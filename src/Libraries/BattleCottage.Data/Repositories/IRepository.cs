@@ -12,7 +12,7 @@ namespace BattleCottage.Data.Repositories
 
         Task<T> AddAsync(T entity);
 
-        Task<T> UpdateAsync(T entity);
+        Task<T> UpdateEntityAsync(T entity);
 
         Task<T> DeleteAsync(T entity);
     }

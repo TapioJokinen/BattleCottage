@@ -1,4 +1,4 @@
-﻿using BattleCottage.Services.Models;
+﻿using BattleCottage.Services.Models.ConstrollerResponses;
 
 namespace BattleCottage.Services.HealthCheck
 {
