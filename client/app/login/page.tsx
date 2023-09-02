@@ -1,21 +1,19 @@
 'use client';
 
 import Header from '@/components/home/Header';
-import Link from 'next/link';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import FormContainer from '@/components/forms/FormContainer';
 import FormInput from '@/components/forms/FormInput';
-import FormActionButton from '@/components/forms/FormActionButton';
+import SlidingActionButton from '@/components/buttons/SlidingActionButton';
 import FormLinkButton from '@/components/forms/FormLinkButton';
+import Spinner from '@/components/Spinner';
 
 export default function LoginPage() {
-  const router = useRouter();
-
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null | undefined>('');
+  const [loading, setLoading] = useState<boolean>(false);
 
   function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
     setError('');
@@ -29,6 +27,8 @@ export default function LoginPage() {
 
   async function handleLogin() {
     setError('');
+    setLoading(true);
+
     const response = await signIn('credentials', {
       email: email,
       password: password,
@@ -36,10 +36,12 @@ export default function LoginPage() {
     });
 
     if (!response?.ok) {
-      setError(response?.error);
+      setError(response?.error || 'Sign-In failed. Try again later.');
     } else {
-      router.push('/cottage');
+      window.location.href = '/cottage';
     }
+
+    setLoading(false);
   }
 
   return (
@@ -61,7 +63,7 @@ export default function LoginPage() {
           label="Password"
         />
         {error && <span className="text-sm text-[#f44336]">{error}</span>}
-        <FormActionButton text="⚔️ Login ⚔️" onClick={handleLogin} />
+        <SlidingActionButton text={loading ? <Spinner /> : 'Login'} onClick={handleLogin} />
         <FormLinkButton text="I forgot my password" link="/recover-password" />
         <FormLinkButton text="Register here!" link="/register" />
       </FormContainer>

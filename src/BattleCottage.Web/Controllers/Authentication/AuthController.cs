@@ -71,6 +71,8 @@ namespace BattleCottage.Web.Controllers.AuthController
 
         [Authorize]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Route("/api/[controller]/revoke")]
         public async Task<IActionResult> Revoke()
         {

@@ -4,7 +4,9 @@ import NextAuth from 'next-auth/next';
 import { User, Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 
-const handler = NextAuth({
+import { NextAuthOptions } from 'next-auth';
+
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -35,8 +37,6 @@ const handler = NextAuth({
     strategy: 'jwt',
     maxAge: 60 * 60 * 24 * 7,
   },
-
-  debug: true,
 
   pages: {
     signIn: '/login',
@@ -80,6 +80,8 @@ const handler = NextAuth({
       return session;
     },
   },
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

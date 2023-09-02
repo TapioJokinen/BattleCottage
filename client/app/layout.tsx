@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body
         suppressHydrationWarning={true}
-        className={`${sourceCodePro.variable} ${roboto.variable}`}
+        className={`${sourceCodePro.variable} ${roboto.variable} font-opensans`}
       >
         <Providers>{children}</Providers>
       </body>
