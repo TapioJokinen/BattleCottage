@@ -1,6 +1,6 @@
-﻿namespace BattleCottage.Services.Models
+﻿namespace BattleCottage.Services.Authentication
 {
-    public class LoginCredentials
+    public class AuthCredentials
     {
         public string? Email { get; set; }
 

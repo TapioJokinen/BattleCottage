@@ -1,4 +1,4 @@
-﻿namespace BattleCottage.Services.Models
+﻿namespace BattleCottage.Services.RAWG
 {
     public class Result
     {
@@ -7,7 +7,7 @@
         public required string BackgroundImage { get; set; }
     }
 
-    public class RAWGGamesResponse
+    public class RAWGGamesResult
     {
         public List<Result>? Results { get; set; }
     }

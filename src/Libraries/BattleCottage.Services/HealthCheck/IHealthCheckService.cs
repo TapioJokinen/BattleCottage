@@ -4,6 +4,6 @@ namespace BattleCottage.Services.HealthCheck
 {
     public interface IHealthCheckService
     {
-        public Task<HealthCheckResponse> HealthCheck();
+        public Task<HealthCheckResult> HealthCheck();
     }
 }

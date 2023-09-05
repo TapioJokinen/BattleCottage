@@ -11,10 +11,10 @@ namespace BattleCottage.Data.Repositories.UserRepository
 
         Task<User?> FindByEmailAsync(string? email);
 
-        Task<IList<string>> GetUserRolesAsync(User user);
+        Task<ICollection<string>> GetUserRolesAsync(User user);
 
         Task<bool> CheckPasswordAsync(User user, string? password);
 
-        Task<IList<string>> ValidatePasswordAsync(string? password);
+        Task<ICollection<string>> ValidatePasswordAsync(string? password);
     }
 }

@@ -1,27 +1,32 @@
-import Sidebar from '@/components/Sidebar';
 import ActionButton from '@/components/buttons/ActionButton';
-import CottageContent from '@/components/cottage/CottageContent';
-import HamburgerMenuIcon from '@/components/icons/HamburgerMenuIcon';
-import Avatar from '@/components/profile/Avatar';
-import Profile from '@/components/profile/Profile';
+import ListIcon from '@/components/icons/ListIcon';
+import PlusIcon from '@/components/icons/PlusIcon';
 
 export default function CottagePage() {
   return (
-    <main className="main">
-      <div className="hidden h-full sm:flex">
-        <Sidebar>
-          <Profile />
-        </Sidebar>
-        <CottageContent />
+    <div className="content-container">
+      <div className="cottage-action-button-container">
+        <ActionButton
+          icon={<PlusIcon />}
+          link="/lfg/create"
+          primaryText="Looking for Group!"
+          secondaryText='Create a new "LFG" post'
+        />
+        <ActionButton
+          icon={<ListIcon />}
+          link="/lfg"
+          primaryText="My Groups"
+          secondaryText='Handle your own "LFG" posts and groups you have requested to join'
+        />
       </div>
-      <div className="flex h-full flex-col sm:hidden">
-        <nav className="static flex h-[60px] flex-row-reverse items-center justify-between bg-[var(--palette-grey)]">
-          <Avatar />
-          <span className="font-sourcecodepro">Battle Cottage</span>
-          <HamburgerMenuIcon />
-        </nav>
-        <CottageContent />
+      <div className="flex w-full justify-center">
+        <div className="cottage-filter">
+          <span>Filter</span>
+        </div>
       </div>
-    </main>
+      <div>
+        <div>Boxes</div>
+      </div>
+    </div>
   );
 }

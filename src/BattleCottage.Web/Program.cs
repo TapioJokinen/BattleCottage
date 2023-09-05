@@ -3,6 +3,7 @@ using BattleCottage.Data;
 using BattleCottage.Data.Repositories.GameRepository;
 using BattleCottage.Data.Repositories.UserRepository;
 using BattleCottage.Services.Authentication;
+using BattleCottage.Services.Games;
 using BattleCottage.Services.HealthCheck;
 using BattleCottage.Services.RAWG;
 using BattleCottage.Services.Token;
@@ -81,6 +82,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IRAWGGamesService, RAWGGamesService>();
+builder.Services.AddScoped<IGameService, GameService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

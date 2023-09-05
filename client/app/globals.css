@@ -127,18 +127,22 @@ input:-webkit-autofill:active {
   outline: none !important;
 }
 
-.cottage-content-container {
-  @apply flex h-full w-full flex-col items-center;
+.content-container {
+  @apply flex h-full w-full flex-col items-center px-5 lg:px-20;
 }
 
 .cottage-action-button-container {
-  @apply mb-3 mt-10 flex w-11/12 flex-col sm:flex-row;
+  @apply mb-3 mt-10 flex w-full flex-col sm:flex-row;
 }
 
 .cottage-filter {
-  @apply mx-10 flex h-[40px] w-11/12 items-center justify-start rounded-md border-[1px] border-[var(--palette-dark-jungle-green-darker)] bg-[var(--palette-dark-jungle-green)];
+  @apply flex h-[40px] w-full items-center justify-start rounded-md border-[1px] border-[var(--palette-dark-jungle-green-darker)] bg-[var(--palette-dark-jungle-green)];
 }
 
 .action-button-link {
   @apply mb-2 flex items-center rounded-lg border-[1px] border-[var(--palette-dark-jungle-green-darker)] bg-[var(--palette-dark-jungle-green)] p-4 hover:border-[var(--base-light)] sm:mr-2;
+}
+
+.lfg-create-option {
+  @apply flex w-full flex-col justify-center;
 }

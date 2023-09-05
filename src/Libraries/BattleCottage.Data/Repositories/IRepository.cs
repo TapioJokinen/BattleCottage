@@ -4,9 +4,9 @@ namespace BattleCottage.Data.Repositories
 {
     public interface IRepository<T> where T : class
     {
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<ICollection<T>> GetAllAsync();
 
-        Task<IList<T>?> Filter(Expression<Func<T, bool>> filter);
+        Task<ICollection<T>> Filter(Expression<Func<T, bool>> filter);
 
         Task<T> FindByIdAsync(int id);
 

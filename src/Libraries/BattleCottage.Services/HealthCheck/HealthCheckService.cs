@@ -16,11 +16,11 @@ namespace BattleCottage.Services.HealthCheck
         /// Returns information of the backend and database.
         /// </summary>
         /// <returns></returns>
-        public async Task<HealthCheckResponse> HealthCheck()
+        public async Task<HealthCheckResult> HealthCheck()
         {
             bool canConnect = await _context.Database.CanConnectAsync();
 
-            HealthCheckResponse response = new()
+            HealthCheckResult response = new()
             {
                 BackendStatus = HealthCheckStatus.Healthy.ToString(),
                 DatabaseStatus = canConnect ? HealthCheckStatus.Healthy.ToString() : HealthCheckStatus.NotHealthy.ToString(),

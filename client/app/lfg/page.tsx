@@ -1,9 +1,3 @@
 export default function LFGPage() {
-  return (
-    <main>
-      <div>
-        <span>LFG</span>
-      </div>
-    </main>
-  );
+  return <div className="content-container"></div>;
 }

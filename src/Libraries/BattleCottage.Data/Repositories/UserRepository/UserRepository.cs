@@ -56,7 +56,7 @@ namespace BattleCottage.Data.Repositories.UserRepository
             throw new NotImplementedException();
         }
 
-        public Task<IList<User?>> Filter(Expression<Func<User, bool>> filter)
+        public Task<ICollection<User>> Filter(Expression<Func<User, bool>> filter)
         {
             throw new NotImplementedException();
         }
@@ -80,7 +80,7 @@ namespace BattleCottage.Data.Repositories.UserRepository
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<User>> GetAllAsync()
+        public Task<ICollection<User>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
@@ -91,7 +91,7 @@ namespace BattleCottage.Data.Repositories.UserRepository
         /// <param name="user"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public async Task<IList<string>> GetUserRolesAsync(User user)
+        public async Task<ICollection<string>> GetUserRolesAsync(User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
 
@@ -113,7 +113,7 @@ namespace BattleCottage.Data.Repositories.UserRepository
         /// </summary>
         /// <param name="password"></param>
         /// <returns></returns>
-        public async Task<IList<string>> ValidatePasswordAsync(string? password)
+        public async Task<ICollection<string>> ValidatePasswordAsync(string? password)
         {
             IList<string> passwordErrors = new List<string>();
 

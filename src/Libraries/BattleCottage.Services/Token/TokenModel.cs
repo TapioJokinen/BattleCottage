@@ -1,4 +1,4 @@
-﻿namespace BattleCottage.Services.Models
+﻿namespace BattleCottage.Services.Token
 {
     public class TokenModel
     {

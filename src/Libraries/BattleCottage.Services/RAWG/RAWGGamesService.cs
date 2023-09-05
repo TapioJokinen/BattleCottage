@@ -1,7 +1,6 @@
 ﻿using BattleCottage.Core;
 using BattleCottage.Core.Entities;
 using BattleCottage.Data.Repositories.GameRepository;
-using BattleCottage.Services.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
@@ -69,7 +68,7 @@ namespace BattleCottage.Services.RAWG
 
                     if (!string.IsNullOrEmpty(stringResponse))
                     {
-                        RAWGGamesResponse? result = JsonSerializer.Deserialize<RAWGGamesResponse>(
+                        RAWGGamesResult? result = JsonSerializer.Deserialize<RAWGGamesResult>(
                             stringResponse,
                             new JsonSerializerOptions()
                             {
@@ -112,7 +111,7 @@ namespace BattleCottage.Services.RAWG
                 IList<string> fetchedGameNames = games.Select(x => x.Name).Distinct().ToList();
 
                 // Get all Games from the database which names are found in 'fetchedGameNames'.
-                IList<Game>? gamesInDb = await _gameRepository.Filter(x => fetchedGameNames.Contains(x.Name));
+                ICollection<Game>? gamesInDb = await _gameRepository.Filter(x => fetchedGameNames.Contains(x.Name));
 
                 // If none of the games are found in the database write them all.
                 if (gamesInDb == null)

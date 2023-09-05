@@ -1,8 +1,6 @@
 ﻿using BattleCottage.Core.Entities;
 using BattleCottage.Core.Utils;
 using BattleCottage.Data.Repositories.UserRepository;
-using BattleCottage.Services.Models;
-using BattleCottage.Services.Models.ConstrollerResponses;
 using BattleCottage.Services.Token;
 using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
@@ -30,7 +28,7 @@ namespace BattleCottage.Services.Authentication
         /// <returns>
         /// A JWT if the provided credentials are valid; otherwise, returns null.
         /// </returns>
-        public async Task<LoginResponse?> Login(LoginCredentials credentials)
+        public async Task<LoginResponse?> Login(AuthCredentials credentials)
         {
             if (string.IsNullOrEmpty(credentials.Email) || string.IsNullOrEmpty(credentials.Password)) return null;
 
@@ -38,7 +36,7 @@ namespace BattleCottage.Services.Authentication
 
             if (user != null && user.Email != null && await _userRepository.CheckPasswordAsync(user, credentials.Password))
             {
-                IList<string> userRoles = await _userRepository.GetUserRolesAsync(user);
+                ICollection<string> userRoles = await _userRepository.GetUserRolesAsync(user);
 
                 List<Claim> authClaims = new()
                 {
@@ -149,7 +147,7 @@ namespace BattleCottage.Services.Authentication
             if (credentials.Password != credentials.PasswordAgain)
                 return new RegisterError(ErrorMessages.PasswordsDoNotMatch);
 
-            IList<string> passwordErrors = await _userRepository.ValidatePasswordAsync(credentials.Password);
+            ICollection<string> passwordErrors = await _userRepository.ValidatePasswordAsync(credentials.Password);
 
             if (passwordErrors.Count > 0)
                 return new RegisterError(string.Join(" ", passwordErrors.ToArray()));

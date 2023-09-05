@@ -1,11 +1,10 @@
-﻿using BattleCottage.Services.Models;
-using BattleCottage.Services.Models.ConstrollerResponses;
+﻿using BattleCottage.Services.Token;
 
 namespace BattleCottage.Services.Authentication
 {
     public interface IAuthService
     {
-        public Task<LoginResponse?> Login(LoginCredentials credentials);
+        public Task<LoginResponse?> Login(AuthCredentials credentials);
 
         public Task<RegisterError?> Register(RegisterCredentials credentials);
 

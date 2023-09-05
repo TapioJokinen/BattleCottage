@@ -1,8 +1,6 @@
 ﻿using BattleCottage.Core.Entities;
 using BattleCottage.Data.Repositories.UserRepository;
 using BattleCottage.Services.Authentication;
-using BattleCottage.Services.Models;
-using BattleCottage.Services.Models.ConstrollerResponses;
 using BattleCottage.Services.Token;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,12 +25,12 @@ namespace BattleCottage.Web.Controllers.AuthController
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Route("/api/[controller]/login")]
-        public async Task<IActionResult> Login([FromBody] LoginCredentials loginCredentials)
+        public async Task<IActionResult> Login([FromBody] AuthCredentials loginCredentials)
         {
             LoginResponse? loginResponse = await _authService.Login(loginCredentials);
 
             if (loginResponse == null)
-                return Unauthorized(new { Message = "Invalid credentials." });
+                return Unauthorized(new MessageResponse("Invalid credentials."));
 
             return Ok(loginResponse);
         }
@@ -47,10 +45,10 @@ namespace BattleCottage.Web.Controllers.AuthController
 
             if (registerError != null)
             {
-                return BadRequest(new { Message = registerError.ErrorMessage });
+                return BadRequest(new MessageResponse(registerError.ErrorMessage));
             }
 
-            return CreatedAtAction(nameof(Register), new { Message = "User created." });
+            return CreatedAtAction(nameof(Register), new MessageResponse("User created."));
         }
 
         [HttpPost]
@@ -66,7 +64,7 @@ namespace BattleCottage.Web.Controllers.AuthController
                 return Ok(refreshedTokens);
             }
 
-            return Unauthorized(new { Message = "Tokens were expired or invalid." });
+            return Unauthorized(new MessageResponse("Tokens were expired or invalid."));
         }
 
         [Authorize]
@@ -80,21 +78,21 @@ namespace BattleCottage.Web.Controllers.AuthController
 
             if (email == null)
             {
-                return Unauthorized(new { Message = "Failed to authorize user." });
+                return Unauthorized(new MessageResponse("Failed to authorize user."));
             }
 
             User? user = await _userRepository.FindByEmailAsync(email);
 
             if (user == null)
             {
-                return NotFound(new { Message = "User not found." });
+                return NotFound(new MessageResponse("User not found."));
             }
 
             user.RefreshToken = null;
 
             await _userRepository.UpdateUserAsync(user);
 
-            return Ok(new { Message = "Revoked token successfully." });
+            return Ok(new MessageResponse("Revoked token successfully."));
         }
     }
 }

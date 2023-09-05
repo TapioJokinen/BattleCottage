@@ -1,4 +1,4 @@
-﻿namespace BattleCottage.Services.Models
+﻿namespace BattleCottage.Services.Authentication
 {
     public class RegisterCredentials
     {

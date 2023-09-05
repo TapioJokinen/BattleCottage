@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using BattleCottage.Services.HealthCheck;
+﻿using BattleCottage.Services.HealthCheck;
 using BattleCottage.Services.Models.ConstrollerResponses;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BattleCottage.Web.Controllers.HealthCheck
 {
@@ -14,7 +14,7 @@ namespace BattleCottage.Web.Controllers.HealthCheck
         }
 
         [HttpGet]
-        [Produces(typeof(HealthCheckResponse))]
+        [Produces(typeof(HealthCheckResult))]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Route("/api/[controller]")]
         public async Task<IActionResult> HealthCheck()
