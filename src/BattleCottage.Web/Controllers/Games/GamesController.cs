@@ -1,6 +1,7 @@
 ﻿using BattleCottage.Core.Entities;
 using BattleCottage.Core.Pagination;
 using BattleCottage.Services.Games;
+using BattleCottage.Web.Pagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,16 +44,12 @@ namespace BattleCottage.Web.Controllers.Games
             try
             {
                 PagedCollection<Game> pagedGames = new(games, page, pageSize, Request);
-                return Ok(new
-                {
-                    Next = pagedGames.GetNextUrl(),
-                    Previous = pagedGames.GetPreviousUrl(),
-                    pagedGames.Results
-                });
+
+                return Ok(pagedGames.Result);
             }
             catch (Exception ex) when (ex is ArgumentException || ex is ArgumentNullException)
             {
-                return NotFound(new MessageResponse("No games found."));
+                return NotFound(new MessageResponse(PaginationErrors.InvalidPage));
             }
         }
     }
