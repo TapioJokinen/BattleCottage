@@ -35,9 +35,9 @@ namespace BattleCottage.Data.Repositories.GameRepository
             throw new NotImplementedException();
         }
 
-        public Task<ICollection<Game>> GetAllAsync()
+        public async Task<ICollection<Game>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Games.ToListAsync();
         }
 
         public Task<Game> UpdateEntityAsync(Game entity)

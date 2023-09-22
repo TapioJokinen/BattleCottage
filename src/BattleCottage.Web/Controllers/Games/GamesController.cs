@@ -23,27 +23,30 @@ namespace BattleCottage.Web.Controllers.Games
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Route("/api/[controller]")]
-        public async Task<IActionResult> AllGames([FromQuery] string? contains, int? page, int? pageSize)
+        public async Task<IActionResult> AllGames([FromQuery] string? contains, string? page, string? pageSize)
         {
+            ICollection<Game>? games;
 
             if (string.IsNullOrEmpty(contains))
             {
-                throw new NotImplementedException("Getting all games is not supported yet.");
+                games = await _gameService.GetAllGames();
             }
-
-            ICollection<Game>? games = await _gameService.GetGamesWithNameLike(contains);
+            else
+            {
+                games = await _gameService.GetGamesWithNameLike(contains);
+            }
 
             if (games == null || games.Count == 0)
             {
                 return NotFound(new MessageResponse("No games found."));
             }
 
-            page ??= PageSettings.FirstPageNumber;
-            pageSize ??= PageSettings.MaxPageSize;
+            int pageNumber = string.IsNullOrEmpty(page) ? PageSettings.FirstPageNumber : int.Parse(page);
+            int size = string.IsNullOrEmpty(pageSize) ? PageSettings.MaxPageSize : int.Parse(pageSize);
 
             try
             {
-                PagedCollection<Game> pagedGames = new(games, page, pageSize, Request);
+                PagedCollection<Game> pagedGames = new(games, pageNumber, size, Request);
 
                 return Ok(pagedGames.Result);
             }

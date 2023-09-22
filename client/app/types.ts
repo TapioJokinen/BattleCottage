@@ -26,3 +26,22 @@ export interface RefreshResponse extends APIBaseResponseType, Tokens {
   accessTokenExpiration: string;
   refreshTokenExpiration: string;
 }
+
+export interface SearchableSelectionOptionType {
+  text: string;
+  value: number;
+}
+
+export interface Game {
+  name: string;
+  backgroundImage: string;
+  id: number;
+  dateAdded: string;
+  dateUpdated: string;
+}
+
+export interface GamesResponseType extends APIBaseResponseType {
+  next: string;
+  previous: string;
+  results: Array<Game>;
+}

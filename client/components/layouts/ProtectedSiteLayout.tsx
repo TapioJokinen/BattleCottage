@@ -10,7 +10,7 @@ export default async function ProtectedSiteLayout({ children }: { children: Reac
       session?.accessToken &&
       session?.refreshToken &&
       session.email &&
-      session.refreshTokenExpires * 1000 >= Date.now()
+      session.refreshTokenExpiration * 1000 >= Date.now()
     ) {
       return true;
     }

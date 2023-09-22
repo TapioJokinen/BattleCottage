@@ -31,6 +31,7 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+
   secret: process.env.NEXTAUTH_SECRET,
 
   session: {
@@ -45,22 +46,29 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }: { token: JWT; user: User }) {
       if (user) {
+        console.log(user);
         token.email = user.email;
         token.accessToken = user.accessToken;
-        token.accessTokenExpires = Math.floor(new Date(user.accessTokenExpires).getTime() / 1000);
+        token.accessTokenExpiration = Math.floor(
+          new Date(user.accessTokenExpiration).getTime() / 1000,
+        );
         token.refreshToken = user.refreshToken;
-        token.refreshTokenExpires = Math.floor(new Date(user.refreshTokenExpires).getTime() / 1000);
+        token.refreshTokenExpiration = Math.floor(
+          new Date(user.refreshTokenExpiration).getTime() / 1000,
+        );
       }
       return token;
     },
     async session({ session, token }: { session: Session; user: User; token: JWT }) {
       session.email = token.email;
       session.accessToken = token.accessToken;
-      session.accessTokenExpires = Math.floor(new Date(token.accessTokenExpires).getTime() / 1000);
+      session.accessTokenExpiration = Math.floor(
+        new Date(token.accessTokenExpiration).getTime() / 1000,
+      );
       session.refreshToken = token.refreshToken;
-      session.refreshTokenExpires = token.refreshTokenExpires;
+      session.refreshTokenExpiration = token.refreshTokenExpiration;
 
-      if (Date.now() / 1000 > token.accessTokenExpires) {
+      if (Date.now() / 1000 > token.accessTokenExpiration) {
         const data = await authRefresh({
           accessToken: token.accessToken,
           refreshToken: token.refreshToken,
@@ -69,10 +77,10 @@ export const authOptions: NextAuthOptions = {
         if (data.responseOk) {
           session.accessToken = data.accessToken;
           session.refreshToken = data.refreshToken;
-          session.accessTokenExpires = Math.floor(
+          session.accessTokenExpiration = Math.floor(
             new Date(data.accessTokenExpiration).getTime() / 1000,
           );
-          session.refreshTokenExpires = Math.floor(
+          session.refreshTokenExpiration = Math.floor(
             new Date(data.refreshTokenExpiration).getTime() / 1000,
           );
         }

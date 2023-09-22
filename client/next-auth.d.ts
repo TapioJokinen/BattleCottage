@@ -2,8 +2,8 @@ import { DefaultJWT } from 'next-auth/jwt';
 
 declare module 'next-auth' {
   interface Session {
-    accessTokenExpires: number;
-    refreshTokenExpires: number;
+    accessTokenExpiration: number;
+    refreshTokenExpiration: number;
     refreshToken: string;
     accessToken: string;
     email: string;
@@ -14,8 +14,8 @@ declare module 'next-auth' {
     email: string;
     accessToken: string;
     refreshToken: string;
-    accessTokenExpires: string;
-    refreshTokenExpires: string;
+    accessTokenExpiration: string;
+    refreshTokenExpiration: string;
   }
 }
 
@@ -23,8 +23,8 @@ declare module 'next-auth/jwt' {
   /** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
   interface JWT {
     email: string;
-    accessTokenExpires: number;
-    refreshTokenExpires: number;
+    accessTokenExpiration: number;
+    refreshTokenExpiration: number;
     refreshToken: string;
     accessToken: string;
     exp?: number;

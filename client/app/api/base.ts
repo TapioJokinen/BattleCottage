@@ -8,11 +8,14 @@ export async function handleResponse<T>(response: Response): Promise<T> {
   return data as T;
 }
 
-export function makeRequestHeaders(): HeadersInit {
+export function makeRequestHeaders(token: string | null | undefined = null): HeadersInit {
   const requestHeaders: HeadersInit = new Headers();
 
   requestHeaders.set('Content-Type', 'application/json');
-  requestHeaders.set('Access-Control-Allow-Credentials', 'true');
+
+  if (token) {
+    requestHeaders.set('Authorization', `Bearer ${token}`);
+  }
 
   return requestHeaders;
 }

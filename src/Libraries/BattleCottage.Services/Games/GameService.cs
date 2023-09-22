@@ -12,6 +12,11 @@ namespace BattleCottage.Services.Games
             _gameRepository = gameRepository;
         }
 
+        public async Task<ICollection<Game>?> GetAllGames()
+        {
+            return await _gameRepository.GetAllAsync();
+        }
+
         public async Task<ICollection<Game>?> GetGamesWithNameLike(string? name)
         {
             if (string.IsNullOrEmpty(name))

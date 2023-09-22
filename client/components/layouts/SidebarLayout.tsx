@@ -14,7 +14,7 @@ export default function SidebarLayout({ children }: { children: ReactNode }) {
         {children}
       </div>
       <div className="flex h-full flex-col sm:hidden">
-        <nav className="static flex h-[60px] flex-row-reverse items-center justify-between bg-[var(--palette-grey)]">
+        <nav className="sidebar-layout-nav">
           <Avatar />
           <span className="font-sourcecodepro">Battle Cottage</span>
           <HamburgerMenuIcon />
