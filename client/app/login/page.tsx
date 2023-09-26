@@ -3,10 +3,10 @@
 import Header from '@/components/home/Header';
 import { ChangeEvent, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
-import FormContainer from '@/components/forms/FormContainer';
-import FormInput from '@/components/forms/FormInput';
+import FormContainer from '@/components/forms/basic/FormContainer';
+import FormInput from '@/components/forms/basic/FormInput';
 import SlidingActionButton from '@/components/buttons/SlidingActionButton';
-import FormLinkButton from '@/components/forms/FormLinkButton';
+import FormLinkButton from '@/components/forms/basic/FormLinkButton';
 import Spinner from '@/components/Spinner';
 import { useRouter } from 'next/navigation';
 

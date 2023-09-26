@@ -5,7 +5,7 @@
             "name": ".NET Core Launch",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "buildWeb",
             "program": "${workspaceFolder}/src/BattleCottage.Web/bin/Debug/net7.0/BattleCottage.Web.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/BattleCottage.Web",

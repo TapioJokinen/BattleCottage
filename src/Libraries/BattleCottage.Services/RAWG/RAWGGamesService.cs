@@ -89,8 +89,8 @@ namespace BattleCottage.Services.RAWG
 
                                 games.Add(g);
                             }
+                            pageNumber++;
                         }
-                        pageNumber++;
                     }
                     else
                     {

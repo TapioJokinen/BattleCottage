@@ -124,9 +124,9 @@ namespace BattleCottage.Services.Token
 
         public DateTime GetRefreshTokenExpiryTime()
         {
-            _ = int.TryParse(_configuration["JWT:RefreshTokenLifeTimeInDays"], out int refreshTokenLifeTImeInDays);
+            _ = int.TryParse(_configuration["JWT:RefreshTokenLifeTimeInDays"], out int RefreshTokenLifeTimeInDays);
 
-            return DateTime.UtcNow.AddDays(refreshTokenLifeTImeInDays);
+            return DateTime.UtcNow.AddDays(RefreshTokenLifeTimeInDays);
         }
     }
 }

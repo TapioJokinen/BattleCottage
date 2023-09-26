@@ -38,8 +38,8 @@ const config: Config = {
         typing: 'typing 2s steps(30) alternate, blink .7s infinite',
       },
       boxShadow: {
-        sliding_main: 'inset 0 0 0 0 var(--palette-orange)',
-        right_main: 'inset 425px 0 0 0 var(--palette-orange)',
+        sliding_main: 'inset 0 0 0 0 var(--palette-smoky-topaz)',
+        right_main: 'inset 425px 0 0 0 var(--palette-smoky-topaz)',
         sliding_secondary: 'inset 0 0 0 0 var(--palette-grey)',
         right_secondary: 'inset 425px 0 0 0 var(--palette-grey)',
       },

@@ -23,8 +23,9 @@ export interface Tokens {
 }
 
 export interface RefreshResponse extends APIBaseResponseType, Tokens {
-  accessTokenExpiration: string;
-  refreshTokenExpiration: string;
+  accessTokenExpiration?: string;
+  refreshTokenExpiration?: string;
+  message?: string;
 }
 
 export interface SearchableSelectionOptionType {

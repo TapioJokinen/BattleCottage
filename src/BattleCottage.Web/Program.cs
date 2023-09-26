@@ -67,10 +67,19 @@ builder.Services.AddAuthentication(options =>
             ValidateAudience = true,
             ValidAudience = builder.Configuration["JWT:ValidAudience"],
             ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"] ?? throw new ArgumentException("JWT Secret not found.")))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]
+                                ?? throw new ArgumentException("JWT Secret not found."))),
+            ClockSkew = TimeSpan.Zero,
+            ValidateLifetime = true,
         };
     });
 
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString(builder.Configuration["ConnectionStrings:Redis"]
+                            ?? throw new ArgumentException("Redis connection string not found."));
+    options.InstanceName = "BattleCottage";
+});
 
 builder.Services.AddHttpClient();
 

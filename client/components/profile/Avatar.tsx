@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 function AvatarIcon({ src, size }: { src: string; size: number }) {
   return (
-    <Link href="/profile">
+    <Link href="/profile" className="rounded-full border-2 border-[var(--palette-dark-grey)]">
       <Image
         src={src}
         width={size}

@@ -1,13 +1,13 @@
-import OptionForm from '@/components/lfg/create/OptionForm';
+import LFGPostForm from '@/components/lfg/create/LFGPostForm';
 
 export default function LFGCreatePage() {
   return (
     <div className="content-container">
-      <span className="mt-4 font-sourcecodepro text-base lg:mt-5 lg:text-2xl">
-        Create a "Looking for Group" -post
-      </span>
+      <div className="animated-border tool-title-wrapper">
+        <span className="">Create your own LFG post!</span>
+      </div>
       <div className="lfg-create-form-container">
-        <OptionForm />
+        <LFGPostForm />
       </div>
     </div>
   );

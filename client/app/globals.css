@@ -16,9 +16,18 @@
   --palette-magenta: #ea1179;
   --palette-forest-green: #016a70;
   --palette-error: #f44336;
+  --palette-success: #388e3c;
   --palette-dark-jungle-green: #1e1e1e;
   --palette-dark-jungle-green-darker: #0b0f0e;
   --palette-onyx: #161616;
+  --palette-smoky-topaz: #9a3b3b;
+
+  --hgb-duration: 5000ms;
+  --hgb-angle: 90deg;
+  --hgb-gradX: 100%;
+  --hgb-gradY: 50%;
+  --hgb-c1: #9a3b3b;
+  --hgb-c2: rgba(168, 239, 255, 0.1);
 }
 
 html {
@@ -50,7 +59,7 @@ input:-webkit-autofill:active {
 }
 
 .sidebar {
-  @apply hidden h-full flex-col items-center border-r-[1px] border-[var(--palette-dark-jungle-green-darker)] bg-[var(--palette-dark-grey)] sm:flex sm:w-[90px] xl:w-[300px];
+  @apply hidden h-full flex-col items-center border-r-[1px] border-[var(--palette-dark-jungle-green-darker)] bg-[var(--palette-onyx)] sm:flex sm:w-[90px] xl:w-[300px];
 }
 
 .typed-text {
@@ -151,25 +160,72 @@ input:-webkit-autofill:active {
 }
 
 .action-button-link {
-  @apply mb-2 flex items-center rounded-lg border-[1px] border-[var(--palette-dark-jungle-green-darker)] bg-[var(--palette-dark-jungle-green)] p-4 hover:border-[var(--palette-orange)] sm:mr-2;
+  @apply mb-2 flex items-center rounded-lg border-[1px] border-[var(--palette-dark-jungle-green-darker)] bg-[var(--palette-dark-jungle-green)] p-4 hover:border-[var(--palette-smoky-topaz)] sm:mr-2;
 }
 
-.lfg-create-option {
+.form-control {
   @apply flex w-full flex-col justify-center text-sm lg:mx-5 lg:text-base;
 }
 
-.option-form-text-input {
-  @apply w-full rounded border-[1px] border-[var(--palette-light-grey)] bg-[var(--base-dark)] p-2 placeholder-[var(--base-placeholder)] hover:border-[var(--palette-orange)] focus:border-[var(--palette-orange)] focus-visible:outline-none;
+.form-text-input {
+  @apply w-full rounded border-[1px] border-[var(--palette-light-grey)] bg-[var(--base-dark)] p-2 placeholder-[var(--base-placeholder)] hover:border-[var(--palette-smoky-topaz)] focus:border-[var(--palette-smoky-topaz)] focus-visible:outline-none;
 }
 
-.option-form-textarea-input {
-  @apply w-full rounded border-[1px] border-[var(--palette-light-grey)] bg-[var(--base-dark)] p-2 placeholder-[var(--base-placeholder)] hover:border-[var(--palette-orange)] focus:border-[var(--palette-orange)] focus-visible:outline-none;
+.form-textarea-input {
+  @apply w-full rounded border-[1px] border-[var(--palette-light-grey)] bg-[var(--base-dark)] p-2 placeholder-[var(--base-placeholder)] hover:border-[var(--palette-smoky-topaz)] focus:border-[var(--palette-smoky-topaz)] focus-visible:outline-none;
 }
 
 .lfg-create-form-container {
-  @apply my-10 flex h-full w-full rounded-lg border-[1px] border-[var(--palette-dark-jungle-green-darker)] bg-[var(--palette-dark-jungle-green)] shadow-[0px_0px_3px_2px_var(--palette-orange)];
+  @apply my-10 flex h-full w-full rounded-lg border-[1px] border-[var(--palette-dark-jungle-green-darker)] bg-[var(--palette-onyx)];
 }
 
 .sidebar-layout-nav {
   @apply static flex h-[60px] flex-row-reverse items-center justify-between bg-[var(--palette-dark-grey)];
 }
+
+.tool-title {
+  @apply mt-4 rounded border-2 border-[var(--palette-smoky-topaz)] p-2 font-sourcecodepro text-base shadow shadow-[var(--palette-smoky-topaz)] lg:mt-5 lg:p-4 lg:text-2xl;
+}
+
+/*#region HoudiniGradientBorder*/
+/* Taken from https://codepen.io/michellebarker/pen/gOMBPQj*/
+@property --hgb-angle {
+  syntax: '<angle>';
+  initial-value: 90deg;
+  inherits: true;
+}
+
+@property --hgb-gradX {
+  syntax: '<percentage>';
+  initial-value: 50%;
+  inherits: true;
+}
+
+@property --hgb-gradY {
+  syntax: '<percentage>';
+  initial-value: 0%;
+  inherits: true;
+}
+
+.tool-title-wrapper {
+  @apply mt-5 border-4 p-4 text-lg lg:text-3xl;
+}
+
+.animated-border {
+  border-image: conic-gradient(
+      from var(--hgb-angle),
+      var(--hgb-c2),
+      var(--hgb-c1) 0.1turn,
+      var(--hgb-c1) 0.15turn,
+      var(--hgb-c2) 0.25turn
+    )
+    30;
+  animation: borderRotate var(--hgb-duration) linear infinite forwards;
+}
+
+@keyframes borderRotate {
+  100% {
+    --hgb-angle: 450deg;
+  }
+}
+/*#endregion HoudiniGradientBorder*/

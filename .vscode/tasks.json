@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "buildWeb",
             "command": "dotnet",
             "type": "shell",
             "group": "build",
@@ -16,6 +16,6 @@
                 "build",
                 "${workspaceFolder}/src/BattleCottage.Web/BattleCottage.Web.csproj"
             ],
-        }
+        },
     ]
 }

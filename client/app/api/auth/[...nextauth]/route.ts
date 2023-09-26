@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
 
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60 * 24 * 7,
+    maxAge: 60 * 60 * 24 * 7, // 7 days
   },
 
   pages: {
@@ -46,7 +46,6 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }: { token: JWT; user: User }) {
       if (user) {
-        console.log(user);
         token.email = user.email;
         token.accessToken = user.accessToken;
         token.accessTokenExpiration = Math.floor(
@@ -74,7 +73,7 @@ export const authOptions: NextAuthOptions = {
           refreshToken: token.refreshToken,
         });
 
-        if (data.responseOk) {
+        if (data.responseOk && data.accessTokenExpiration && data.refreshTokenExpiration) {
           session.accessToken = data.accessToken;
           session.refreshToken = data.refreshToken;
           session.accessTokenExpiration = Math.floor(

@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 
-export default function OptionFormTextInput({
+export default function FormTextareaInput({
   handleInputChange,
   placeholder,
 }: {
@@ -9,7 +9,7 @@ export default function OptionFormTextInput({
 }) {
   const [value, setValue] = useState<string>('');
 
-  function handleInternalInputChange(event: ChangeEvent<HTMLInputElement>) {
+  function handleInternalInputChange(event: ChangeEvent<HTMLTextAreaElement>) {
     setValue(event.currentTarget.value);
   }
 
@@ -18,14 +18,13 @@ export default function OptionFormTextInput({
   }, [value]);
 
   return (
-    <div className="w-full min-w-[300px]">
-      <input
-        className="option-form-text-input"
-        type="text"
+    <div className="flex min-w-[300px]">
+      <textarea
+        className="form-textarea-input"
         value={value}
         onChange={handleInternalInputChange}
         placeholder={placeholder}
-      />
+      ></textarea>
     </div>
   );
 }

@@ -10,7 +10,7 @@ const customStyles = {
   option: (defaultStyles: any, state: any) => ({
     ...defaultStyles,
     color: state.isSelected ? 'var(--base-dark)' : '#fff',
-    backgroundColor: state.isFocused || state.isSelected ? 'var(--palette-orange)' : '#212529',
+    backgroundColor: state.isFocused || state.isSelected ? 'var(--palette-smoky-topaz)' : '#212529',
   }),
 
   control: (defaultStyles: any, state: any) => ({
@@ -18,11 +18,11 @@ const customStyles = {
     backgroundColor: 'var(--base-dark)',
     padding: '2px',
     width: '100%',
-    border: state.isFocused ? '1px solid var(--palette-orange)' : '1px solid #cccccc',
-    boxShadow: state.isFocused ? '0px 0px 1px var(--palette-orange)' : 'none',
+    border: state.isFocused ? '1px solid var(--palette-smoky-topaz)' : '1px solid #cccccc',
+    boxShadow: state.isFocused ? '0px 0px 1px var(--palette-smoky-topaz)' : 'none',
     '&:hover': {
-      border: '1px solid var(--palette-orange)',
-      boxShadow: '0px 0px 1px var(--palette-orange)',
+      border: '1px solid var(--palette-smoky-topaz)',
+      boxShadow: '0px 0px 1px var(--palette-smoky-topaz)',
     },
   }),
 
