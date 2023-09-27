@@ -2,12 +2,13 @@ export default function MedicIcon({ classname }: { classname?: string }) {
   return (
     <svg
       fill="#F1F0E8"
-      height="30px"
-      width="30px"
+      width="35px"
+      height="35px"
+      viewBox="0 0 512 512"
+      className={classname || 'h-8 w-8'}
       version="1.1"
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 500 500"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

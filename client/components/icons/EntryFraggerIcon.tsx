@@ -2,7 +2,10 @@ export default function EntryFraggerIcon({ classname }: { classname?: string }) 
   return (
     <svg
       fill="#CCC8AA"
-      className={classname || 'h-7 w-7'}
+      width="35px"
+      height="35px"
+      viewBox="0 0 32 32"
+      className={classname || 'h-8 w-8'}
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
     >

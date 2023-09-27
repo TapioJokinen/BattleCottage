@@ -5,9 +5,10 @@ export default function JungleIcon({ classname }: { classname?: string }) {
       version="1.1"
       id="Capa_1"
       xmlns="http://www.w3.org/2000/svg"
-      width="25px"
-      height="25px"
-      viewBox="0 0 46.132 46.132"
+      width="35px"
+      height="35px"
+      viewBox="0 0 40 40"
+      className={classname || 'h-8 w-8'}
       stroke="#004225"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

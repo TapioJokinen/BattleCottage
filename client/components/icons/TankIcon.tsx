@@ -2,7 +2,7 @@ export default function TankIcon({ classname }: { classname?: string }) {
   return (
     <svg
       fill="#2E4374"
-      className={classname || 'h-6 w-6'}
+      className={classname || 'h-8 w-8'}
       version="1.1"
       id="Capa_1"
       xmlns="http://www.w3.org/2000/svg"

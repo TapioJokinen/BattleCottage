@@ -1,7 +1,10 @@
 export default function SwordIcon({ classname }: { classname?: string }) {
   return (
     <svg
-      className={classname || 'h-6 w-6'}
+      width="35px"
+      height="35px"
+      viewBox="0 0 24 24"
+      className={classname || 'h-8 w-8'}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       stroke="#9a3b3b"

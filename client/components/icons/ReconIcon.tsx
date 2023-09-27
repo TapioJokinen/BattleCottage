@@ -1,13 +1,6 @@
-export default function AWPerIcon({ classname }: { classname?: string }) {
+export default function ReconIcon({ classname }: { classname?: string }) {
   return (
-    <svg
-      fill="#D67BFF"
-      width="35px"
-      height="35px"
-      viewBox="0 0 24 24"
-      className={classname || 'h-8 w-8'}
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg fill="#A8DF8E" className={classname || 'h-6 w-7'} xmlns="http://www.w3.org/2000/svg">
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">

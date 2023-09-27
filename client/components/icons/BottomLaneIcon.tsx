@@ -1,7 +1,10 @@
 export default function BottomLaneIcon({ classname }: { classname?: string }) {
   return (
     <svg
-      className={classname || 'h-6 w-6'}
+      width="35px"
+      height="35px"
+      viewBox="0 0 24 24"
+      className={classname || 'h-8 w-8'}
       xmlns="http://www.w3.org/2000/svg"
       fill="#FFBB5C"
       stroke="#FFBB5C"

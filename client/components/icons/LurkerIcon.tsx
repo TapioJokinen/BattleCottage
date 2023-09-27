@@ -1,11 +1,13 @@
 export default function LurkerIcon({ classname }: { classname?: string }) {
   return (
     <svg
-      className={classname || 'h-7 w-7'}
       version="1.1"
       id="Capa_1"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 237.522 237.522"
+      width="35px"
+      height="35px"
+      viewBox="0 0 240 240"
+      className={classname || 'h-8 w-8'}
       fill="#000000"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

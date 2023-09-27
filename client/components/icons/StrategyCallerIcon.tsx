@@ -1,12 +1,14 @@
 export default function StrategyCallerIcon({ classname }: { classname?: string }) {
   return (
     <svg
-      className={classname || 'h-6 w-6'}
       version="1.1"
       id="_x32_"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 512 512"
       fill="#F78CA2"
+      width="35px"
+      height="35px"
+      viewBox="0 0 512 512"
+      className={classname || 'h-8 w-8'}
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

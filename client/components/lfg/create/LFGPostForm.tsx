@@ -25,6 +25,13 @@ import AWPerIcon from '@/components/icons/AWPerIcon';
 import CombatSupportIcon from '@/components/icons/CombatSupportIcon';
 import MedicIcon from '@/components/icons/MedicIcon';
 import AssaultIcon from '@/components/icons/AssaultIcon';
+import ReconIcon from '@/components/icons/ReconIcon';
+import FriendlyFaceIcon from '@/components/icons/FriedlyFaceIcon';
+import FunnyFaceIcon from '@/components/icons/FunnyFaceIcon';
+import SeriousFaceIcon from '@/components/icons/SeriousFaceIcon';
+import EGirlIcon from '@/components/icons/EGirlIcon';
+import SmurfIcon from '@/components/icons/SmurfIcon';
+import CarryIcon from '@/components/icons/CarryIcon';
 
 interface OptionFormType {
   gameId: number | null;
@@ -184,15 +191,15 @@ export default function LFGPostForm() {
               <Role role="Assault" icon={<AssaultIcon />} />
               <Role role="Medic" icon={<MedicIcon />} />
               <Role role="Combat Support" icon={<CombatSupportIcon />} />
-              <Role role="Recon" icon={<AWPerIcon />} />
+              <Role role="Recon" icon={<ReconIcon />} />
             </div>
             <div>
-              <Role role="Friendly" icon={<TankIcon />} />
-              <Role role="Funny" icon={<TankIcon />} />
-              <Role role="Serious" icon={<TankIcon />} />
-              <Role role="e-Girl" icon={<TankIcon />} />
-              <Role role="Smurfer" icon={<TankIcon />} />
-              <Role role="Carry" icon={<TankIcon />} />
+              <Role role="Friendly" icon={<FriendlyFaceIcon />} />
+              <Role role="Funny" icon={<FunnyFaceIcon />} />
+              <Role role="Serious" icon={<SeriousFaceIcon />} />
+              <Role role="e-Girl" icon={<EGirlIcon />} />
+              <Role role="Smurfer" icon={<SmurfIcon />} />
+              <Role role="Carry" icon={<CarryIcon />} />
               <Role role="Bait" icon={<TankIcon />} />
             </div>
           </div>

@@ -2,12 +2,13 @@ export default function AssaultIcon({ classname }: { classname?: string }) {
   return (
     <svg
       fill="#000000"
-      height="30px"
-      width="30px"
       version="1.1"
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"
+      width="35px"
+      height="35px"
       viewBox="0 0 512 512"
+      className={classname || 'h-8 w-8'}
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
