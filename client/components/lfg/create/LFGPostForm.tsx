@@ -1,14 +1,14 @@
 'use client';
 
 import SearchableSelection from '@/components/selections/SearchableSelection';
-import { useState } from 'react';
+import { MouseEventHandler, useEffect, useState } from 'react';
 import FormControl from '../../forms/advanced/FormControl';
 import { gamesFetchByName } from '@/app/api/games';
 import { SearchableSelectionOptionType } from '@/app/types';
 import { useSession } from 'next-auth/react';
 import FormTextInput from '@/components/forms/advanced/FormTextInput';
 import FormTextareaInput from '@/components/forms/advanced/FormTextareaInput';
-import Role from './Role';
+import RoleButton from './RoleButton';
 import TankIcon from '@/components/icons/TankIcon';
 import HealerIcon from '@/components/icons/HealerIcon';
 import SwordIcon from '@/components/icons/SwordIcon';
@@ -30,8 +30,8 @@ import FriendlyFaceIcon from '@/components/icons/FriedlyFaceIcon';
 import FunnyFaceIcon from '@/components/icons/FunnyFaceIcon';
 import SeriousFaceIcon from '@/components/icons/SeriousFaceIcon';
 import EGirlIcon from '@/components/icons/EGirlIcon';
-import SmurfIcon from '@/components/icons/SmurfIcon';
 import CarryIcon from '@/components/icons/CarryIcon';
+import SilentIcon from '@/components/icons/SilentIcon';
 
 interface OptionFormType {
   gameId: number | null;
@@ -40,6 +40,7 @@ interface OptionFormType {
   duration: number | null;
   mode: number | null;
   style: number | null;
+  roles: string[];
 }
 
 const durations: SearchableSelectionOptionType[] = [
@@ -60,6 +61,136 @@ const gameStyles: SearchableSelectionOptionType[] = [
   { text: 'Casual', value: 2 },
 ];
 
+const firstColRoles = [
+  {
+    text: 'Tank',
+    value: 'tank',
+    icon: <TankIcon />,
+  },
+  {
+    text: 'Healer',
+    value: 'healer',
+    icon: <HealerIcon />,
+  },
+  {
+    text: 'DPS',
+    value: 'dps',
+    icon: <SwordIcon />,
+  },
+];
+
+const secondColRoles = [
+  {
+    text: 'Top Lane',
+    value: 'toplane',
+    icon: <TopLaneIcon />,
+  },
+  {
+    text: 'Bot Lane',
+    value: 'botlane',
+    icon: <BottomLaneIcon />,
+  },
+  {
+    text: 'Mid Lane',
+    value: 'midlane',
+    icon: <MidLaneIcon />,
+  },
+  {
+    text: 'Jungle',
+    value: 'jungle',
+    icon: <JungleIcon />,
+  },
+  {
+    text: 'Support',
+    value: 'support',
+    icon: <SupportIcon />,
+  },
+];
+
+const thirdColRoles = [
+  {
+    text: 'Entry Fragger',
+    value: 'entryfragger',
+    icon: <EntryFraggerIcon />,
+  },
+  {
+    text: 'Refragger',
+    value: 'refragger',
+    icon: <RefraggerIcon />,
+  },
+  {
+    text: 'Strategy Caller',
+    value: 'strategycaller',
+    icon: <StrategyCallerIcon />,
+  },
+  {
+    text: 'Lurker',
+    value: 'lurker',
+    icon: <LurkerIcon />,
+  },
+  {
+    text: 'AWPer',
+    value: 'awper',
+    icon: <AWPerIcon />,
+  },
+];
+
+const fourthColRoles = [
+  {
+    text: 'Combat Support',
+    value: 'combatsupport',
+    icon: <CombatSupportIcon />,
+  },
+  {
+    text: 'Medic',
+    value: 'medic',
+    icon: <MedicIcon />,
+  },
+  {
+    text: 'Assault',
+    value: 'assault',
+    icon: <AssaultIcon />,
+  },
+  {
+    text: 'Recon',
+    value: 'recon',
+    icon: <ReconIcon />,
+  },
+];
+
+const fifthColRoles = [
+  {
+    text: 'Friendly',
+    value: 'friendly',
+    icon: <FriendlyFaceIcon />,
+  },
+  {
+    text: 'Funny',
+    value: 'funny',
+    icon: <FunnyFaceIcon />,
+  },
+  {
+    text: 'Serious',
+    value: 'serious',
+    icon: <SeriousFaceIcon />,
+  },
+  {
+    text: 'e-Girl',
+    value: 'egirl',
+    icon: <EGirlIcon />,
+  },
+  {
+    text: 'Silent',
+    value: 'silent',
+    icon: <SilentIcon />,
+  },
+  {
+    text: 'Carry',
+    value: 'carry',
+    icon: <CarryIcon />,
+  },
+];
+
 export default function LFGPostForm() {
   const session = useSession();
 
@@ -70,8 +201,11 @@ export default function LFGPostForm() {
     duration: null,
     mode: null,
     style: null,
+    roles: [],
   });
   const [gameOptions, setGameOptions] = useState<SearchableSelectionOptionType[] | null>(null);
+
+  console.log(optionForm);
 
   async function handleGameOptionInputChange(input: string) {
     const data = await gamesFetchByName(input, 1, 100, session.data?.accessToken);
@@ -103,6 +237,16 @@ export default function LFGPostForm() {
 
   function handleGameFormatSelect(style: number) {
     setOptionForm((prev) => ({ ...prev, style }));
+  }
+
+  function handleRoleSelect(event: React.MouseEvent<HTMLDivElement>) {
+    const role = event.currentTarget.getAttribute('id');
+    if (role !== null) {
+      setOptionForm((prev) => ({
+        ...prev,
+        roles: [...prev.roles, role],
+      }));
+    }
   }
 
   return (
@@ -167,41 +311,22 @@ export default function LFGPostForm() {
       <div className="flex w-full flex-col items-center">
         <hr className="w-[95%] rounded border-[var(--palette-smoky-topaz)]" />
         <div className="mt-3 flex w-full flex-col">
-          <div className="flex h-full w-full items-center justify-center">
-            <div>
-              <Role role="Tank" icon={<TankIcon />} />
-              <Role role="Healer" icon={<HealerIcon />} />
-              <Role role="DPS" icon={<SwordIcon />} />
-            </div>
-            <div>
-              <Role role="Top Lane" icon={<TopLaneIcon />} />
-              <Role role="Bot Lane" icon={<BottomLaneIcon />} />
-              <Role role="Mid Lane" icon={<MidLaneIcon />} />
-              <Role role="Jungle" icon={<JungleIcon />} />
-              <Role role="Support" icon={<SupportIcon />} />
-            </div>
-            <div>
-              <Role role="Entry Fragger" icon={<EntryFraggerIcon />} />
-              <Role role="Refragger" icon={<RefraggerIcon />} />
-              <Role role="Strategy Caller" icon={<StrategyCallerIcon />} />
-              <Role role="Lurker" icon={<LurkerIcon />} />
-              <Role role="AWPer" icon={<AWPerIcon />} />
-            </div>
-            <div>
-              <Role role="Assault" icon={<AssaultIcon />} />
-              <Role role="Medic" icon={<MedicIcon />} />
-              <Role role="Combat Support" icon={<CombatSupportIcon />} />
-              <Role role="Recon" icon={<ReconIcon />} />
-            </div>
-            <div>
-              <Role role="Friendly" icon={<FriendlyFaceIcon />} />
-              <Role role="Funny" icon={<FunnyFaceIcon />} />
-              <Role role="Serious" icon={<SeriousFaceIcon />} />
-              <Role role="e-Girl" icon={<EGirlIcon />} />
-              <Role role="Smurfer" icon={<SmurfIcon />} />
-              <Role role="Carry" icon={<CarryIcon />} />
-              <Role role="Bait" icon={<TankIcon />} />
-            </div>
+          <div className="inline-block w-full p-5 text-center">
+            {firstColRoles.map((role) => (
+              <RoleButton key={role.value} role={role} onClick={handleRoleSelect} />
+            ))}
+            {secondColRoles.map((role) => (
+              <RoleButton key={role.value} role={role} onClick={handleRoleSelect} />
+            ))}
+            {thirdColRoles.map((role) => (
+              <RoleButton key={role.value} role={role} onClick={handleRoleSelect} />
+            ))}
+            {fourthColRoles.map((role) => (
+              <RoleButton key={role.value} role={role} onClick={handleRoleSelect} />
+            ))}
+            {fifthColRoles.map((role) => (
+              <RoleButton key={role.value} role={role} onClick={handleRoleSelect} />
+            ))}
           </div>
         </div>
       </div>

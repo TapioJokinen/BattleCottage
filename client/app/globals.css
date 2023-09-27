@@ -21,7 +21,7 @@
   --palette-dark-jungle-green-darker: #0b0f0e;
   --palette-onyx: #161616;
   --palette-smoky-topaz: #9a3b3b;
-
+  --palette-shadow: #0f0606;
   --hgb-duration: 5000ms;
   --hgb-angle: 90deg;
   --hgb-gradX: 100%;
@@ -185,6 +185,10 @@ input:-webkit-autofill:active {
 
 .tool-title {
   @apply mt-4 rounded border-2 border-[var(--palette-smoky-topaz)] p-2 font-sourcecodepro text-base shadow shadow-[var(--palette-smoky-topaz)] lg:mt-5 lg:p-4 lg:text-2xl;
+}
+
+.role-button {
+  @apply m-2 flex min-w-[250px] items-center justify-between rounded bg-[var(--palette-dark-grey)] px-5 py-2 font-sourcecodepro text-xl shadow shadow-[var(--palette-shadow)] sm:min-w-[275px];
 }
 
 /*#region HoudiniGradientBorder*/

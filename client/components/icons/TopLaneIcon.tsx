@@ -9,7 +9,7 @@ export default function TopLaneIcon({ classname }: { classname?: string }) {
       fill="#FFBB5C"
       stroke="#FFBB5C"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         {' '}
