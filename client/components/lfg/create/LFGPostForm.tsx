@@ -15,7 +15,7 @@ import {
   fifthColRoles,
   firstColRoles,
   fourthColRoles,
-  gameFormats,
+  gameModes,
   gameStyles,
   secondColRoles,
   thirdColRoles,
@@ -173,7 +173,7 @@ export default function LFGPostForm() {
           <FormControl text="Choose game mode" ok={!!optionForm.mode}>
             <SearchableSelection
               placeholder="PvP/PvE"
-              options={gameFormats}
+              options={gameModes}
               handleInputChange={() => {}}
               handleSelectedValue={handleGameModeSelect}
             />

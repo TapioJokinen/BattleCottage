@@ -3,6 +3,7 @@ using System;
 using BattleCottage.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BattleCottage.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230930141610_TablesForLFGPost")]
+    partial class TablesForLFGPost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,22 +78,6 @@ namespace BattleCottage.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("GameModes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PvP"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PvE"
-                        });
                 });
 
             modelBuilder.Entity("BattleCottage.Core.Entities.GameStyle", b =>
@@ -117,22 +104,6 @@ namespace BattleCottage.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("GameStyles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Casual"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DateAdded = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Competitive"
-                        });
                 });
 
             modelBuilder.Entity("BattleCottage.Core.Entities.LFGPost", b =>

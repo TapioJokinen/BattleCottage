@@ -2,6 +2,7 @@ using BattleCottage.Core.Entities;
 using BattleCottage.Data;
 using BattleCottage.Data.Repositories.GameRepository;
 using BattleCottage.Data.Repositories.UserRepository;
+using BattleCottage.Services;
 using BattleCottage.Services.Authentication;
 using BattleCottage.Services.Games;
 using BattleCottage.Services.HealthCheck;
@@ -31,7 +32,10 @@ builder.Services.AddCors(options =>
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new BaseExceptionFilterAttribute());
+});
 
 builder.Services.AddDbContext<ApplicationDbContext>();
 

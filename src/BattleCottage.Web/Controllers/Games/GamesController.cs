@@ -1,7 +1,6 @@
 ﻿using BattleCottage.Core.Entities;
 using BattleCottage.Core.Pagination;
 using BattleCottage.Services.Games;
-using BattleCottage.Web.Pagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,17 +42,9 @@ namespace BattleCottage.Web.Controllers.Games
 
             int pageNumber = string.IsNullOrEmpty(page) ? PageSettings.FirstPageNumber : int.Parse(page);
             int size = string.IsNullOrEmpty(pageSize) ? PageSettings.MaxPageSize : int.Parse(pageSize);
+            var pagedGames = new PagedCollection<Game>(games, pageNumber, size, Request);
 
-            try
-            {
-                var pagedGames = new PagedCollection<Game>(games, pageNumber, size, Request);
-
-                return Ok(pagedGames.Result);
-            }
-            catch (Exception ex) when (ex is ArgumentException || ex is ArgumentNullException)
-            {
-                return NotFound(new MessageResponse(PaginationErrors.InvalidPage));
-            }
+            return Ok(pagedGames.Result);
         }
     }
 }

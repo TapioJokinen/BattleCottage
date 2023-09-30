@@ -21,12 +21,6 @@ namespace BattleCottage.Data.Repositories.UserRepository
             throw new NotImplementedException("`AddAsync` not available for this repository. Use `AddAsyncWithPassword` instead.");
         }
 
-        /// <summary>
-        /// Asynchronoysly creates a user.
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
         public async Task<IdentityResult> AddUserAsync(User user, string? password)
         {
             if (string.IsNullOrEmpty(password)) return IdentityResult.Failed();
@@ -36,13 +30,6 @@ namespace BattleCottage.Data.Repositories.UserRepository
             return result;
         }
 
-        /// <summary>
-        /// Checks if the given password matches for the user's password in the database.
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
         public async Task<bool> CheckPasswordAsync(User user, string? password)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
@@ -56,16 +43,11 @@ namespace BattleCottage.Data.Repositories.UserRepository
             throw new NotImplementedException();
         }
 
-        public Task<ICollection<User>> Filter(Expression<Func<User, bool>> filter)
+        public Task<ICollection<User>?> Filter(Expression<Func<User, bool>> filter)
         {
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Asynchronously finds the user by email.
-        /// </summary>
-        /// <param name="email"></param>
-        /// <returns></returns>
         public async Task<User?> FindByEmailAsync(string? email)
         {
             User? user = await _context.Users
@@ -75,7 +57,7 @@ namespace BattleCottage.Data.Repositories.UserRepository
             return user;
         }
 
-        public Task<User> FindByIdAsync(int id)
+        public Task<User?> FindByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -85,12 +67,6 @@ namespace BattleCottage.Data.Repositories.UserRepository
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Asynchronously gets user roles.
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
         public async Task<ICollection<string>> GetUserRolesAsync(User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
@@ -108,11 +84,6 @@ namespace BattleCottage.Data.Repositories.UserRepository
             return await _userManager.UpdateAsync(entity);
         }
 
-        /// <summary>
-        /// Asynchronously validates the given password for errors.
-        /// </summary>
-        /// <param name="password"></param>
-        /// <returns></returns>
         public async Task<ICollection<string>> ValidatePasswordAsync(string? password)
         {
             IList<string> passwordErrors = new List<string>();

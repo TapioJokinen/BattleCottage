@@ -18,13 +18,6 @@ namespace BattleCottage.Services.Token
             _configuration = configuration;
         }
 
-        /// <summary>
-        /// Generates a JSON Web Token (JWT) with the provided authentication claims and necessary token properties.
-        /// The token's issuer, audience, expiration date, and signing credentials are set based on configuration and parameters.
-        /// </summary>
-        /// <param name="authClaims">A list of claims to be included in the token.</param>
-        /// <returns>The generated JWT with the specified claims and properties.</returns>
-
         public JwtSecurityToken GetToken(IList<Claim> authClaims)
         {
             SymmetricSecurityKey authSigningKey = GetSymmetricSecurityKey();
@@ -40,47 +33,21 @@ namespace BattleCottage.Services.Token
             return token;
         }
 
-        /// <summary>
-        /// Retrieves the valid issuer (issuer) for the JSON Web Token (JWT).
-        /// The issuer value is obtained from the application's configuration settings.
-        /// </summary>
-        /// <returns>The valid issuer for the JWT.</returns>
-        /// <exception cref="ArgumentException">Thrown when the ValidIssuer configuration is not found.</exception>
-
         public string GetIssuer()
         {
             return _configuration["JWT:ValidIssuer"] ?? throw new ArgumentException("JWT:ValidIssuer not found.");
         }
-
-        /// <summary>
-        /// Retrieves the valid audience (recipient) for the JSON Web Token (JWT).
-        /// The audience value is obtained from the application's configuration settings.
-        /// </summary>
-        /// <returns>The valid audience for the JWT.</returns>
-        /// <exception cref="ArgumentException">Thrown when the ValidAudience configuration is not found.</exception>
 
         public string GetAudience()
         {
             return _configuration["JWT:ValidAudience"] ?? throw new ArgumentException("JWT:ValidAudience not found.");
         }
 
-
-        /// <summary>
-        /// Retrieves a secret string used for cryptographic operations, such as generating tokens.
-        /// The secret is obtained from the application's configuration settings.
-        /// </summary>
-        /// <returns>The secret string for cryptographic purposes.</returns>
-        /// <exception cref="ArgumentException">Thrown when the secret configuration is not found.</exception>
         private string GetSecret()
         {
             return _configuration.GetValue<string>("JWT:Secret") ?? throw new ArgumentException("JWT:Secret was not found.");
         }
 
-        /// <summary>
-        /// Retrieves a symmetric security key generated from a secret string.
-        /// This key can be used for cryptographic operations like authentication and data protection.
-        /// </summary>
-        /// <returns>A SymmetricSecurityKey instance derived from the secret.</returns>
         public SymmetricSecurityKey GetSymmetricSecurityKey()
         {
             return new(Encoding.UTF8.GetBytes(GetSecret()));

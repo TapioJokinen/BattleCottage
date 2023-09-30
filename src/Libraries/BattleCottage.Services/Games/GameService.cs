@@ -1,4 +1,5 @@
 ﻿using BattleCottage.Core.Entities;
+using BattleCottage.Core.Exceptions;
 using BattleCottage.Data.Repositories.GameRepository;
 
 namespace BattleCottage.Services.Games
@@ -21,12 +22,17 @@ namespace BattleCottage.Services.Games
         {
             if (string.IsNullOrEmpty(name))
             {
-                return null;
+                throw new ArgumentNullException(nameof(name));
             }
 
-            ICollection<Game> games = await _gameRepository.Filter(game => game.Name.ToLower().Contains(name.ToLower()));
+            ICollection<Game>? games = await _gameRepository.Filter(game => game.Name.ToLower().Contains(name.ToLower()));
 
-            return games.Count == 0 ? null : games;
+            if (games == null || games.Count == 0)
+            {
+                throw new ObjectNotFoundException($"No games found with name like {name}.");
+            }
+
+            return games;
         }
     }
 }

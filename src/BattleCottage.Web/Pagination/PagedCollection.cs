@@ -37,7 +37,7 @@ namespace BattleCottage.Core.Pagination
             }
             else
             {
-                throw new ArgumentException(PaginationErrors.InvalidPage);
+                throw new ArgumentException("Invalid page.");
             }
 
             Values = values.Skip((Page - 1) * PageSize).Take(PageSize).ToList();
@@ -87,7 +87,7 @@ namespace BattleCottage.Core.Pagination
             UpdateQueryString(ref queryString, "page", Page + pageDelta, _pagePattern);
             UpdateQueryString(ref queryString, "pageSize", PageSize, _pageSizePattern);
 
-            return $"{scheme}://{host}{(path ?? "")}{queryString}";
+            return $"{scheme}://{host}{path ?? ""}{queryString}";
         }
 
         public string GetNextUrl() => BuildUrl(1);

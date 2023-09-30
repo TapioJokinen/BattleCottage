@@ -1,4 +1,5 @@
 ﻿using BattleCottage.Core.Entities;
+using BattleCottage.Core.Exceptions;
 using BattleCottage.Core.Utils;
 using BattleCottage.Data.Repositories.UserRepository;
 using BattleCottage.Services.Token;
@@ -19,18 +20,12 @@ namespace BattleCottage.Services.Authentication
             _tokenService = tokenService;
         }
 
-
-        /// <summary>
-        /// Attempts to authenticate a user using the provided login credentials.
-        /// If the provided credentials are valid, a JSON Web Token (JWT) is generated and returned.
-        /// </summary>
-        /// <param name="credentials">The login credentials containing the user's email and password.</param>
-        /// <returns>
-        /// A JWT if the provided credentials are valid; otherwise, returns null.
-        /// </returns>
-        public async Task<LoginResponse?> Login(AuthCredentials credentials)
+        public async Task<LoginResponse> Login(AuthCredentials credentials)
         {
-            if (string.IsNullOrEmpty(credentials.Email) || string.IsNullOrEmpty(credentials.Password)) return null;
+            if (string.IsNullOrEmpty(credentials.Email) || string.IsNullOrEmpty(credentials.Password))
+            {
+                throw new ArgumentException("Email and password cannot be empty.");
+            };
 
             User? user = await _userRepository.FindByEmailAsync(credentials.Email);
 
@@ -67,45 +62,24 @@ namespace BattleCottage.Services.Authentication
                 };
             }
 
-            return null;
+            throw new ArgumentException("Invalid credentials.");
         }
 
-
-        /// <summary>
-        /// Refreshes the access token using the provided token information.
-        /// </summary>
-        /// <param name="tokens">The token information containing the access token and refresh token.</param>
-        /// <returns>
-        /// A <see cref="TokenModel"/> containing the refreshed access token and its expiration,
-        /// or <c>null</c> if the provided tokens are invalid or the refresh process fails.
-        /// </returns>
-        /// <remarks>
-        /// This method attempts to refresh the access token by validating the provided access token,
-        /// checking the associated user's refresh token, and generating a new access token with extended validity.
-        /// If the refresh process is successful, a new <see cref="TokenModel"/> is returned with the refreshed tokens.
-        /// If any validation step fails, or if the user's refresh token is invalid or expired,
-        /// the method returns <c>null</c> to indicate a failed refresh attempt.
-        /// </remarks>
-        public async Task<TokenModel?> RefreshAccessToken(TokenModel tokens)
+        public async Task<TokenModel> RefreshAccessToken(TokenModel tokens)
         {
             if (tokens == null || tokens.AccessToken == null || tokens.RefreshToken == null)
             {
-                return null;
+                throw new TokenException("Invalid token.");
             }
 
             string? accessToken = tokens.AccessToken;
             string? refreshToken = tokens.RefreshToken;
 
-            ClaimsPrincipal? principal = _tokenService.GetPrincipalFromExpiredToken(accessToken);
-
-            if (principal == null)
-            {
-                return null;
-            }
+            ClaimsPrincipal? principal = _tokenService.GetPrincipalFromExpiredToken(accessToken) ?? throw new TokenException("Invalid token.");
 
             if (principal.Identity == null || principal.Identity.Name == null)
             {
-                return null;
+                throw new TokenException("Invalid token.");
             }
 
             string email = principal.Identity.Name;
@@ -114,7 +88,7 @@ namespace BattleCottage.Services.Authentication
 
             if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
             {
-                return null;
+                throw new TokenException("Invalid token.");
             }
 
             JwtSecurityToken newAccessToken = _tokenService.GetToken(principal.Claims.ToList());
@@ -128,34 +102,20 @@ namespace BattleCottage.Services.Authentication
             };
         }
 
-
-        /// <summary>
-        /// Registers a new user based on the provided registration credentials.
-        /// If the registration is successful, null is returned; otherwise, a RegisterError containing the specific error message is returned.
-        /// </summary>
-        /// <param name="credentials">The registration credentials including email and password information.</param>
-        /// <returns>
-        /// Null if the registration is successful; otherwise, a RegisterError containing the error message.
-        /// </returns>
-        public async Task<RegisterError?> Register(RegisterCredentials credentials)
+        public async Task Register(RegisterCredentials credentials)
         {
-            if (!Validator.ValidateEmail(credentials.Email)) return new RegisterError(ErrorMessages.InvalidEmailFormat);
+            if (!Validator.ValidateEmail(credentials.Email)) throw new RegisterException("The provided email was not in correct format.");
 
             if (string.IsNullOrEmpty(credentials.Password) || string.IsNullOrEmpty(credentials.PasswordAgain))
-                return new RegisterError(ErrorMessages.EmptyPassword);
+                throw new RegisterException("Password must not be empty.");
 
             if (credentials.Password != credentials.PasswordAgain)
-                return new RegisterError(ErrorMessages.PasswordsDoNotMatch);
-
-            ICollection<string> passwordErrors = await _userRepository.ValidatePasswordAsync(credentials.Password);
-
-            if (passwordErrors.Count > 0)
-                return new RegisterError(string.Join(" ", passwordErrors.ToArray()));
+                throw new RegisterException("Passwords do not match.");
 
             User? userExists = await _userRepository.FindByEmailAsync(credentials.Email);
 
             if (userExists != null)
-                return new RegisterError(ErrorMessages.UserAlreadyExists);
+                throw new RegisterException("A user with this email already exists.");
 
             var user = new User()
             {
@@ -167,9 +127,7 @@ namespace BattleCottage.Services.Authentication
             IdentityResult result = await _userRepository.AddUserAsync(user, credentials.Password);
 
             if (result != IdentityResult.Success)
-                return new RegisterError("Failed to create user. Try again later.");
-
-            return null;
+                throw new RegisterException("Failed to create user. Try again later.");
         }
     }
 }

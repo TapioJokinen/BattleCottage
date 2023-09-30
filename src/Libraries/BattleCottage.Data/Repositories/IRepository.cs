@@ -6,9 +6,9 @@ namespace BattleCottage.Data.Repositories
     {
         Task<ICollection<T>> GetAllAsync();
 
-        Task<ICollection<T>> Filter(Expression<Func<T, bool>> filter);
+        Task<ICollection<T>?> Filter(Expression<Func<T, bool>> filter);
 
-        Task<T> FindByIdAsync(int id);
+        Task<T?> FindByIdAsync(int id);
 
         Task<T> AddAsync(T entity);
 

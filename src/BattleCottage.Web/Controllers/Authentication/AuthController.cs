@@ -30,7 +30,9 @@ namespace BattleCottage.Web.Controllers.AuthController
             var loginResponse = await _authService.Login(loginCredentials);
 
             if (loginResponse == null)
+            {
                 return Unauthorized(new MessageResponse("Invalid credentials."));
+            }
 
             return Ok(loginResponse);
         }
@@ -41,12 +43,7 @@ namespace BattleCottage.Web.Controllers.AuthController
         [Route("/api/[controller]/register")]
         public async Task<IActionResult> Register([FromBody] RegisterCredentials registerCredentials)
         {
-            var registerError = await _authService.Register(registerCredentials);
-
-            if (registerError != null)
-            {
-                return BadRequest(new MessageResponse(registerError.ErrorMessage));
-            }
+            await _authService.Register(registerCredentials);
 
             return CreatedAtAction(nameof(Register), new MessageResponse("User created."));
         }

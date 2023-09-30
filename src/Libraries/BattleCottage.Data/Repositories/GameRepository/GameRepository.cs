@@ -30,7 +30,7 @@ namespace BattleCottage.Data.Repositories.GameRepository
             throw new NotImplementedException();
         }
 
-        public Task<Game> FindByIdAsync(int id)
+        public Task<Game?> FindByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -45,12 +45,12 @@ namespace BattleCottage.Data.Repositories.GameRepository
             throw new NotImplementedException();
         }
 
-        public async Task<ICollection<Game>> Filter(Expression<Func<Game, bool>> filter)
+        public async Task<ICollection<Game>?> Filter(Expression<Func<Game, bool>> filter)
         {
             IQueryable<Game> query = _context.Set<Game>();
             ICollection<Game> games = await query.Where(filter).ToListAsync();
 
-            return games;
+            return games.Count == 0 ? null : games;
         }
     }
 }

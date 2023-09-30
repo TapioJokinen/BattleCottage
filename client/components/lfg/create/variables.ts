@@ -25,13 +25,13 @@ import TopLaneIcon from '@/components/icons/TopLaneIcon';
 
 export const durations: SearchableSelectionOptionType[] = [
   { text: 'One Hour', value: 60 },
-  { text: 'Five Hours', value: 60 * 5 },
-  { text: 'One Day', value: 60 * 24 },
-  { text: 'One Week', value: 60 * 24 * 7 },
-  { text: 'Thirty Days', value: 60 * 24 * 30 },
+  { text: 'Five Hours', value: 300 },
+  { text: 'One Day', value: 1440 },
+  { text: 'One Week', value: 10080 },
+  { text: 'Thirty Days', value: 43200 },
 ];
 
-export const gameFormats: SearchableSelectionOptionType[] = [
+export const gameModes: SearchableSelectionOptionType[] = [
   { text: 'PvP', value: 1 },
   { text: 'PvE', value: 2 },
 ];
