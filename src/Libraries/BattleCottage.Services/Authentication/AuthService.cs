@@ -38,10 +38,10 @@ namespace BattleCottage.Services.Authentication
             {
                 ICollection<string> userRoles = await _userRepository.GetUserRolesAsync(user);
 
-                List<Claim> authClaims = new()
+                var authClaims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.Name, user.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    new(ClaimTypes.Name, user.Email),
+                    new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
 
                 foreach (var userRole in userRoles)
@@ -157,7 +157,7 @@ namespace BattleCottage.Services.Authentication
             if (userExists != null)
                 return new RegisterError(ErrorMessages.UserAlreadyExists);
 
-            User user = new()
+            var user = new User()
             {
                 Email = credentials.Email,
                 UserName = credentials.Email,

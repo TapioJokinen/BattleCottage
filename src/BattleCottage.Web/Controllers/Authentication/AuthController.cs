@@ -27,7 +27,7 @@ namespace BattleCottage.Web.Controllers.AuthController
         [Route("/api/[controller]/login")]
         public async Task<IActionResult> Login([FromBody] AuthCredentials loginCredentials)
         {
-            LoginResponse? loginResponse = await _authService.Login(loginCredentials);
+            var loginResponse = await _authService.Login(loginCredentials);
 
             if (loginResponse == null)
                 return Unauthorized(new MessageResponse("Invalid credentials."));
@@ -41,7 +41,7 @@ namespace BattleCottage.Web.Controllers.AuthController
         [Route("/api/[controller]/register")]
         public async Task<IActionResult> Register([FromBody] RegisterCredentials registerCredentials)
         {
-            RegisterError? registerError = await _authService.Register(registerCredentials);
+            var registerError = await _authService.Register(registerCredentials);
 
             if (registerError != null)
             {
@@ -57,7 +57,7 @@ namespace BattleCottage.Web.Controllers.AuthController
         [Route("/api/[controller]/refresh")]
         public async Task<IActionResult> Refresh(TokenModel tokens)
         {
-            TokenModel? refreshedTokens = await _authService.RefreshAccessToken(tokens);
+            var refreshedTokens = await _authService.RefreshAccessToken(tokens);
 
             if (refreshedTokens != null)
             {
@@ -74,14 +74,14 @@ namespace BattleCottage.Web.Controllers.AuthController
         [Route("/api/[controller]/revoke")]
         public async Task<IActionResult> Revoke()
         {
-            string? email = HttpContext.User.Identity?.Name;
+            var email = HttpContext.User.Identity?.Name;
 
             if (email == null)
             {
                 return Unauthorized(new MessageResponse("Failed to authorize user."));
             }
 
-            User? user = await _userRepository.FindByEmailAsync(email);
+            var user = await _userRepository.FindByEmailAsync(email);
 
             if (user == null)
             {

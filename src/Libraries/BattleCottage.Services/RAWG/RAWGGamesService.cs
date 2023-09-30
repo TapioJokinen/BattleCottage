@@ -54,7 +54,7 @@ namespace BattleCottage.Services.RAWG
             {
                 _logger.LogInformation("RAWGGamesService is working.");
 
-                List<Game> games = new();
+                var games = new List<Game>();
 
                 string url = $"{gamesUrl}?key={apiKey}&page={pageNumber}&page_size=10000&tags=multiplayer&platform=4&ordering=released";
 
@@ -79,7 +79,7 @@ namespace BattleCottage.Services.RAWG
                         {
                             foreach (Result r in result.Results)
                             {
-                                Game g = new()
+                                var g = new Game()
                                 {
                                     Name = r.Name,
                                     BackgroundImage = r.BackgroundImage,

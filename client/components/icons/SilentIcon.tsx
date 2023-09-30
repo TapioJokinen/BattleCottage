@@ -9,11 +9,11 @@ export default function SilentIcon({ classname }: { classname?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       fill="#C70039"
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         {' '}
-        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           {' '}
           <g id="Icon-Set" transform="translate(-154.000000, -307.000000)" fill="#C70039">
             {' '}

@@ -29,7 +29,7 @@ namespace BattleCottage.Services.Token
         {
             SymmetricSecurityKey authSigningKey = GetSymmetricSecurityKey();
 
-            JwtSecurityToken token = new(
+            var token = new JwtSecurityToken(
                 issuer: GetIssuer(),
                 audience: GetAudience(),
                 expires: GetAccessTokenExpiryTime(),
@@ -96,7 +96,7 @@ namespace BattleCottage.Services.Token
 
         public ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
         {
-            TokenValidationParameters tokenValidationParameters = new()
+            var tokenValidationParameters = new TokenValidationParameters()
             {
                 ValidateAudience = false,
                 ValidateIssuer = false,
@@ -105,7 +105,7 @@ namespace BattleCottage.Services.Token
                 ValidateLifetime = false
             };
 
-            JwtSecurityTokenHandler tokenHandler = new();
+            var tokenHandler = new JwtSecurityTokenHandler();
 
             ClaimsPrincipal principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
 

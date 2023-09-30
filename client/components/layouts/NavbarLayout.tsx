@@ -35,11 +35,11 @@ export default function NavbarLayout({ children }: { children: ReactNode }) {
           ))}
         </div>
         <Link
-          className="mr-5 flex items-center rounded bg-[var(--palette-success)] p-1 px-2"
+          className="mr-5 flex items-center rounded bg-[var(--palette-success)] p-1 px-2 hover:bg-[var(--palette-success-darker)]"
           href="/lfg/create"
         >
           <PlusIcon classname="h-3 w-3" />
-          <span className="ml-1">Create Post</span>
+          <span className="ml-1">Create a Post</span>
         </Link>
       </div>
       {children}

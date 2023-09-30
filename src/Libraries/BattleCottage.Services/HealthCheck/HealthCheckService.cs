@@ -20,7 +20,7 @@ namespace BattleCottage.Services.HealthCheck
         {
             bool canConnect = await _context.Database.CanConnectAsync();
 
-            HealthCheckResult response = new()
+            var response = new HealthCheckResult()
             {
                 BackendStatus = HealthCheckStatus.Healthy.ToString(),
                 DatabaseStatus = canConnect ? HealthCheckStatus.Healthy.ToString() : HealthCheckStatus.NotHealthy.ToString(),

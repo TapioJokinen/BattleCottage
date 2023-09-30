@@ -17,6 +17,7 @@
   --palette-forest-green: #016a70;
   --palette-error: #f44336;
   --palette-success: #388e3c;
+  --palette-success-darker: #2a6a2d;
   --palette-dark-jungle-green: #1e1e1e;
   --palette-dark-jungle-green-darker: #0b0f0e;
   --palette-onyx: #161616;
@@ -188,7 +189,31 @@ input:-webkit-autofill:active {
 }
 
 .role-button {
-  @apply m-2 flex min-w-[250px] items-center justify-between rounded bg-[var(--palette-dark-grey)] px-5 py-2 font-sourcecodepro text-xl shadow shadow-[var(--palette-shadow)] sm:min-w-[275px];
+  @apply m-2 flex min-w-[250px] items-center justify-between rounded bg-[var(--palette-dark-grey)] px-5 py-1 font-sourcecodepro text-xl shadow shadow-[var(--palette-shadow)] sm:min-w-[275px];
+}
+
+.role-handle-button {
+  @apply w-[24px] rounded bg-[var(--palette-dark-grey)] shadow shadow-[var(--palette-shadow)] selection:bg-transparent active:translate-y-1;
+}
+
+.lfg-form-input-container-upper {
+  @apply mb-5 block w-full grid-cols-2 gap-4 lg:grid lg:px-10 lg:py-5 3xl:px-20 3xl:py-5;
+}
+
+.lfg-form-input-wrapper {
+  @apply flex w-full flex-col items-center px-5;
+}
+
+.lfg-divider {
+  @apply w-[95%] rounded border-[var(--palette-smoky-topaz)];
+}
+
+.lfg-input-container-lower {
+  @apply flex w-full flex-col items-center;
+}
+
+.create-post-button {
+  @apply m-3 rounded bg-[var(--palette-success)] p-3 hover:bg-[var(--palette-success-darker)] active:translate-y-1 disabled:opacity-25 disabled:hover:bg-[var(--palette-success)];
 }
 
 /*#region HoudiniGradientBorder*/

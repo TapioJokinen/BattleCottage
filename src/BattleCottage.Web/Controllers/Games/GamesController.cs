@@ -46,7 +46,7 @@ namespace BattleCottage.Web.Controllers.Games
 
             try
             {
-                PagedCollection<Game> pagedGames = new(games, pageNumber, size, Request);
+                var pagedGames = new PagedCollection<Game>(games, pageNumber, size, Request);
 
                 return Ok(pagedGames.Result);
             }
