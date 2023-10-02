@@ -1,22 +1,25 @@
 using BattleCottage.Core.Entities;
 using BattleCottage.Data;
-using BattleCottage.Data.Repositories.GameRepository;
+using BattleCottage.Data.Repositories;
 using BattleCottage.Data.Repositories.UserRepository;
 using BattleCottage.Services;
 using BattleCottage.Services.Authentication;
 using BattleCottage.Services.Games;
 using BattleCottage.Services.HealthCheck;
+using BattleCottage.Services.LfgPosts;
 using BattleCottage.Services.RAWG;
 using BattleCottage.Services.Token;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
@@ -30,21 +33,27 @@ builder.Services.AddCors(options =>
         });
 });
 
-// Add services to the container.
-
+// Filters
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add(new BaseExceptionFilterAttribute());
+
+
 });
 
+// Database context
 builder.Services.AddDbContext<ApplicationDbContext>();
 
+// Repositories
+builder.Services.AddScoped(typeof(IRepository<>), typeof(EntityRepository<>));
+
+// Routes
 builder.Services.Configure<RouteOptions>(options =>
 {
     options.LowercaseUrls = true;
 });
 
-// For Identity
+// Identity
 builder.Services.AddIdentity<User, IdentityRole>(options =>
     {
         options.User.RequireUniqueEmail = true;
@@ -52,7 +61,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-// Adding Authentication
+// Authentication
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -78,6 +87,7 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+// Redis
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString(builder.Configuration["ConnectionStrings:Redis"]
@@ -87,15 +97,16 @@ builder.Services.AddStackExchangeRedisCache(options =>
 
 builder.Services.AddHttpClient();
 
+// Services
 builder.Services.AddHostedService<ConsumeRAWGGamesService>();
 
 builder.Services.AddScoped<IHealthCheckService, HealthCheckService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IRAWGGamesService, RAWGGamesService>();
 builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<ILfgPostService, LfgPostService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

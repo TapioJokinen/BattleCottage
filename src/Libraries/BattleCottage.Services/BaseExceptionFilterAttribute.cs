@@ -1,8 +1,10 @@
+using System.Data;
 using BattleCottage.Core.Exceptions;
 using BattleCottage.Services.ObjectResults;
 using BattleCottage.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BattleCottage.Services
@@ -23,6 +25,12 @@ namespace BattleCottage.Services
             else if (context.Exception is TokenException || context.Exception is SecurityTokenException)
             {
                 context.Result = new UnauthorizedObjectResult(new MessageResponse(context.Exception.Message));
+            }
+            else if (context.Exception is OperationCanceledException ||
+                    context.Exception is DbUpdateException ||
+                    context.Exception is DBConcurrencyException)
+            {
+                context.Result = new DatabaseErrorObjectResult("Database operation failed. We are so sorry :(");
             }
             else
             {

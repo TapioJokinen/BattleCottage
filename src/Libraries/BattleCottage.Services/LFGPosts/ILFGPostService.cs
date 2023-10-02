@@ -1,10 +1,10 @@
 using BattleCottage.Core.Entities;
 
-namespace BattleCottage.Services.LFGPosts
+namespace BattleCottage.Services.LfgPosts
 {
-    public interface ILFGPostService
+    public interface ILfgPostService
     {
-        void LFGPostFormInputValidator(LFGPostFormInput formInput);
-        Task<LFGPost> CreateLFGPost(User user, LFGPostFormInput formInput);
+        Task LfgPostFormInputValidator(LfgPostFormInput formInput);
+        Task<LfgPost> CreateLfgPost(User user, LfgPostFormInput formInput);
     }
 }

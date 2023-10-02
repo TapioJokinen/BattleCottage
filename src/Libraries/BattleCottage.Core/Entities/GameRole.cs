@@ -2,11 +2,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BattleCottage.Core.Entities
 {
-    public class GameStyle : BaseEntity
+    public class GameRole : BaseEntity
     {
         [Required]
         public required string Name { get; set; }
 
-        public ICollection<LfgPost>? LfgPosts { get; }
+        public List<LfgPostGameRole> LfgPostGameRoles { get; } = new();
     }
 }

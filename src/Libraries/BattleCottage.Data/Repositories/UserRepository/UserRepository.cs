@@ -1,7 +1,6 @@
 ﻿using BattleCottage.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace BattleCottage.Data.Repositories.UserRepository
 {
@@ -14,11 +13,6 @@ namespace BattleCottage.Data.Repositories.UserRepository
         {
             _context = context;
             _userManager = userManager;
-        }
-
-        public Task<User> AddAsync(User entity)
-        {
-            throw new NotImplementedException("`AddAsync` not available for this repository. Use `AddAsyncWithPassword` instead.");
         }
 
         public async Task<IdentityResult> AddUserAsync(User user, string? password)
@@ -38,16 +32,6 @@ namespace BattleCottage.Data.Repositories.UserRepository
             return await _userManager.CheckPasswordAsync(user, password);
         }
 
-        public Task<User> DeleteAsync(User entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ICollection<User>?> Filter(Expression<Func<User, bool>> filter)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<User?> FindByEmailAsync(string? email)
         {
             User? user = await _context.Users
@@ -57,26 +41,11 @@ namespace BattleCottage.Data.Repositories.UserRepository
             return user;
         }
 
-        public Task<User?> FindByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ICollection<User>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<ICollection<string>> GetUserRolesAsync(User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
 
             return await _userManager.GetRolesAsync(user);
-        }
-
-        public Task<User> UpdateEntityAsync(User entity)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<IdentityResult> UpdateUserAsync(User entity)

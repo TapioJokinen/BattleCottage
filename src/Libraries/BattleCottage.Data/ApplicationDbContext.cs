@@ -17,7 +17,9 @@ namespace BattleCottage.Data
         public DbSet<Game> Games => Set<Game>();
         public DbSet<GameMode> GameModes => Set<GameMode>();
         public DbSet<GameStyle> GameStyles => Set<GameStyle>();
-        public DbSet<LFGPost> LFGPosts => Set<LFGPost>();
+        public DbSet<GameRole> GameRoles => Set<GameRole>();
+        public DbSet<LfgPost> LfgPosts => Set<LfgPost>();
+        public DbSet<LfgPostGameRole> LfgPostGameRoles => Set<LfgPostGameRole>();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -41,6 +43,10 @@ namespace BattleCottage.Data
                 .HasIndex(x => x.Name)
                 .IsUnique();
 
+            builder.Entity<GameRole>()
+                .HasIndex(x => x.Name)
+                .IsUnique();
+
             builder.Entity<GameMode>()
                 .HasData(
                     new GameMode { Id = 1, Name = "PvP", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
@@ -51,6 +57,33 @@ namespace BattleCottage.Data
                 .HasData(
                     new GameStyle { Id = 1, Name = "Casual", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
                     new GameStyle { Id = 2, Name = "Competitive", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow }
+                );
+
+            builder.Entity<GameRole>()
+                .HasData(
+                    new GameRole { Id = 1, Name = "Tank", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 2, Name = "Healer", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 3, Name = "DPS", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 4, Name = "Top Lane", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 5, Name = "Bottom Lane", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 6, Name = "Mid Lane", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 7, Name = "Jungle", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 8, Name = "Support", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 9, Name = "Entry Fragger", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 10, Name = "ReFragger", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 11, Name = "Strategy Caller", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 12, Name = "Lurker", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 13, Name = "Awper", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 14, Name = "Combat Support", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 15, Name = "Medic", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 16, Name = "Assault", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 17, Name = "Recon", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 18, Name = "Friendly", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 19, Name = "Funny", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 20, Name = "Serious", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 21, Name = "e-Girl", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 22, Name = "Silent", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow },
+                    new GameRole { Id = 23, Name = "Carry", DateAdded = DateTime.UtcNow, DateUpdated = DateTime.UtcNow }
                 );
         }
     }

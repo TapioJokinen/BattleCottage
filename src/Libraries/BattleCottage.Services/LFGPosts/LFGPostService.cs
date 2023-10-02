@@ -1,35 +1,99 @@
 using BattleCottage.Core.Entities;
-using BattleCottage.Data.Repositories.GameModeRepository;
-using BattleCottage.Data.Repositories.GameStyleRepository;
+using BattleCottage.Core.Exceptions;
+using BattleCottage.Data;
+using BattleCottage.Data.Repositories;
+using BattleCottage.Services.LfgPosts.Constants;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
-namespace BattleCottage.Services.LFGPosts
+namespace BattleCottage.Services.LfgPosts
 {
-    public class LFGPostService : ILFGPostService
+    public class LfgPostService : ILfgPostService
     {
-        private readonly IGameModeRepository _gameModeRepository;
-        private readonly IGameStyleRepository _gameStyleRepository;
+        private readonly ApplicationDbContext _context;
+        private readonly IRepository<GameMode> _gameModeRepository;
+        private readonly IRepository<GameStyle> _gameStyleRepository;
+        private readonly IRepository<Game> _gameRepository;
+        private readonly IRepository<LfgPost> _lfgPostRepository;
+        private readonly IRepository<GameRole> _gameRoleRepository;
+        private readonly IRepository<LfgPostGameRole> _lfgPostGameRoleRepository;
 
-        public LFGPostService(IGameModeRepository gameModeRepository, IGameStyleRepository gameStyleRepository)
+        public LfgPostService(ApplicationDbContext context,
+            IRepository<GameMode> gameModeRepository,
+            IRepository<Game> gameRepository,
+            IRepository<GameStyle> gameStyleRepository,
+            IRepository<GameRole> gameRoleRepository,
+            IRepository<LfgPost> LfgPostRepository,
+            IRepository<LfgPostGameRole> LfgPostGameRoleRepository
+        )
         {
+            _context = context;
+            _gameRepository = gameRepository;
             _gameModeRepository = gameModeRepository;
             _gameStyleRepository = gameStyleRepository;
+            _gameRoleRepository = gameRoleRepository;
+            _lfgPostRepository = LfgPostRepository;
+            _lfgPostGameRoleRepository = LfgPostGameRoleRepository;
         }
 
-        public Task<LFGPost> CreateLFGPost(User user, LFGPostFormInput formInput)
+        public async Task<LfgPost> CreateLfgPost(User user, LfgPostFormInput formInput)
         {
             if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
-            LFGPostFormInputValidator(formInput);
+            await LfgPostFormInputValidator(formInput);
 
-            return null;
+
+            using var transaction = _context.Database.BeginTransaction();
+            try
+            {
+                var lfgPost = new LfgPost
+                {
+                    UserId = user.Id,
+                    Title = formInput.Title ?? throw new ArgumentNullException(nameof(formInput.Title)),
+                    Description = formInput.Description ?? throw new ArgumentNullException(nameof(formInput.Description)),
+                    DurationInMinutes = formInput.Duration,
+                    GameId = formInput.GameId,
+                    GameModeId = formInput.GameModeId,
+                    GameStyleId = formInput.GameStyleId,
+                    DateAdded = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                };
+                await _lfgPostRepository.AddAsync(lfgPost);
+                await _context.SaveChangesAsync();
+
+                var LfgPostGameRoles = formInput.GameRoleIds?.Select(gameRoleId => new LfgPostGameRole
+                {
+                    GameRoleId = gameRoleId,
+                    LfgPostId = lfgPost.Id,
+                    DateAdded = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow
+                });
+
+                await _lfgPostGameRoleRepository.AddRangeAsync(LfgPostGameRoles ?? throw new ArgumentNullException(nameof(LfgPostGameRoles)));
+                await _context.SaveChangesAsync();
+
+                transaction.Commit();
+                return lfgPost;
+            }
+            catch (Exception ex)
+            {
+                throw new DbUpdateException("An error occurred while creating the LFG post.");
+            }
+
         }
 
-        public void LFGPostFormInputValidator(LFGPostFormInput formInput)
+        public async Task LfgPostFormInputValidator(LfgPostFormInput formInput)
         {
-            var validDurationsInMinutes = new int[] { 60, 300, 1440, 10080, 43200 };
+            var validDurationsInMinutes = new int[] {
+                (int)Durations.OneHour,
+                (int)Durations.FiveHours,
+                (int)Durations.OneDay,
+                (int)Durations.OneWeek,
+                (int)Durations.ThirtyDays
+            };
 
             if (formInput.Title == null || formInput.Title.Length < 3)
             {
@@ -46,19 +110,31 @@ namespace BattleCottage.Services.LFGPosts
                 throw new ArgumentException("Duration must be one of the following: 60, 300, 1440, 10080, 43200.", nameof(formInput.Duration));
             }
 
-            if (formInput.GameId == null)
+            if (await _gameRepository.FindByIdAsync(formInput.GameId) == null)
             {
-                throw new ArgumentNullException(nameof(formInput.GameId));
+                throw new ObjectNotFoundException($"No game found.");
             }
 
-            if (_gameModeRepository.FindByIdAsync(formInput.GameModeId) == null)
+            if (await _gameModeRepository.FindByIdAsync(formInput.GameModeId) == null)
             {
-                throw new ArgumentNullException(nameof(formInput.GameModeId));
+                throw new ObjectNotFoundException($"No game mode found.");
             }
 
-            if (_gameStyleRepository.FindByIdAsync(formInput.GameStyleId) == null)
+            if (await _gameStyleRepository.FindByIdAsync(formInput.GameStyleId) == null)
             {
-                throw new ArgumentNullException(nameof(formInput.GameStyleId));
+                throw new ObjectNotFoundException($"No game style found.");
+            }
+
+            if (formInput.GameRoleIds == null || formInput.GameRoleIds.Length == 0)
+            {
+                throw new ArgumentException("At least one game role must be selected.", nameof(formInput.GameRoleIds));
+            }
+
+            var gameRoles = await _gameRoleRepository.Filter(x => formInput.GameRoleIds.Contains(x.Id));
+
+            if (gameRoles == null || gameRoles.Count != formInput.GameRoleIds.Distinct().Count())
+            {
+                throw new ObjectNotFoundException($"One or more game roles were not found.");
             }
         }
     }

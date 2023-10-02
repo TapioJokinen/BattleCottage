@@ -1,6 +1,6 @@
 ﻿using BattleCottage.Core;
 using BattleCottage.Core.Entities;
-using BattleCottage.Data.Repositories.GameRepository;
+using BattleCottage.Data.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
@@ -11,7 +11,7 @@ namespace BattleCottage.Services.RAWG
     {
         private readonly ILogger _logger;
         private readonly IConfiguration _configuration;
-        private readonly IGameRepository _gameRepository;
+        private readonly IRepository<Game> _gameRepository;
         private readonly IHttpClientFactory _httpClientFactory;
 
         // We run this background task once a week.
@@ -20,7 +20,7 @@ namespace BattleCottage.Services.RAWG
         public RAWGGamesService(
             ILogger<RAWGGamesService> logger,
             IConfiguration configuration,
-            IGameRepository gameRepository,
+            IRepository<Game> gameRepository,
             IHttpClientFactory httpClientFactory
             )
         {
@@ -111,12 +111,12 @@ namespace BattleCottage.Services.RAWG
                 IList<string> fetchedGameNames = games.Select(x => x.Name).Distinct().ToList();
 
                 // Get all Games from the database which names are found in 'fetchedGameNames'.
-                ICollection<Game>? gamesInDb = await _gameRepository.Filter(x => fetchedGameNames.Contains(x.Name));
+                IList<Game>? gamesInDb = await _gameRepository.Filter(x => fetchedGameNames.Contains(x.Name));
 
                 // If none of the games are found in the database write them all.
                 if (gamesInDb == null)
                 {
-                    await _gameRepository.CreateMultiple(games);
+                    await _gameRepository.AddRangeAsync(games);
                 }
                 else
                 {
@@ -126,8 +126,9 @@ namespace BattleCottage.Services.RAWG
                     // Filter out all games which are not in the database yet.
                     List<Game> gamesNotInDb = games.Where(x => !gameNamesInDb.Contains(x.Name)).ToList();
 
-                    await _gameRepository.CreateMultiple(gamesNotInDb);
+                    await _gameRepository.AddRangeAsync(gamesNotInDb);
                 }
+                await _gameRepository.SaveChangesAsync();
             }
 
             await Task.Delay(_delay, cancellationToken);

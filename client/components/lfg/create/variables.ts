@@ -62,17 +62,17 @@ export const firstColRoles = [
 export const secondColRoles = [
   {
     text: 'Top Lane',
-    value: 'toplane',
+    value: 'top_lane',
     icon: TopLaneIcon,
   },
   {
-    text: 'Bot Lane',
-    value: 'botlane',
+    text: 'Bottom Lane',
+    value: 'bottom_lane',
     icon: BottomLaneIcon,
   },
   {
     text: 'Mid Lane',
-    value: 'midlane',
+    value: 'mid_lane',
     icon: MidLaneIcon,
   },
   {
@@ -90,17 +90,17 @@ export const secondColRoles = [
 export const thirdColRoles = [
   {
     text: 'Entry Fragger',
-    value: 'entryfragger',
+    value: 'entry_fragger',
     icon: EntryFraggerIcon,
   },
   {
     text: 'Refragger',
-    value: 'refragger',
+    value: 're_fragger',
     icon: RefraggerIcon,
   },
   {
     text: 'Strategy Caller',
-    value: 'strategycaller',
+    value: 'strategy_caller',
     icon: StrategyCallerIcon,
   },
   {
@@ -118,7 +118,7 @@ export const thirdColRoles = [
 export const fourthColRoles = [
   {
     text: 'Combat Support',
-    value: 'combatsupport',
+    value: 'combat_support',
     icon: CombatSupportIcon,
   },
   {
@@ -156,7 +156,7 @@ export const fifthColRoles = [
   },
   {
     text: 'e-Girl',
-    value: 'egirl',
+    value: 'e_girl',
     icon: EGirlIcon,
   },
   {

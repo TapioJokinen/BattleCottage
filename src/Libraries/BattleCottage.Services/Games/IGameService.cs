@@ -4,7 +4,7 @@ namespace BattleCottage.Services.Games
 {
     public interface IGameService
     {
-        Task<ICollection<Game>?> GetGamesWithNameLike(string? name);
-        Task<ICollection<Game>?> GetAllGames();
+        Task<IList<Game>?> GetGamesWithNameLike(string? name);
+        Task<IList<Game>?> GetAllGames();
     }
 }

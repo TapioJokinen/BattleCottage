@@ -1,19 +1,24 @@
-﻿using System.Linq.Expressions;
+﻿
+using System.Linq.Expressions;
 
 namespace BattleCottage.Data.Repositories
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<TEntity> where TEntity : class
     {
-        Task<ICollection<T>> GetAllAsync();
+        Task<TEntity> AddAsync(TEntity entity);
 
-        Task<ICollection<T>?> Filter(Expression<Func<T, bool>> filter);
+        Task<IList<TEntity>?> AddRangeAsync(IEnumerable<TEntity> entities);
 
-        Task<T?> FindByIdAsync(int id);
+        Task<TEntity> DeleteAsync(TEntity entity);
 
-        Task<T> AddAsync(T entity);
+        Task<TEntity?> FindByIdAsync(int id);
 
-        Task<T> UpdateEntityAsync(T entity);
+        Task<TEntity> UpdateEntityAsync(TEntity entity);
 
-        Task<T> DeleteAsync(T entity);
+        Task<IList<TEntity>?> GetAllAsync();
+
+        Task<IList<TEntity>?> Filter(Expression<Func<TEntity, bool>> filter);
+
+        Task SaveChangesAsync();
     }
 }

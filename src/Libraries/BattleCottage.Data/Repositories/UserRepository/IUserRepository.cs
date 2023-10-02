@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BattleCottage.Data.Repositories.UserRepository
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IUserRepository
     {
         Task<IdentityResult> AddUserAsync(User user, string? password);
 

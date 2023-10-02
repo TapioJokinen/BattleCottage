@@ -1,14 +1,14 @@
-namespace BattleCottage.Services.LFGPosts
+namespace BattleCottage.Services.LfgPosts
 
 {
-    public class LFGPostFormInput
+    public class LfgPostFormInput
     {
         public string? Title { get; set; }
         public string? Description { get; set; }
         public int Duration { get; set; }
-        public string? GameId { get; set; }
+        public int GameId { get; set; }
         public int GameModeId { get; set; }
         public int GameStyleId { get; set; }
-        public string[]? Roles { get; set; }
+        public int[]? GameRoleIds { get; set; }
     }
 }

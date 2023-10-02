@@ -1,31 +1,31 @@
 ﻿using BattleCottage.Core.Entities;
 using BattleCottage.Core.Exceptions;
-using BattleCottage.Data.Repositories.GameRepository;
+using BattleCottage.Data.Repositories;
 
 namespace BattleCottage.Services.Games
 {
     public class GameService : IGameService
     {
-        private readonly IGameRepository _gameRepository;
+        private readonly IRepository<Game> _gameRepository;
 
-        public GameService(IGameRepository gameRepository)
+        public GameService(IRepository<Game> gameRepository)
         {
             _gameRepository = gameRepository;
         }
 
-        public async Task<ICollection<Game>?> GetAllGames()
+        public async Task<IList<Game>?> GetAllGames()
         {
             return await _gameRepository.GetAllAsync();
         }
 
-        public async Task<ICollection<Game>?> GetGamesWithNameLike(string? name)
+        public async Task<IList<Game>?> GetGamesWithNameLike(string? name)
         {
             if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException(nameof(name));
             }
 
-            ICollection<Game>? games = await _gameRepository.Filter(game => game.Name.ToLower().Contains(name.ToLower()));
+            IList<Game>? games = await _gameRepository.Filter(game => game.Name != null && game.Name.ToLower().Contains(name.ToLower()));
 
             if (games == null || games.Count == 0)
             {

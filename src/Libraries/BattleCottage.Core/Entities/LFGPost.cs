@@ -1,15 +1,34 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace BattleCottage.Core.Entities
 {
-    public class LFGPost : BaseEntity
+    public class LfgPost : BaseEntity
     {
+        [Required]
+        public required string UserId { get; set; }
+        public User User { get; set; } = null!;
+
+        [Required]
         public required string Title { get; set; }
+
+        [Required]
         public required string Description { get; set; }
-        public required int DurationInMinutes { get; set; }
-        public required int GameModeId { get; set; }
-        public required GameMode GameMode { get; set; }
-        public required int GameStyleId { get; set; }
-        public required GameStyle GameStyle { get; set; }
-        public required int GameId { get; set; }
-        public required Game Game { get; set; }
+
+        [Required]
+        public int DurationInMinutes { get; set; }
+
+        [Required]
+        public int GameModeId { get; set; }
+        public GameMode GameMode { get; set; } = null!;
+
+        [Required]
+        public int GameStyleId { get; set; }
+        public GameStyle GameStyle { get; set; } = null!;
+
+        [Required]
+        public int GameId { get; set; }
+        public Game Game { get; set; } = null!;
+
+        public List<LfgPostGameRole>? LfgPostGameRoles { get; }
     }
 }

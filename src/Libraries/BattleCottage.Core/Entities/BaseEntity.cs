@@ -7,8 +7,10 @@ namespace BattleCottage.Core.Entities
         [Key]
         [Required]
         public int Id { get; set; }
+
         [Required]
         public DateTime DateAdded { get; set; }
+
         [Required]
         public DateTime DateUpdated { get; set; }
     }

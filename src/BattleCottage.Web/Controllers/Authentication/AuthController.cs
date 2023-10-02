@@ -1,5 +1,4 @@
-﻿using BattleCottage.Core.Entities;
-using BattleCottage.Data.Repositories.UserRepository;
+﻿using BattleCottage.Data.Repositories.UserRepository;
 using BattleCottage.Services.Authentication;
 using BattleCottage.Services.Token;
 using Microsoft.AspNetCore.Authorization;
