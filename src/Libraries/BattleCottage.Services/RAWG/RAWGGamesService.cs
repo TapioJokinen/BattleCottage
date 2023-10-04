@@ -32,11 +32,11 @@ namespace BattleCottage.Services.RAWG
 
         public async Task DoWork(CancellationToken cancellationToken)
         {
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-            {
-                _logger.LogInformation("Dev environment, do not run work.");
-                return;
-            }
+            // if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            // {
+            //     _logger.LogInformation("Dev environment, do not run work.");
+            //     return;
+            // }
 
             string gamesUrl = _configuration["RAWG:GamesUrl"] ?? throw new ArgumentException(nameof(gamesUrl));
             string apiKey = _configuration["RAWG:APIKey"] ?? throw new ArgumentException(nameof(apiKey));
@@ -56,7 +56,7 @@ namespace BattleCottage.Services.RAWG
 
                 var games = new List<Game>();
 
-                string url = $"{gamesUrl}?key={apiKey}&page={pageNumber}&page_size=10000&tags=multiplayer&platform=4&ordering=released";
+                string url = $"{gamesUrl}?key={apiKey}&page={pageNumber}&page_size=700&platform=4&tags=7";
 
                 _logger.LogInformation("Fetching page {PageNumber}.", pageNumber);
 

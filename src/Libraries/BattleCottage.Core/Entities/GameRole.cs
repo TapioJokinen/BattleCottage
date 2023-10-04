@@ -7,6 +7,6 @@ namespace BattleCottage.Core.Entities
         [Required]
         public required string Name { get; set; }
 
-        public List<LfgPostGameRole> LfgPostGameRoles { get; } = new();
+        public List<LFGPostGameRole> LFGPostGameRoles { get; } = new();
     }
 }

@@ -1,4 +1,4 @@
-namespace BattleCottage.Services.LfgPosts.Constants
+namespace BattleCottage.Services.LFGPosts.Constants
 {
     public enum Durations
     {

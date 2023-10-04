@@ -18,8 +18,8 @@ namespace BattleCottage.Data
         public DbSet<GameMode> GameModes => Set<GameMode>();
         public DbSet<GameStyle> GameStyles => Set<GameStyle>();
         public DbSet<GameRole> GameRoles => Set<GameRole>();
-        public DbSet<LfgPost> LfgPosts => Set<LfgPost>();
-        public DbSet<LfgPostGameRole> LfgPostGameRoles => Set<LfgPostGameRole>();
+        public DbSet<LFGPost> LFGPosts => Set<LFGPost>();
+        public DbSet<LFGPostGameRole> LFGPostGameRoles => Set<LFGPostGameRole>();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

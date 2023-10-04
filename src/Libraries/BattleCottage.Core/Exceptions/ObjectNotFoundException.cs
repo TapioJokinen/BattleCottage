@@ -4,6 +4,7 @@ namespace BattleCottage.Core.Exceptions
     {
         public ObjectNotFoundException(string message) : base(message)
         {
+
         }
     }
 }

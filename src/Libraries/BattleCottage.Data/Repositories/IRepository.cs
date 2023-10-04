@@ -19,6 +19,6 @@ namespace BattleCottage.Data.Repositories
 
         Task<IList<TEntity>?> Filter(Expression<Func<TEntity, bool>> filter);
 
-        Task SaveChangesAsync();
+        Task<int> SaveChangesAsync();
     }
 }

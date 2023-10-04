@@ -1,6 +1,5 @@
 using System.Linq.Expressions;
 using BattleCottage.Core.Entities;
-using BattleCottage.Core.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace BattleCottage.Data.Repositories
@@ -54,11 +53,20 @@ namespace BattleCottage.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task SaveChangesAsync()
+        /// <summary>
+        /// Saves all changes made in this context to the underlying database asynchronously.
+        /// </summary>
+        /// <returns>A task that represents the asynchronous save operation. The task result contains the number of state entries written to the database.</returns>
+        public async Task<int> SaveChangesAsync()
         {
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Adds a range of entities to the repository asynchronously.
+        /// </summary>
+        /// <param name="entities">The entities to add.</param>
+        /// <returns>A list of added entities.</returns>
         public async Task<IList<TEntity>?> AddRangeAsync(IEnumerable<TEntity> entities)
         {
             await _context.Set<TEntity>().AddRangeAsync(entities);

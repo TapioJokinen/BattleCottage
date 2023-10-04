@@ -3,36 +3,35 @@ using BattleCottage.Core.Entities;
 namespace BattleCottage.Web.Dtos
 {
 
-    public class LfgPostDto
+    public class LFGPostDto
     {
         public class GameRoleDto
         {
-            public GameRoleDto(LfgPostGameRole lfgPostGameRole)
+            public GameRoleDto(LFGPostGameRole LFGPostGameRole)
             {
-                GameRoleId = lfgPostGameRole.GameRoleId;
-                GameRole = lfgPostGameRole.GameRole.Name;
+                GameRoleId = LFGPostGameRole.GameRoleId;
+                GameRole = LFGPostGameRole.GameRole.Name;
             }
 
             public int GameRoleId { get; set; }
             public string? GameRole { get; set; } = null!;
         }
 
-        public LfgPostDto(LfgPost lfgPost)
+        public LFGPostDto(LFGPost LFGPost)
         {
-            Id = lfgPost.Id;
-            DateAdded = lfgPost.DateAdded;
-            Description = lfgPost.Description;
-            DurationInMinutes = lfgPost.DurationInMinutes;
-            GameId = lfgPost.GameId;
-            GameName = lfgPost.Game.Name;
-            GameModeId = lfgPost.GameModeId;
-            GameMode = lfgPost.GameMode.Name;
-            GameStyleId = lfgPost.GameStyleId;
-            GameStyle = lfgPost.GameStyle.Name;
-            Title = lfgPost.Title;
-            UserId = lfgPost.UserId;
-            UserEmail = lfgPost.User.Email;
-            GameRoles = lfgPost.LfgPostGameRoles != null ? lfgPost.LfgPostGameRoles.Select(x => new GameRoleDto(x)).ToList() : new List<GameRoleDto>();
+            Id = LFGPost.Id;
+            DateAdded = LFGPost.DateAdded;
+            Description = LFGPost.Description;
+            DurationInMinutes = LFGPost.DurationInMinutes;
+            GameId = LFGPost.GameId;
+            GameName = LFGPost.Game.Name;
+            GameModeId = LFGPost.GameModeId;
+            GameMode = LFGPost.GameMode.Name;
+            GameStyleId = LFGPost.GameStyleId;
+            GameStyle = LFGPost.GameStyle.Name;
+            Title = LFGPost.Title;
+            UserId = LFGPost.UserId;
+            GameRoles = LFGPost.LFGPostGameRoles != null ? LFGPost.LFGPostGameRoles.Select(x => new GameRoleDto(x)).ToList() : new List<GameRoleDto>();
         }
 
         public int Id { get; set; }
@@ -47,7 +46,6 @@ namespace BattleCottage.Web.Dtos
         public string GameStyle { get; set; }
         public string Title { get; set; }
         public string UserId { get; set; }
-        public string UserEmail { get; set; }
         public IList<GameRoleDto> GameRoles { get; set; }
     }
 }

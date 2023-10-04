@@ -7,6 +7,6 @@ namespace BattleCottage.Core.Entities
         [Required]
         public required string Name { get; set; }
 
-        public ICollection<LfgPost>? LfgPosts { get; }
+        public ICollection<LFGPost>? LFGPosts { get; }
     }
 }

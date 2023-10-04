@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BattleCottage.Core.Entities
 {
-    public class LfgPost : BaseEntity
+    public class LFGPost : BaseEntity
     {
         [Required]
         public required string UserId { get; set; }
@@ -29,6 +29,6 @@ namespace BattleCottage.Core.Entities
         public int GameId { get; set; }
         public Game Game { get; set; } = null!;
 
-        public List<LfgPostGameRole>? LfgPostGameRoles { get; }
+        public List<LFGPostGameRole>? LFGPostGameRoles { get; }
     }
 }

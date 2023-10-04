@@ -1,18 +1,18 @@
 using BattleCottage.Data.Repositories.UserRepository;
-using BattleCottage.Services.LfgPosts;
+using BattleCottage.Services.LFGPosts;
 using BattleCottage.Web.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BattleCottage.Web.Controllers.LfgPostController
+namespace BattleCottage.Web.Controllers.LFGPostController
 {
-    public class LfgPostController : APIControllerBase
+    public class LFGPostController : APIControllerBase
     {
-        private readonly ILfgPostService _LfgPostService;
+        private readonly ILFGPostService _LFGPostService;
         private readonly IUserRepository _userRepository;
 
-        public LfgPostController(ILfgPostService LfgPostService, IUserRepository userRepository)
+        public LFGPostController(ILFGPostService LFGPostService, IUserRepository userRepository)
         {
-            _LfgPostService = LfgPostService;
+            _LFGPostService = LFGPostService;
             _userRepository = userRepository;
         }
 
@@ -21,7 +21,7 @@ namespace BattleCottage.Web.Controllers.LfgPostController
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("/api/[controller]")]
-        public async Task<IActionResult> CreateLfgPost([FromBody] LfgPostFormInput LfgPostFormInput)
+        public async Task<IActionResult> CreateLFGPost([FromBody] LFGPostFormInput LFGPostFormInput)
         {
             var email = HttpContext.User.Identity?.Name;
 
@@ -37,9 +37,9 @@ namespace BattleCottage.Web.Controllers.LfgPostController
                 return Unauthorized(new MessageResponse("Invalid credentials."));
             }
 
-            var lfgPost = await _LfgPostService.CreateLfgPost(user, LfgPostFormInput);
+            var lfgPost = await _LFGPostService.CreateLFGPost(user, LFGPostFormInput);
 
-            return Ok(new LfgPostDto(lfgPost));
+            return Ok(new LFGPostDto(lfgPost));
         }
     }
 }

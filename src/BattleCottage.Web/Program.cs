@@ -6,14 +6,13 @@ using BattleCottage.Services;
 using BattleCottage.Services.Authentication;
 using BattleCottage.Services.Games;
 using BattleCottage.Services.HealthCheck;
-using BattleCottage.Services.LfgPosts;
+using BattleCottage.Services.LFGPosts;
 using BattleCottage.Services.RAWG;
 using BattleCottage.Services.Token;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using System.Text.Json.Serialization;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -106,7 +105,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRAWGGamesService, RAWGGamesService>();
 builder.Services.AddScoped<IGameService, GameService>();
-builder.Services.AddScoped<ILfgPostService, LfgPostService>();
+builder.Services.AddScoped<ILFGPostService, LFGPostService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

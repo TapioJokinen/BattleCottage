@@ -1,7 +1,7 @@
-namespace BattleCottage.Services.LfgPosts
+namespace BattleCottage.Services.LFGPosts
 
 {
-    public class LfgPostFormInput
+    public class LFGPostFormInput
     {
         public string? Title { get; set; }
         public string? Description { get; set; }

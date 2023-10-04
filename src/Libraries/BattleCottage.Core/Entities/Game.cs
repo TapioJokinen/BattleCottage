@@ -9,6 +9,6 @@ namespace BattleCottage.Core.Entities
 
         public string? BackgroundImage { get; set; }
 
-        public ICollection<LfgPost>? LfgPosts { get; }
+        public ICollection<LFGPost>? LFGPosts { get; }
     }
 }

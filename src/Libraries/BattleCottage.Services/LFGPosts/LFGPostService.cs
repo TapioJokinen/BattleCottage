@@ -2,29 +2,28 @@ using BattleCottage.Core.Entities;
 using BattleCottage.Core.Exceptions;
 using BattleCottage.Data;
 using BattleCottage.Data.Repositories;
-using BattleCottage.Services.LfgPosts.Constants;
+using BattleCottage.Services.LFGPosts.Constants;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 
-namespace BattleCottage.Services.LfgPosts
+namespace BattleCottage.Services.LFGPosts
 {
-    public class LfgPostService : ILfgPostService
+    public class LFGPostService : ILFGPostService
     {
         private readonly ApplicationDbContext _context;
         private readonly IRepository<GameMode> _gameModeRepository;
         private readonly IRepository<GameStyle> _gameStyleRepository;
         private readonly IRepository<Game> _gameRepository;
-        private readonly IRepository<LfgPost> _lfgPostRepository;
+        private readonly IRepository<LFGPost> _LFGPostRepository;
         private readonly IRepository<GameRole> _gameRoleRepository;
-        private readonly IRepository<LfgPostGameRole> _lfgPostGameRoleRepository;
+        private readonly IRepository<LFGPostGameRole> _LFGPostGameRoleRepository;
 
-        public LfgPostService(ApplicationDbContext context,
+        public LFGPostService(ApplicationDbContext context,
             IRepository<GameMode> gameModeRepository,
             IRepository<Game> gameRepository,
             IRepository<GameStyle> gameStyleRepository,
             IRepository<GameRole> gameRoleRepository,
-            IRepository<LfgPost> LfgPostRepository,
-            IRepository<LfgPostGameRole> LfgPostGameRoleRepository
+            IRepository<LFGPost> LFGPostRepository,
+            IRepository<LFGPostGameRole> LFGPostGameRoleRepository
         )
         {
             _context = context;
@@ -32,24 +31,24 @@ namespace BattleCottage.Services.LfgPosts
             _gameModeRepository = gameModeRepository;
             _gameStyleRepository = gameStyleRepository;
             _gameRoleRepository = gameRoleRepository;
-            _lfgPostRepository = LfgPostRepository;
-            _lfgPostGameRoleRepository = LfgPostGameRoleRepository;
+            _LFGPostRepository = LFGPostRepository;
+            _LFGPostGameRoleRepository = LFGPostGameRoleRepository;
         }
 
-        public async Task<LfgPost> CreateLfgPost(User user, LfgPostFormInput formInput)
+        public async Task<LFGPost> CreateLFGPost(User user, LFGPostFormInput formInput)
         {
             if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
-            await LfgPostFormInputValidator(formInput);
+            await LFGPostFormInputValidator(formInput);
 
 
             using var transaction = _context.Database.BeginTransaction();
             try
             {
-                var lfgPost = new LfgPost
+                var lfgPost = new LFGPost
                 {
                     UserId = user.Id,
                     Title = formInput.Title ?? throw new ArgumentNullException(nameof(formInput.Title)),
@@ -61,31 +60,31 @@ namespace BattleCottage.Services.LfgPosts
                     DateAdded = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
                 };
-                await _lfgPostRepository.AddAsync(lfgPost);
+                await _LFGPostRepository.AddAsync(lfgPost);
                 await _context.SaveChangesAsync();
 
-                var LfgPostGameRoles = formInput.GameRoleIds?.Select(gameRoleId => new LfgPostGameRole
+                var lfgPostGameRoles = formInput.GameRoleIds?.Select(gameRoleId => new LFGPostGameRole
                 {
                     GameRoleId = gameRoleId,
-                    LfgPostId = lfgPost.Id,
+                    LFGPostId = lfgPost.Id,
                     DateAdded = DateTime.UtcNow,
                     DateUpdated = DateTime.UtcNow
                 });
 
-                await _lfgPostGameRoleRepository.AddRangeAsync(LfgPostGameRoles ?? throw new ArgumentNullException(nameof(LfgPostGameRoles)));
+                await _LFGPostGameRoleRepository.AddRangeAsync(lfgPostGameRoles ?? throw new ArgumentNullException(nameof(lfgPostGameRoles)));
                 await _context.SaveChangesAsync();
 
                 transaction.Commit();
                 return lfgPost;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw new DbUpdateException("An error occurred while creating the LFG post.");
             }
 
         }
 
-        public async Task LfgPostFormInputValidator(LfgPostFormInput formInput)
+        public async Task LFGPostFormInputValidator(LFGPostFormInput formInput)
         {
             var validDurationsInMinutes = new int[] {
                 (int)Durations.OneHour,

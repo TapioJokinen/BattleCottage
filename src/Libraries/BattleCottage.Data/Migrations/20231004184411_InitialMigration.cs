@@ -223,7 +223,7 @@ namespace BattleCottage.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LfgPosts",
+                name: "LFGPosts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -240,27 +240,27 @@ namespace BattleCottage.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LfgPosts", x => x.Id);
+                    table.PrimaryKey("PK_LFGPosts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LfgPosts_AspNetUsers_UserId",
+                        name: "FK_LFGPosts_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_LfgPosts_GameModes_GameModeId",
+                        name: "FK_LFGPosts_GameModes_GameModeId",
                         column: x => x.GameModeId,
                         principalTable: "GameModes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_LfgPosts_GameStyles_GameStyleId",
+                        name: "FK_LFGPosts_GameStyles_GameStyleId",
                         column: x => x.GameStyleId,
                         principalTable: "GameStyles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_LfgPosts_Games_GameId",
+                        name: "FK_LFGPosts_Games_GameId",
                         column: x => x.GameId,
                         principalTable: "Games",
                         principalColumn: "Id",
@@ -268,29 +268,29 @@ namespace BattleCottage.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LfgPostGameRoles",
+                name: "LFGPostGameRoles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    LfgPostId = table.Column<int>(type: "integer", nullable: false),
+                    LFGPostId = table.Column<int>(type: "integer", nullable: false),
                     GameRoleId = table.Column<int>(type: "integer", nullable: false),
                     DateAdded = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LfgPostGameRoles", x => x.Id);
+                    table.PrimaryKey("PK_LFGPostGameRoles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LfgPostGameRoles_GameRoles_GameRoleId",
+                        name: "FK_LFGPostGameRoles_GameRoles_GameRoleId",
                         column: x => x.GameRoleId,
                         principalTable: "GameRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_LfgPostGameRoles_LfgPosts_LfgPostId",
-                        column: x => x.LfgPostId,
-                        principalTable: "LfgPosts",
+                        name: "FK_LFGPostGameRoles_LFGPosts_LFGPostId",
+                        column: x => x.LFGPostId,
+                        principalTable: "LFGPosts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -300,8 +300,8 @@ namespace BattleCottage.Data.Migrations
                 columns: new[] { "Id", "DateAdded", "DateUpdated", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(2950), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(2951), "PvP" },
-                    { 2, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(2952), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(2953), "PvE" }
+                    { 1, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(8904), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(8904), "PvP" },
+                    { 2, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(8905), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(8905), "PvE" }
                 });
 
             migrationBuilder.InsertData(
@@ -309,29 +309,29 @@ namespace BattleCottage.Data.Migrations
                 columns: new[] { "Id", "DateAdded", "DateUpdated", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3094), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3095), "Tank" },
-                    { 2, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3096), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3096), "Healer" },
-                    { 3, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3097), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3097), "DPS" },
-                    { 4, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3098), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3099), "Top Lane" },
-                    { 5, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3100), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3100), "Bottom Lane" },
-                    { 6, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3101), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3101), "Mid Lane" },
-                    { 7, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3102), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3103), "Jungle" },
-                    { 8, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3103), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3104), "Support" },
-                    { 9, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3105), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3105), "Entry Fragger" },
-                    { 10, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3106), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3106), "ReFragger" },
-                    { 11, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3107), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3108), "Strategy Caller" },
-                    { 12, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3109), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3109), "Lurker" },
-                    { 13, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3110), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3110), "Awper" },
-                    { 14, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3111), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3112), "Combat Support" },
-                    { 15, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3113), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3113), "Medic" },
-                    { 16, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3114), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3114), "Assault" },
-                    { 17, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3115), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3115), "Recon" },
-                    { 18, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3116), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3117), "Friendly" },
-                    { 19, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3118), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3118), "Funny" },
-                    { 20, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3119), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3119), "Serious" },
-                    { 21, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3120), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3121), "e-Girl" },
-                    { 22, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3122), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3122), "Silent" },
-                    { 23, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3123), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3123), "Carry" }
+                    { 1, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9062), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9063), "Tank" },
+                    { 2, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9064), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9064), "Healer" },
+                    { 3, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9065), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9065), "DPS" },
+                    { 4, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9066), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9067), "Top Lane" },
+                    { 5, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9068), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9068), "Bottom Lane" },
+                    { 6, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9069), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9069), "Mid Lane" },
+                    { 7, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9070), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9071), "Jungle" },
+                    { 8, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9072), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9072), "Support" },
+                    { 9, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9073), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9073), "Entry Fragger" },
+                    { 10, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9074), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9075), "ReFragger" },
+                    { 11, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9075), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9076), "Strategy Caller" },
+                    { 12, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9077), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9077), "Lurker" },
+                    { 13, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9078), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9078), "Awper" },
+                    { 14, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9079), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9080), "Combat Support" },
+                    { 15, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9081), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9081), "Medic" },
+                    { 16, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9082), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9082), "Assault" },
+                    { 17, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9083), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9084), "Recon" },
+                    { 18, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9085), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9085), "Friendly" },
+                    { 19, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9086), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9086), "Funny" },
+                    { 20, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9087), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9088), "Serious" },
+                    { 21, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9089), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9089), "e-Girl" },
+                    { 22, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9090), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9090), "Silent" },
+                    { 23, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9091), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9091), "Carry" }
                 });
 
             migrationBuilder.InsertData(
@@ -339,8 +339,8 @@ namespace BattleCottage.Data.Migrations
                 columns: new[] { "Id", "DateAdded", "DateUpdated", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3080), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3080), "Casual" },
-                    { 2, new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3081), new DateTime(2023, 10, 1, 11, 57, 14, 322, DateTimeKind.Utc).AddTicks(3081), "Competitive" }
+                    { 1, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9047), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9048), "Casual" },
+                    { 2, new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9049), new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9049), "Competitive" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -405,33 +405,33 @@ namespace BattleCottage.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_LfgPostGameRoles_GameRoleId",
-                table: "LfgPostGameRoles",
+                name: "IX_LFGPostGameRoles_GameRoleId",
+                table: "LFGPostGameRoles",
                 column: "GameRoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LfgPostGameRoles_LfgPostId",
-                table: "LfgPostGameRoles",
-                column: "LfgPostId");
+                name: "IX_LFGPostGameRoles_LFGPostId",
+                table: "LFGPostGameRoles",
+                column: "LFGPostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LfgPosts_GameId",
-                table: "LfgPosts",
+                name: "IX_LFGPosts_GameId",
+                table: "LFGPosts",
                 column: "GameId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LfgPosts_GameModeId",
-                table: "LfgPosts",
+                name: "IX_LFGPosts_GameModeId",
+                table: "LFGPosts",
                 column: "GameModeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LfgPosts_GameStyleId",
-                table: "LfgPosts",
+                name: "IX_LFGPosts_GameStyleId",
+                table: "LFGPosts",
                 column: "GameStyleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LfgPosts_UserId",
-                table: "LfgPosts",
+                name: "IX_LFGPosts_UserId",
+                table: "LFGPosts",
                 column: "UserId");
         }
 
@@ -454,7 +454,7 @@ namespace BattleCottage.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "LfgPostGameRoles");
+                name: "LFGPostGameRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -463,7 +463,7 @@ namespace BattleCottage.Data.Migrations
                 name: "GameRoles");
 
             migrationBuilder.DropTable(
-                name: "LfgPosts");
+                name: "LFGPosts");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

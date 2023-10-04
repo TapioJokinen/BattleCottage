@@ -31,7 +31,7 @@ interface OptionFormType {
   roles: string[];
 }
 
-export default function LfgPostForm() {
+export default function LFGPostForm() {
   const session = useSession();
 
   const [optionForm, setOptionForm] = useState<OptionFormType>({

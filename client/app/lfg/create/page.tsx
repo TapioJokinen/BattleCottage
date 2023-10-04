@@ -1,4 +1,4 @@
-import LfgPostForm from '@/components/lfg/create/LfgPostForm';
+import LFGPostForm from '@/components/lfg/create/LFGPostForm';
 
 export default function LFGCreatePage() {
   return (
@@ -7,7 +7,7 @@ export default function LFGCreatePage() {
         <span className="">Create your own LFG post!</span>
       </div>
       <div className="lfg-create-form-container">
-        <LfgPostForm />
+        <LFGPostForm />
       </div>
     </div>
   );
