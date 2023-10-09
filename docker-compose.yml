@@ -44,5 +44,5 @@ networks:
   reverse_proxy:
     external: true
 
-volume:
+volumes:
   battlecottage_static:
