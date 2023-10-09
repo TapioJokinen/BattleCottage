@@ -1,15 +1,14 @@
 services:
-  battlecottage_web:
+  battlecottage_api:
     build:
       context: .
-      dockerfile: Dockerfile
     restart: unless-stopped
     networks:
       - reverse_proxy
     depends_on:
-      - db
+      - battlecottage_db
 
-  db:
+  battlecottage_db:
     image: postgres:latest
     volumes:
       - db:/var/lib/postgresql/data/
@@ -21,6 +20,23 @@ services:
     networks:
       - reverse_proxy
     restart: always
+
+  battlecottage_client:
+    build:
+      context: ./client
+    networks:
+      - reverse_proxy
+    restart: unless-stopped
+  depends_on:
+    - battlecottage_cdn
+    - battlecottage_api
+
+  battlecottage_cdn:
+    build:
+      context: ./client/nginx
+    networks:
+      - reverse_proxy
+    restart: unless-stopped
 
 volumes:
   db:
