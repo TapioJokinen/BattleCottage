@@ -37,9 +37,6 @@ services:
       - battlecottage_static:/app/.next/static
     restart: unless-stopped
 
-volumes:
-  db:
-
 networks:
   reverse_proxy:
     external: true
