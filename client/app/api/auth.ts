@@ -9,7 +9,7 @@ import {
 import { handleResponse, makeRequestHeaders } from './base';
 
 export async function authLogin(credentials: LoginCredentialType) {
-  const response = await fetch(`${BASE_URL}/api/auth/login`, {
+  const response = await fetch(`${BASE_URL}/api/a/login`, {
     method: 'POST',
     headers: makeRequestHeaders(),
     body: JSON.stringify(credentials),
@@ -19,7 +19,7 @@ export async function authLogin(credentials: LoginCredentialType) {
 }
 
 export async function authVerify() {
-  const response = await fetch(`${BASE_URL}/api/auth/verify`, {
+  const response = await fetch(`${BASE_URL}/api/a/verify`, {
     method: 'POST',
     headers: makeRequestHeaders(),
     body: JSON.stringify({}),
@@ -29,7 +29,7 @@ export async function authVerify() {
 }
 
 export async function authRefresh(tokens: Tokens) {
-  const response = await fetch(`${BASE_URL}/api/auth/refresh`, {
+  const response = await fetch(`${BASE_URL}/api/a/refresh`, {
     method: 'POST',
     headers: makeRequestHeaders(),
     body: JSON.stringify(tokens),

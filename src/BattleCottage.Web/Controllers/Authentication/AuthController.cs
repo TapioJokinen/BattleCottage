@@ -23,7 +23,7 @@ namespace BattleCottage.Web.Controllers.AuthController
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Route("/api/[controller]/login")]
+        [Route("/api/a/login")]
         public async Task<IActionResult> Login([FromBody] AuthCredentials loginCredentials)
         {
             var loginResponse = await _authService.Login(loginCredentials);
@@ -39,7 +39,7 @@ namespace BattleCottage.Web.Controllers.AuthController
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Route("/api/[controller]/register")]
+        [Route("/api/a/register")]
         public async Task<IActionResult> Register([FromBody] RegisterCredentials registerCredentials)
         {
             await _authService.Register(registerCredentials);
@@ -50,7 +50,7 @@ namespace BattleCottage.Web.Controllers.AuthController
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Route("/api/[controller]/refresh")]
+        [Route("/api/a/refresh")]
         public async Task<IActionResult> Refresh(TokenModel tokens)
         {
             var refreshedTokens = await _authService.RefreshAccessToken(tokens);
@@ -67,7 +67,7 @@ namespace BattleCottage.Web.Controllers.AuthController
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Route("/api/[controller]/revoke")]
+        [Route("/api/a/revoke")]
         public async Task<IActionResult> Revoke()
         {
             var email = HttpContext.User.Identity?.Name;
