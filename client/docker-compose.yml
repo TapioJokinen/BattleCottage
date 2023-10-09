@@ -1,0 +1,18 @@
+services:
+  battlecottage_client:
+    build:
+      context: .
+    networks:
+      - reverse_proxy
+    restart: unless-stopped
+
+  battlecottage_cdn:
+    build:
+      context: ./nginx
+    networks:
+      - reverse_proxy
+    restart: unless-stopped
+
+networks:
+  reverse_proxy:
+    external: true
