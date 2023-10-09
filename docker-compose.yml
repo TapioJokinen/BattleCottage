@@ -24,6 +24,8 @@ services:
       context: ./client
     networks:
       - reverse_proxy
+    volumes:
+      - battlecottage_static:/app/.next/static
     restart: unless-stopped
 
   battlecottage_cdn:
@@ -31,6 +33,8 @@ services:
       context: ./client/nginx
     networks:
       - reverse_proxy
+    volumes:
+      - battlecottage_static:/app/.next/static
     restart: unless-stopped
 
 volumes:
@@ -39,3 +43,6 @@ volumes:
 networks:
   reverse_proxy:
     external: true
+
+volume:
+  battlecottage_static:
