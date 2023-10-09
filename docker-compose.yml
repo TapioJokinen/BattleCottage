@@ -22,8 +22,6 @@ services:
   battlecottage_client:
     build:
       context: ./client
-    ports:
-      - 3000:3000
     networks:
       - reverse_proxy
     volumes:

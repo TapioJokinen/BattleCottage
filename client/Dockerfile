@@ -29,6 +29,4 @@ COPY --from=builder /app/package.json ./package.json
 
 USER nextjs
 
-ENV PORT 3000
-
 CMD ["npm", "start"]
