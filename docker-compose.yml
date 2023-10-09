@@ -27,9 +27,9 @@ services:
     networks:
       - reverse_proxy
     restart: unless-stopped
-  depends_on:
-    - battlecottage_cdn
-    - battlecottage_api
+    depends_on:
+      - battlecottage_cdn
+      - battlecottage_api
 
   battlecottage_cdn:
     build:
@@ -37,6 +37,8 @@ services:
     networks:
       - reverse_proxy
     restart: unless-stopped
+    depends_on:
+      - battlecottage_api
 
 volumes:
   db:
