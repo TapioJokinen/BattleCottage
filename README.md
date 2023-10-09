@@ -1,3 +1,3 @@
 # BattleCottage
 
-_Check if it's alive http://battlecottage.com/api/healthcheck ( sorry, no https yet :[ )_
+_Check if it's alive https://battlecottage.com/api/healthcheck_
