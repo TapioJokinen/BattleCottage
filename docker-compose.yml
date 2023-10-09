@@ -26,6 +26,7 @@ services:
       - reverse_proxy
     volumes:
       - battlecottage_static:/app/.next/static
+      - battlecottage_public:/app/public
     restart: unless-stopped
 
   battlecottage_cdn:
@@ -35,11 +36,13 @@ services:
       - reverse_proxy
     volumes:
       - battlecottage_static:/app/.next/static
+      - battlecottage_public:/app/public
     restart: unless-stopped
 
 volumes:
   db:
   battlecottage_static:
+  battlecottage_public:
 
 networks:
   reverse_proxy:
