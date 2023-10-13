@@ -2,6 +2,8 @@ FROM nginx:1.25.2-alpine
 
 WORKDIR /
 
-COPY ./nginx.conf /etc/nginx/nginx.conf
+RUN rm /etc/nginx/conf.d/default.conf
+
+COPY nginx.conf /etc/nginx/conf.d
 
 CMD ["nginx", "-g", "daemon off;"]
