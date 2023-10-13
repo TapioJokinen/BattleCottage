@@ -32,8 +32,7 @@ namespace BattleCottage.Services.RAWG
 
         public async Task DoWork(CancellationToken cancellationToken)
         {
-            return;
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Develpoment")
             {
                 _logger.LogInformation("Dev environment, do not run work.");
                 return;
