@@ -3,18 +3,22 @@ services:
     build:
       context: .
     restart: unless-stopped
+    ports:
+      - 8000:80
     networks:
       - reverse_proxy
+    depends_on:
+      - battlecottage_db
 
   battlecottage_db:
     image: postgres:latest
     volumes:
-      - db:/var/lib/postgresql/data/
+      - battlecottage_db:/var/lib/postgresql/data/
+    ports:
+      - 6543:5432
     environment:
       POSTGRES_PASSWORD: database_password
       POSTGRES_DB: battlecottage
-    ports:
-      - 6543:5432
     networks:
       - reverse_proxy
     restart: always
@@ -22,6 +26,8 @@ services:
   battlecottage_client:
     build:
       context: ./client
+    ports:
+      - 3000:3000
     networks:
       - reverse_proxy
     volumes:
@@ -40,7 +46,7 @@ services:
     restart: unless-stopped
 
 volumes:
-  db:
+  battlecottage_db:
   battlecottage_static:
   battlecottage_public:
 

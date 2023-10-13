@@ -32,11 +32,12 @@ namespace BattleCottage.Services.RAWG
 
         public async Task DoWork(CancellationToken cancellationToken)
         {
-            // if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-            // {
-            //     _logger.LogInformation("Dev environment, do not run work.");
-            //     return;
-            // }
+            return;
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            {
+                _logger.LogInformation("Dev environment, do not run work.");
+                return;
+            }
 
             string gamesUrl = _configuration["RAWG:GamesUrl"] ?? throw new ArgumentException(nameof(gamesUrl));
             string apiKey = _configuration["RAWG:APIKey"] ?? throw new ArgumentException(nameof(apiKey));
