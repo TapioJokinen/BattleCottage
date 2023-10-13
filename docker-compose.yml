@@ -3,8 +3,6 @@ services:
     build:
       context: .
     restart: unless-stopped
-    ports:
-      - 8000:80
     networks:
       - reverse_proxy
     depends_on:
@@ -26,24 +24,24 @@ services:
   battlecottage_client:
     build:
       context: ./client
-    ports:
-      - 3000:3000
+    expose:
+      - 3000
     networks:
       - reverse_proxy
     volumes:
       - battlecottage_static:/app/.next/static
-      - battlecottage_public:/public
     restart: unless-stopped
 
   battlecottage_cdn:
     build:
-      context: ./client/nginx
+      context: ./cdn
     networks:
       - reverse_proxy
     volumes:
       - battlecottage_static:/.next/static
-      - battlecottage_public:/public
     restart: unless-stopped
+    depends_on:
+      - battlecottage_client
 
 volumes:
   battlecottage_db:
