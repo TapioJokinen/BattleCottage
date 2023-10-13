@@ -2,11 +2,11 @@
 const isProd = process.env.NODE_ENV === 'production';
 const nextConfig = {
     output: 'standalone',
-    assetPrefix: isProd ? 'https://cdn.battlecottage.com' : undefined,
+    assetPrefix: isProd ? 'http://cdn.battlecottage.com' : undefined,
     images: {
         remotePatterns: [
             {
-            protocol: 'https',
+            protocol: 'http',
             hostname: 'cdn.battlecottage.com',
             port: '',
             pathname: '/images/**',
