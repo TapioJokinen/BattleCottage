@@ -13,16 +13,16 @@ const nextConfig = {
             },
         ],
     },
-    async headers() {
-        return [
-          {
-            source: "/_next/:path*",
-            headers: [
-              { key: "Access-Control-Allow-Origin", value: "https://cdn.battlecottage.com" },
-            ],
-          },
-        ]
-      },
+    // async headers() {
+    //     return [
+    //       {
+    //         source: "/_next/:path*",
+    //         headers: [
+    //           { key: "Access-Control-Allow-Origin", value: "https://cdn.battlecottage.com" },
+    //         ],
+    //       },
+    //     ]
+    //   },
 };
 
 module.exports = nextConfig;
