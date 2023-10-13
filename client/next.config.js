@@ -15,17 +15,14 @@ const nextConfig = {
     },
     async headers() {
         return [
-            {
-                source: "/(.*)",
-                headers: [
-                    { 
-                        key: "Access-Control-Allow-Origin", 
-                        value: "https://cdn.battlecottage.com" 
-                    },
-                ]
-            }
+          {
+            source: "/_next/:path*",
+            headers: [
+              { key: "Access-Control-Allow-Origin", value: "https://cdn.battlecottage.com" },
+            ],
+          },
         ]
-    }
+      },
 };
 
 module.exports = nextConfig;
