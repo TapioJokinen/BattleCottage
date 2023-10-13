@@ -20,10 +20,10 @@ export default function Avatar() {
   return (
     <>
       <div className="no-select hidden cursor-pointer justify-center p-10 pb-5 xl:flex">
-        <AvatarIcon src="/img_avatar.png" size={100} />
+        <AvatarIcon src={`${process.env.NEXT_PUBLIC_IMAGES_URL}/img_avatar.png`} size={100} />
       </div>
       <div className="no-select flex cursor-pointer justify-center p-2 xl:hidden">
-        <AvatarIcon src="/img_avatar.png" size={50} />
+        <AvatarIcon src={`${process.env.NEXT_PUBLIC_IMAGES_URL}/img_avatar.png`} size={50} />
       </div>
     </>
   );
