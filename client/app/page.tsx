@@ -1,33 +1,27 @@
-import Header from '@/components/home/Header';
-import AuthNav from '@/components/home/AuthNav';
+'use client';
 
-function getHeader() {
-  return (
-    <Header
-      textMain="🔥 Battle Cottage 🔥"
-      textSecondary={`Discover the ultimate app for connecting with gaming partners! 
-      Easily post your "Looking for Group" messages in a centralized hub or explore a curated list of potential gaming companions tailored to your preferences. 
-      Engage in rating exchanges with your gaming buddies to enhance your standing within the Battle Cottage community!`}
-    />
-  );
-}
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+
+import AuthContainer from '@/components/AuthContainer';
+import LandingTitle from '@/components/LandingTitle';
 
 export default function Home() {
-  return (
-    <main className="main">
-      {/* Mobile container */}
-      <div className="flex h-full w-full flex-col sm:hidden">
-        {getHeader()}
-        <AuthNav />
-      </div>
+  const { status } = useSession();
+  const router = useRouter();
 
-      {/* Tablet / Desktop container */}
-      <div className="hidden h-full w-full flex-col sm:flex">
-        <div className="flex items-center">{getHeader()}</div>
-        <div className="flex items-start">
-          <AuthNav />
+  if (status === 'authenticated') {
+    router.push('/cottage');
+  }
+
+  return (
+    <main className="main bg-gradient-2">
+      {status !== 'authenticated' && (
+        <div className="h-full w-full">
+          <LandingTitle />
+          <AuthContainer />
         </div>
-      </div>
+      )}
     </main>
   );
 }

@@ -11,7 +11,7 @@ export async function handleResponse<T>(response: Response): Promise<T> {
   return data as T;
 }
 
-export function makeRequestHeaders(token: string | null | undefined = null): HeadersInit {
+export function makeRequestHeaders(token?: string): HeadersInit {
   const requestHeaders: HeadersInit = new Headers();
 
   requestHeaders.set('Content-Type', 'application/json');

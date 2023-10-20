@@ -21,7 +21,7 @@ export default async function ProtectedSiteLayout({ children }: { children: Reac
     <>{children}</>
   ) : (
     <div>
-      <span>Sign in, you are not authenticated</span>
+      <span>You need to log in to view this page :|</span>
     </div>
   );
 }

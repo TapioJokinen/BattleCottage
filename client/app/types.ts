@@ -1,19 +1,31 @@
 /* Credentials which user uses to sign-in. */
 export interface LoginCredentialType {
-  email: string | undefined;
-  password: string | undefined;
+  email?: string;
+  password?: string;
+}
+
+export interface RegisterCredentialType extends LoginCredentialType {
+  passwordAgain?: string;
 }
 
 export interface APIBaseResponseType {
   responseOk: boolean;
 }
 
+export interface APIMessageResponseType {
+  message: string;
+}
+
 export interface LoginResponseType extends APIBaseResponseType {
   accessToken: string;
   refreshToken: string;
   expiration: string;
-  message: string | undefined;
+  message?: string;
 }
+
+export interface RegisterResponseType extends APIBaseResponseType, APIMessageResponseType {}
+
+export interface RevokeResponseType extends APIBaseResponseType, APIMessageResponseType {}
 
 export interface VerifyResponseType extends LoginResponseType {}
 
@@ -22,10 +34,9 @@ export interface Tokens {
   refreshToken: string;
 }
 
-export interface RefreshResponse extends APIBaseResponseType, Tokens {
+export interface RefreshResponse extends APIBaseResponseType, APIMessageResponseType, Tokens {
   accessTokenExpiration?: string;
   refreshTokenExpiration?: string;
-  message?: string;
 }
 
 export interface SearchableSelectionOptionType {

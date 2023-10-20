@@ -1,6 +1,12 @@
-import SidebarLayout from '@/components/layouts/SidebarLayout';
+import NavBar from '@/components/NavBar';
+import ProtectedSiteLayout from '@/components/layouts/ProtectedSiteLayout';
 import { ReactNode } from 'react';
 
 export default function CottageLayout({ children }: { children: ReactNode }) {
-  return <SidebarLayout>{children}</SidebarLayout>;
+  return (
+    <ProtectedSiteLayout>
+      <NavBar />
+      {children}
+    </ProtectedSiteLayout>
+  );
 }

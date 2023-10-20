@@ -3,6 +3,9 @@ import {
   LoginCredentialType,
   LoginResponseType,
   RefreshResponse,
+  RegisterCredentialType,
+  RegisterResponseType,
+  RevokeResponseType,
   Tokens,
   VerifyResponseType,
 } from '../types';
@@ -28,6 +31,16 @@ export async function authVerify() {
   return handleResponse<VerifyResponseType>(response);
 }
 
+export async function authRevoke(token?: string) {
+  const response = await fetch(`${BASE_URL}/api/a/revoke`, {
+    method: 'POST',
+    headers: makeRequestHeaders(token),
+    body: JSON.stringify({}),
+  });
+
+  return handleResponse<RevokeResponseType>(response);
+}
+
 export async function authRefresh(tokens: Tokens) {
   const response = await fetch(`${BASE_URL}/api/a/refresh`, {
     method: 'POST',
@@ -36,4 +49,14 @@ export async function authRefresh(tokens: Tokens) {
   });
 
   return handleResponse<RefreshResponse>(response);
+}
+
+export async function authRegister(credentials: RegisterCredentialType) {
+  const response = await fetch(`${BASE_URL}/api/a/register`, {
+    method: 'POST',
+    headers: makeRequestHeaders(),
+    body: JSON.stringify(credentials),
+  });
+
+  return handleResponse<RegisterResponseType>(response);
 }

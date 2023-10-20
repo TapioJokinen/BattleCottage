@@ -3,32 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --bg-color: #121212;
-  --base-dark: #26282a;
-  --base-light: #e7e7e7;
-  --base-placeholder: #808080;
-  --palette-light-grey: #cccccc;
-  --palette-orange: #ff5900;
-  --palette-grey: #454545;
-  --palette-dark-grey: #2a2a2a;
-  --palette-red: #bb2525;
-  --palette-purple: #9f0d7f;
-  --palette-magenta: #ea1179;
-  --palette-forest-green: #016a70;
-  --palette-error: #f44336;
-  --palette-success: #388e3c;
-  --palette-success-darker: #2a6a2d;
-  --palette-dark-jungle-green: #1e1e1e;
-  --palette-dark-jungle-green-darker: #0b0f0e;
-  --palette-onyx: #161616;
-  --palette-smoky-topaz: #9a3b3b;
-  --palette-shadow: #0f0606;
-  --hgb-duration: 5000ms;
-  --hgb-angle: 90deg;
-  --hgb-gradX: 100%;
-  --hgb-gradY: 50%;
-  --hgb-c1: #9a3b3b;
-  --hgb-c2: rgba(168, 239, 255, 0.1);
+  --palette-water-blue: #0078d7;
+  --palette-ebony-clay: #1f2e45;
+  --palette-ebony-clay-35: #1f2e4559;
+  --palette-light-burgundy: #ae445a;
+  --palette-light-burgundy-35: #712c3a;
+  --palette-onyx: #121212;
+  --palette-black-65: #000000a6;
+  --palette-black-50: #00000080;
+  --palette-black-20: #00000033;
+  --text-light: #e7e7e7;
+  --error: #f44336;
 }
 
 html {
@@ -41,98 +26,32 @@ html {
 
 body {
   height: auto;
-  background-color: var(--bg-color);
-  color: var(--base-light);
+  color: var(--text-light);
+  background: #121212;
 }
 
 input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: #ffffff;
-  transition: background-color 5000s ease-in-out 0s;
-  box-shadow: inset 0 0 20px 20px #454545;
+input:-webkit-autofill:focus {
+  transition:
+    background-color 0s 600000s,
+    color 0s 600000s;
 }
 
-.main {
-  @apply flex h-full min-h-screen w-full flex-col;
+.bg-gradient-1 {
+  background: var(--palette-ebony-clay);
+  background: linear-gradient(
+    180deg,
+    var(--palette-ebony-clay) 40%,
+    var(--palette-light-burgundy) 100%
+  );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-.sidebar {
-  @apply hidden h-full flex-col items-center border-r-[1px] border-[var(--palette-dark-jungle-green-darker)] bg-[var(--palette-onyx)] sm:flex sm:w-[90px] xl:w-[300px];
-}
-
-.typed-text {
-  @apply h-[55px] w-fit animate-typing overflow-hidden whitespace-nowrap border-r-2 border-r-[var(--base-light)] text-[1.813rem] sm:text-5xl;
-}
-
-.icon-size-1 {
-  @apply absolute ml-2 h-7 w-7;
-}
-
-.button-slide-main {
-  @apply m-2 flex w-full cursor-pointer items-center border-2 border-[var(--palette-grey)] bg-[var(--base-light)] p-3 font-sourcecodepro text-[var(--base-dark)] shadow-sliding_main transition-all duration-1000 ease-out hover:text-[var(--bg-color)] hover:shadow-right_main;
-}
-
-.button-slide-secondary {
-  @apply relative m-2 flex w-full cursor-pointer items-center border-2 border-[var(--palette-grey)] bg-[var(--base-dark)] p-3 text-[var(--base-light)] shadow-sliding_secondary transition duration-1000 ease-out hover:text-[var(--base-light)] hover:shadow-right_secondary;
-}
-
-.header-container {
-  @apply mt-6 flex w-full justify-center p-3 font-sourcecodepro text-[#e7e7e7] sm:mt-20;
-}
-
-.header-text-container {
-  @apply flex max-w-[600px] flex-col items-center justify-center pt-5;
-}
-
-.header-title-wrapper {
-  @apply flex pb-5 sm:pb-10;
-}
-
-.header-secondary-text {
-  @apply max-w-[350px] text-center text-sm italic sm:max-w-full sm:text-base;
-}
-
-.auth-nav-container {
-  @apply mt-20 flex w-full flex-col items-center font-sourcecodepro text-[var(--text-dark)] sm:mt-48;
-}
-
-.auth-nav-link-container {
-  @apply flex h-full w-full flex-col items-center justify-center;
-}
-
-.auth-nav-link-wrapper {
-  @apply flex w-9/12 max-w-[425px] flex-col items-center justify-center;
-}
-
-.auth-nav-link-text {
-  @apply w-full text-center text-xl;
-}
-
-.form-container {
-  @apply flex w-full justify-center p-5;
-}
-
-.form-input-container {
-  @apply mt-5 flex w-full max-w-[425px] flex-col items-center border-2 border-[var(--palette-grey)] bg-[var(--base-dark)] p-8 font-sourcecodepro text-xl sm:mt-20 sm:w-9/12;
-}
-
-.form-input-wrapper {
-  @apply flex w-full flex-col font-opensans;
-}
-
-.form-input {
-  @apply mb-3 border-2 border-[var(--palette-grey)] bg-[var(--palette-grey)] p-2 py-3 text-base;
-}
-
-.secondary-link {
-  @apply p-1 text-sm hover:text-[var(--palette-grey)] sm:text-base;
-}
-
-.error-text {
-  @apply text-sm text-[var(--palette-error)];
+.bg-gradient-2 {
+  background-image: linear-gradient(to bottom, #121212, #2c2231, #522f4a, #803958, #ae445a);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .no-select {
@@ -148,113 +67,10 @@ input:-webkit-autofill:active {
   outline: none !important;
 }
 
-.content-container {
-  @apply flex h-full w-full flex-col items-center px-5 lg:px-20;
+.main {
+  @apply flex h-full min-h-screen w-full flex-col;
 }
 
-.cottage-action-button-container {
-  @apply mb-3 mt-10 flex w-full flex-col sm:flex-row;
+.main-nav {
+  @apply flex h-full w-full flex-col;
 }
-
-.cottage-filter {
-  @apply flex h-[40px] w-full items-center justify-start rounded-md border-[1px] border-[var(--palette-dark-jungle-green-darker)] bg-[var(--palette-dark-jungle-green)];
-}
-
-.action-button-link {
-  @apply mb-2 flex items-center rounded-lg border-[1px] border-[var(--palette-dark-jungle-green-darker)] bg-[var(--palette-dark-jungle-green)] p-4 hover:border-[var(--palette-smoky-topaz)] sm:mr-2;
-}
-
-.form-control {
-  @apply flex w-full flex-col justify-center text-sm lg:mx-5 lg:text-base;
-}
-
-.form-text-input {
-  @apply w-full rounded border-[1px] border-[var(--palette-light-grey)] bg-[var(--base-dark)] p-2 placeholder-[var(--base-placeholder)] hover:border-[var(--palette-smoky-topaz)] focus:border-[var(--palette-smoky-topaz)] focus-visible:outline-none;
-}
-
-.form-textarea-input {
-  @apply w-full rounded border-[1px] border-[var(--palette-light-grey)] bg-[var(--base-dark)] p-2 placeholder-[var(--base-placeholder)] hover:border-[var(--palette-smoky-topaz)] focus:border-[var(--palette-smoky-topaz)] focus-visible:outline-none;
-}
-
-.lfg-create-form-container {
-  @apply my-10 flex h-full w-full rounded-lg border-[1px] border-[var(--palette-dark-jungle-green-darker)] bg-[var(--palette-onyx)];
-}
-
-.sidebar-layout-nav {
-  @apply static flex h-[60px] flex-row-reverse items-center justify-between bg-[var(--palette-dark-grey)];
-}
-
-.tool-title {
-  @apply mt-4 rounded border-2 border-[var(--palette-smoky-topaz)] p-2 font-sourcecodepro text-base shadow shadow-[var(--palette-smoky-topaz)] lg:mt-5 lg:p-4 lg:text-2xl;
-}
-
-.role-button {
-  @apply m-2 flex min-w-[250px] items-center justify-between rounded bg-[var(--palette-dark-grey)] px-5 py-1 font-sourcecodepro text-xl shadow shadow-[var(--palette-shadow)] sm:min-w-[275px];
-}
-
-.role-handle-button {
-  @apply w-[24px] rounded bg-[var(--palette-dark-grey)] shadow shadow-[var(--palette-shadow)] selection:bg-transparent active:translate-y-1;
-}
-
-.lfg-form-input-container-upper {
-  @apply mb-5 block w-full grid-cols-2 gap-4 lg:grid lg:px-10 lg:py-5 3xl:px-20 3xl:py-5;
-}
-
-.lfg-form-input-wrapper {
-  @apply flex w-full flex-col items-center px-5;
-}
-
-.lfg-divider {
-  @apply w-[95%] rounded border-[var(--palette-smoky-topaz)];
-}
-
-.lfg-input-container-lower {
-  @apply flex w-full flex-col items-center;
-}
-
-.create-post-button {
-  @apply m-3 rounded bg-[var(--palette-success)] p-3 hover:bg-[var(--palette-success-darker)] active:translate-y-1 disabled:opacity-25 disabled:hover:bg-[var(--palette-success)];
-}
-
-/*#region HoudiniGradientBorder*/
-/* Taken from https://codepen.io/michellebarker/pen/gOMBPQj*/
-@property --hgb-angle {
-  syntax: '<angle>';
-  initial-value: 90deg;
-  inherits: true;
-}
-
-@property --hgb-gradX {
-  syntax: '<percentage>';
-  initial-value: 50%;
-  inherits: true;
-}
-
-@property --hgb-gradY {
-  syntax: '<percentage>';
-  initial-value: 0%;
-  inherits: true;
-}
-
-.tool-title-wrapper {
-  @apply mt-5 border-4 p-4 text-lg lg:text-3xl;
-}
-
-.animated-border {
-  border-image: conic-gradient(
-      from var(--hgb-angle),
-      var(--hgb-c2),
-      var(--hgb-c1) 0.1turn,
-      var(--hgb-c1) 0.15turn,
-      var(--hgb-c2) 0.25turn
-    )
-    30;
-  animation: borderRotate var(--hgb-duration) linear infinite forwards;
-}
-
-@keyframes borderRotate {
-  100% {
-    --hgb-angle: 450deg;
-  }
-}
-/*#endregion HoudiniGradientBorder*/

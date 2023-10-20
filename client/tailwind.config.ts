@@ -9,39 +9,27 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sourcecodepro: ['var(--font-sourcecodepro)'],
-        opensans: ['var(--font-opensans)'],
+        roboto: ['var(--font-roboto)'],
+        russoone: ['var(--font-russoone)'],
       },
       screens: {
         '3xl': '1600px',
       },
       keyframes: {
-        typing: {
+        press: {
           '0%': {
-            width: '0%',
-            visibility: 'hidden',
+            transform: 'scale(1)',
           },
-          '100%': {
-            width: '100%',
-          },
-        },
-        blink: {
           '50%': {
-            borderColor: 'transparent',
+            transform: 'scale(0.90)',
           },
           '100%': {
-            borderColor: 'white',
+            transform: 'scale(1)',
           },
         },
       },
       animation: {
-        typing: 'typing 2s steps(30) alternate, blink .7s infinite',
-      },
-      boxShadow: {
-        sliding_main: 'inset 0 0 0 0 var(--palette-smoky-topaz)',
-        right_main: 'inset 425px 0 0 0 var(--palette-smoky-topaz)',
-        sliding_secondary: 'inset 0 0 0 0 var(--palette-grey)',
-        right_secondary: 'inset 425px 0 0 0 var(--palette-grey)',
+        press: 'press 0.1s ease-in-out',
       },
     },
   },

@@ -6,7 +6,7 @@ export async function gamesFetchByName(
   name: string,
   page: number,
   pageSize: number,
-  token: string | null | undefined,
+  token?: string,
 ) {
   let url = new URL(`${BASE_URL}/api/games`);
   const params = new URLSearchParams({

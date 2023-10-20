@@ -1,18 +1,18 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Source_Code_Pro, Open_Sans } from 'next/font/google';
+import { Roboto, Russo_One } from 'next/font/google';
 import Providers from '@/context/Providers';
 
-const sourceCodePro = Source_Code_Pro({
+const russonOne = Russo_One({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-sourcecodepro',
+  weight: ['400'],
+  variable: '--font-russoone',
 });
 
-const roboto = Open_Sans({
+const roboto = Roboto({
   subsets: ['latin'],
   weight: ['300', '400', '500', '700'],
-  variable: '--font-opensans',
+  variable: '--font-roboto',
 });
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body
         suppressHydrationWarning={true}
-        className={`${sourceCodePro.variable} ${roboto.variable} font-opensans`}
+        className={`${roboto.variable} ${russonOne.variable} font-opensans`}
       >
         <Providers>{children}</Providers>
       </body>

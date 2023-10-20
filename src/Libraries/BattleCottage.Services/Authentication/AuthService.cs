@@ -127,7 +127,7 @@ namespace BattleCottage.Services.Authentication
             IdentityResult result = await _userRepository.AddUserAsync(user, credentials.Password);
 
             if (result != IdentityResult.Success)
-                throw new RegisterException("Failed to create user. Try again later.");
+                throw new RegisterException(string.Join(" ", result.Errors.Select(x => x.Description)));
         }
     }
 }
