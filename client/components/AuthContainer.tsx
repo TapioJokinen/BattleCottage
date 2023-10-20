@@ -30,7 +30,7 @@ export default function AuthContainer() {
           {isSignIn && <SignInForm />}
           {isRegister && <RegisterForm />}
         </div>
-        <p className="mt-5 text-center text-lg font-bold italic text-[var(--palette-black-50)] sm:mt-20">
+        <p className="mt-5 text-center text-lg font-bold italic text-[var(--text-light)] sm:mt-20">
           Explore the top app for finding gaming partners! Share "Looking for Group" messages or
           browse a personalized list of potential companions. Boost your status in the Battle
           Cottage community through rating exchanges with friends!

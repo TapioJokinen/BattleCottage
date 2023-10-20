@@ -15,7 +15,7 @@ export default function Home() {
   }
 
   return (
-    <main className="main bg-gradient-2">
+    <main className="main">
       {status !== 'authenticated' && (
         <div className="h-full w-full">
           <LandingTitle />

@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function LandingTitle() {
   return (
-    <div className="mx-[200px] flex flex-col items-center justify-center text-white">
+    <div className="mx-[200px] flex flex-col items-center justify-center text-white sm:mt-5">
       <div className="relative w-full min-w-[140px] max-w-[200px]">
         <Image
           src={process.env.NEXT_PUBLIC_IMAGES_URL + '/battlecottage.png'}

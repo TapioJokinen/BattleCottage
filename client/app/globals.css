@@ -27,7 +27,9 @@ html {
 body {
   height: auto;
   color: var(--text-light);
-  background: #121212;
+  background-image: linear-gradient(to bottom, #121212, #19191e, #1d1f2a, #1f2637, #1f2e45);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 input:-webkit-autofill,
@@ -37,21 +39,12 @@ input:-webkit-autofill:focus {
     color 0s 600000s;
 }
 
-.bg-gradient-1 {
-  background: var(--palette-ebony-clay);
-  background: linear-gradient(
-    180deg,
-    var(--palette-ebony-clay) 40%,
-    var(--palette-light-burgundy) 100%
-  );
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-.bg-gradient-2 {
-  background-image: linear-gradient(to bottom, #121212, #2c2231, #522f4a, #803958, #ae445a);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .no-select {
@@ -68,9 +61,5 @@ input:-webkit-autofill:focus {
 }
 
 .main {
-  @apply flex h-full min-h-screen w-full flex-col;
-}
-
-.main-nav {
   @apply flex h-full w-full flex-col;
 }
