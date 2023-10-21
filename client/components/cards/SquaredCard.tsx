@@ -6,7 +6,6 @@ interface SquaredCardProps {
   type: ButtonHTMLAttributes<HTMLButtonElement>['type'];
   fontSize?: string;
   isActive: boolean;
-  loading: boolean;
   onClick?: () => void;
   className?: string;
 }
@@ -16,7 +15,6 @@ export default function SquaredCard({
   textSecondary,
   type,
   isActive,
-  loading,
   onClick,
   className,
 }: SquaredCardProps) {
