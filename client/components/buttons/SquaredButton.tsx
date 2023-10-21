@@ -25,7 +25,7 @@ export default function SquaredButton({
       onClick={onClick}
       className={`no-select flex justify-center border-[1px] ${
         isActive ? 'border-[var(--palette-light-burgundy)]' : 'border-transparent'
-      } m-2 w-[156px] bg-[var(--palette-black-50)] p-2 px-7 text-[var(--palette-light-burgundy)] shadow-md hover:bg-[var(--palette-black-65)] active:animate-press sm:text-[1.2em] ${className}`}
+      } m-2 w-[156px] rounded bg-[var(--palette-black-50)] p-2 px-7 text-[var(--palette-light-burgundy)] shadow-md hover:border-[var(--palette-ebony-clay)] hover:bg-[var(--palette-water-blue)] hover:text-[var(--text-light)] active:animate-press sm:text-[1.3em] ${className}`}
     >
       {loading ? <Spinner /> : text}
     </button>

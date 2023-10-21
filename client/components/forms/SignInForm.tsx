@@ -56,13 +56,7 @@ export default function SignInForm() {
         autocomplete="off"
       />
       <span className="flex h-[32px] items-center text-[var(--error)]">{error}</span>
-      <SquaredButton
-        type="submit"
-        text="Log in"
-        isActive={true}
-        loading={loading}
-        className="rounded hover:border-[var(--palette-ebony-clay)] hover:bg-[var(--palette-water-blue)] hover:text-[var(--text-light)] sm:text-[1.3em]"
-      />
+      <SquaredButton type="submit" text="Log in" isActive={true} loading={loading} />
     </form>
   );
 }

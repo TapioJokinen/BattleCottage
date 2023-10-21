@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         roboto: ['var(--font-roboto)'],
-        russoone: ['var(--font-russoone)'],
+        permanentmarker: ['var(--font-permanentmarker)'],
       },
       screens: {
         '3xl': '1600px',

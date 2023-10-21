@@ -12,7 +12,9 @@ export default function LandingTitle() {
           className="!relative m-1 rounded-full"
         />
       </div>
-      <span className="break-keep font-russoone text-[calc(2em+1.5vw)]">Battle&#160;Cottage</span>
+      <span className="font-permanentmarker break-keep text-[calc(2em+1.5vw)]">
+        Battle&#160;Cottage
+      </span>
     </div>
   );
 }

@@ -9,6 +9,9 @@
   --palette-light-burgundy: #ae445a;
   --palette-light-burgundy-35: #712c3a;
   --palette-onyx: #121212;
+  --palette-mid-grey: #575e6b;
+  --palette-dark-jungle-green: #1b1f27;
+  --palette-baltic-sea: #292c32;
   --palette-black-65: #000000a6;
   --palette-black-50: #00000080;
   --palette-black-20: #00000033;
@@ -27,7 +30,21 @@ html {
 body {
   height: auto;
   color: var(--text-light);
-  background-image: linear-gradient(to bottom, #121212, #19191e, #1d1f2a, #1f2637, #1f2e45);
+  background-image: linear-gradient(
+    to bottom,
+    #121212,
+    #17171b,
+    #1b1c24,
+    #1e212d,
+    #1f2637,
+    #24293f,
+    #2b2c46,
+    #332f4d,
+    #452e4f,
+    #562c4c,
+    #652b45,
+    #712c3a
+  );
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -61,5 +78,26 @@ a {
 }
 
 .main {
-  @apply flex h-full w-full flex-col;
+  @apply flex h-full min-h-screen w-full flex-col font-roboto;
+}
+
+.gradient-1 {
+  background-image: linear-gradient(to left top, #1b1f27, #1a1c22, #18181c, #151517, #121212);
+}
+
+.bg-gradient {
+  background-image: linear-gradient(
+    to bottom,
+    #121212,
+    #17171b,
+    #1b1c24,
+    #1e212d,
+    #1f2637,
+    #24293f,
+    #2b2c46,
+    #332f4d,
+    #452e4f
+  );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }

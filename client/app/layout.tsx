@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Roboto, Russo_One } from 'next/font/google';
+import { Roboto, Permanent_Marker } from 'next/font/google';
 import Providers from '@/context/Providers';
 
-const russonOne = Russo_One({
+const permanent_marker = Permanent_Marker({
   subsets: ['latin'],
   weight: ['400'],
-  variable: '--font-russoone',
+  variable: '--font-permanentmarker',
 });
 
 const roboto = Roboto({
@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body
         suppressHydrationWarning={true}
-        className={`${roboto.variable} ${russonOne.variable} font-opensans`}
+        className={`${roboto.variable} ${permanent_marker.variable} font-opensans`}
       >
         <Providers>{children}</Providers>
       </body>
