@@ -19,17 +19,29 @@ import {
   gameModeOptions,
   gameStyleOptions,
 } from '@/lib/utils/options';
+import { roles } from '@/lib/utils/roles';
+import RoleButton from '@/components/buttons/RoleButton';
+
+interface LFGFormType {
+  game: GameOptionType;
+  title: string;
+  description: string;
+  duration: DurationOptionType;
+  gameMode: GameModeOptionType;
+  gameStyle: GameStyleOptionType;
+  roles: string[];
+}
 
 export default function LFGCreate() {
   const session = useSession();
 
-  /*SearchableSelection options */
+  /* SearchableSelection options */
   const [gameOptions, setGameOptions] = useState<GameOptionType[]>([]);
   const [durationChoices, setDurationChoices] = useState<DurationOptionType[]>(durationOptions);
   const [gameModeChoices, setGameModeChoices] = useState<GameModeOptionType[]>(gameModeOptions);
   const [gameStyleChoices, setGameStyleChoices] = useState<GameStyleOptionType[]>(gameStyleOptions);
 
-  /*Form values */
+  /* Form values */
   const [game, setGame] = useState<GameOptionType>(searchableSelectionDefaultOption);
   const [title, setTitle] = useState<string>('');
   const [titleError, setTitleError] = useState<string>('');
@@ -38,6 +50,17 @@ export default function LFGCreate() {
   const [duration, setDuration] = useState<DurationOptionType>(searchableSelectionDefaultOption);
   const [gameMode, setGameMode] = useState<GameModeOptionType>(searchableSelectionDefaultOption);
   const [gameStyle, setGameStyle] = useState<GameStyleOptionType>(searchableSelectionDefaultOption);
+
+  /* The actual form */
+  const [lfgForm, setLfgForm] = useState<LFGFormType>({
+    game: game,
+    title: title,
+    description: description,
+    duration: duration,
+    gameMode: gameMode,
+    gameStyle: gameStyle,
+    roles: [],
+  });
 
   /**
    * Handles the selection of a menu option.
@@ -106,13 +129,17 @@ export default function LFGCreate() {
   }
 
   /**
-   * Handles the change event for the duration input field.
-   * @param event - The change event object.
+   * Handles input change for searchable selection component.
+   * @template T - The type of the searchable selection option.
+   * @param {React.ChangeEvent<HTMLInputElement>} event - The input change event.
+   * @param {React.Dispatch<React.SetStateAction<T>>} setOption - The state setter for the selected option.
+   * @param {React.Dispatch<React.SetStateAction<T[]>>} setOptions - The state setter for the available options.
+   * @param {T[]} defaultOptions - The default options for the searchable selection.
    */
   function handleInputChange<T extends SearchableSelectionOptionType>(
     event: React.ChangeEvent<HTMLInputElement>,
-    setOption: Dispatch<SetStateAction<T>>,
-    setOptions: Dispatch<SetStateAction<T[]>>,
+    setOption: React.Dispatch<React.SetStateAction<T>>,
+    setOptions: React.Dispatch<React.SetStateAction<T[]>>,
     defaultOptions: T[],
   ) {
     const value = event.target.value;
@@ -127,14 +154,40 @@ export default function LFGCreate() {
     }
   }
 
+  function handleRoleAdd(event: React.MouseEvent<HTMLDivElement>) {
+    const target = event.target as HTMLDivElement;
+    const role = target.id;
+    if (role !== null) {
+      setLfgForm((prev) => ({
+        ...prev,
+        roles: [...prev.roles].length < 100 ? [...prev.roles, role] : [...prev.roles],
+      }));
+    }
+  }
+
+  function handleRoleRemove(event: React.MouseEvent<HTMLDivElement>) {
+    const target = event.target as HTMLDivElement;
+    const role = target.id;
+    if (role !== null) {
+      setLfgForm((prev) => {
+        const newRoles = [...prev.roles];
+        const index = newRoles.indexOf(role);
+        if (index > -1) {
+          newRoles.splice(index, 1);
+        }
+        return { ...prev, roles: newRoles };
+      });
+    }
+  }
+
   return (
     <main className="main bg-gradient">
-      <div className="flex w-full justify-center p-5 font-permanentmarker text-[2em]">
+      <div className="flex w-full justify-center p-5 font-permanentmarker text-[1.5em] sm:text-[2em]">
         <span className="curved-underline gradient-text">Create Your own LFG post!</span>
       </div>
       <div className="flex h-full flex-col items-center">
-        <div className="h-fit w-3/4 border-2 border-[var(--palette-baltic-sea)] bg-[var(--palette-dark-jungle-green)] p-5 shadow-md">
-          <div className="grid h-full w-full grid-cols-2 place-items-start justify-items-center gap-4">
+        <div className="h-fit w-3/4 max-w-[1440px] border-2 border-[var(--palette-baltic-sea)] bg-[var(--palette-dark-jungle-green)] p-5 shadow-md">
+          <div className="grid h-fit w-full grid-cols-1 place-items-start justify-items-center sm:grid-cols-2 sm:gap-4">
             <div className="flex w-full flex-col items-center">
               <SearchableSelection
                 label="Choose a game"
@@ -191,6 +244,19 @@ export default function LFGCreate() {
                   handleMenuSelection(option, setDuration)
                 }
               />
+            </div>
+          </div>
+          <div>
+            <div className="inline-block w-full text-center">
+              {roles.map((role) => (
+                <RoleButton
+                  key={role.value}
+                  role={role}
+                  numOfSelected={lfgForm.roles.filter((r) => r === role.value).length}
+                  handleAdd={handleRoleAdd}
+                  handleRemove={handleRoleRemove}
+                />
+              ))}
             </div>
           </div>
         </div>
