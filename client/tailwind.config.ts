@@ -27,12 +27,20 @@ const config: Config = {
             transform: 'scale(1)',
           },
         },
+        input_label: {
+          from: {
+            transform: 'translate(18px, 12px)',
+          },
+          to: {
+            transform: 'translate(10px, -8px)',
+          },
+        },
       },
       animation: {
         press: 'press 0.1s ease-in-out',
+        input_label: 'input_label 0.3s forwards',
       },
     },
   },
-  plugins: [],
 };
 export default config;

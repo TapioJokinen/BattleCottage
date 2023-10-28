@@ -8,8 +8,10 @@
   --palette-ebony-clay-35: #1f2e4559;
   --palette-light-burgundy: #ae445a;
   --palette-light-burgundy-35: #712c3a;
-  --palette-onyx: #121212;
   --palette-mid-grey: #575e6b;
+  --palette-dark-grey: #2b2f35;
+  --palette-darkest-grey: #202328;
+  --palette-light-grey: #a8aeb8;
   --palette-dark-jungle-green: #1b1f27;
   --palette-baltic-sea: #292c32;
   --palette-black-65: #000000a6;
@@ -100,4 +102,18 @@ a {
   );
   background-repeat: no-repeat;
   background-attachment: fixed;
+}
+
+.gradient-text {
+  @apply bg-gradient-to-r from-[var(--palette-light-burgundy-35)] to-[var(--palette-light-burgundy)] bg-clip-text text-transparent;
+}
+
+.curved-underline {
+  @apply relative mr-4;
+}
+
+.curved-underline::after {
+  content: '';
+  @apply absolute bottom-0 left-0 h-1 w-full rounded-[50%] border-2 border-solid border-red-600;
+  border-color: var(--palette-light-burgundy-35) transparent transparent transparent;
 }

@@ -61,24 +61,27 @@ export default function RegisterForm() {
     >
       <FilledTextField
         type="email"
-        placeholder="Email"
+        label="Email"
         value={email}
         onChange={handleEmailChange}
         autocomplete="none"
+        containerClassName="max-w-[368px]"
       />
       <FilledTextField
         type="password"
-        placeholder="Password"
+        label="Password"
         value={password}
         onChange={handlePasswordChange}
         autocomplete="new-password"
+        containerClassName="max-w-[368px]"
       />
       <FilledTextField
         type="password"
-        placeholder="Password again"
+        label="Password again"
         value={passwordAgain}
         onChange={handlePasswordAgainChange}
         autocomplete="new-password"
+        containerClassName="max-w-[368px]"
       />
       <span className="flex h-[32px] items-center text-[var(--error)]">{error}</span>
       <SquaredButton

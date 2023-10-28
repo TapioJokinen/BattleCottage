@@ -43,17 +43,19 @@ export default function SignInForm() {
     <form onSubmit={handleLogin} className="mt-10 flex w-full flex-col items-center">
       <FilledTextField
         type="email"
-        placeholder="Email"
+        label="Email"
         value={email}
         onChange={handleEmailChange}
         autocomplete="on"
+        containerClassName="max-w-[368px]"
       />
       <FilledTextField
         type="password"
-        placeholder="Password"
+        label="Password"
         value={password}
         onChange={handlePasswordChange}
         autocomplete="off"
+        containerClassName="max-w-[368px]"
       />
       <span className="flex h-[32px] items-center text-[var(--error)]">{error}</span>
       <SquaredButton type="submit" text="Log in" isActive={true} loading={loading} />

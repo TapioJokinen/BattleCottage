@@ -1,6 +1,6 @@
-import { BASE_URL } from '@/utils/urls';
-import { GamesResponseType } from '../types';
-import { handleResponse, makeRequestHeaders } from './base';
+import { BASE_URL } from '@/lib/utils/urls';
+import { GamesResponseType } from '@/lib/types/api';
+import { handleResponse, makeRequestHeaders } from '@/app/api/base';
 
 export async function gamesFetchByName(
   name: string,

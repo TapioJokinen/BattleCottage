@@ -1,12 +1,4 @@
-/* Credentials which user uses to sign-in. */
-export interface LoginCredentialType {
-  email?: string;
-  password?: string;
-}
-
-export interface RegisterCredentialType extends LoginCredentialType {
-  passwordAgain?: string;
-}
+import { Tokens } from '@/lib/types/auth';
 
 export interface APIBaseResponseType {
   responseOk: boolean;
@@ -29,27 +21,9 @@ export interface RevokeResponseType extends APIBaseResponseType, APIMessageRespo
 
 export interface VerifyResponseType extends LoginResponseType {}
 
-export interface Tokens {
-  accessToken: string;
-  refreshToken: string;
-}
-
 export interface RefreshResponse extends APIBaseResponseType, APIMessageResponseType, Tokens {
   accessTokenExpiration?: string;
   refreshTokenExpiration?: string;
-}
-
-export interface SearchableSelectionOptionType {
-  text: string;
-  value: number;
-}
-
-export interface Game {
-  name: string;
-  backgroundImage: string;
-  id: number;
-  dateAdded: string;
-  dateUpdated: string;
 }
 
 export interface GamesResponseType extends APIBaseResponseType {
