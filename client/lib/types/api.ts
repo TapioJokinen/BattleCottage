@@ -31,3 +31,11 @@ export interface GamesResponseType extends APIBaseResponseType {
   previous: string;
   results: Array<Game>;
 }
+
+export interface Game {
+  name: string;
+  backgroundImage: string;
+  id: number;
+  dateAdded: string;
+  dateUpdated: string;
+}
