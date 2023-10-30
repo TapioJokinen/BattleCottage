@@ -1,0 +1,35 @@
+/*#region AuthContainer.tsx*/
+.authcontainer-main {
+  @apply mt-1 flex h-full w-full justify-center p-10;
+}
+
+.authcontainer-content {
+  @apply h-full w-[800px];
+}
+
+.authcontainer-forms {
+  @apply flex w-full flex-col items-center justify-center;
+}
+
+.authcontainer-forms-swicth {
+  @apply flex w-full items-center justify-center font-roboto;
+}
+
+.authcontainer-forms-footer {
+  @apply mt-5 text-center text-lg font-bold italic text-[var(--text-light)] sm:mt-20;
+}
+/*#endregion*/
+
+/*#region LandingTitle.tsx*/
+.landingtitle-main {
+  @apply mx-[200px] flex flex-col items-center justify-center text-white sm:mt-5;
+}
+
+.landingtitle-image-wrapper {
+  @apply relative w-full min-w-[140px] max-w-[200px];
+}
+
+.landingtitle-text {
+  @apply break-keep font-permanentmarker text-[calc(2em+1.5vw)];
+}
+/*#endregion*/

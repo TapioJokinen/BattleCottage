@@ -1,0 +1,33 @@
+/*#region NavBar.tsx*/
+.navbar-main {
+  @apply border-b-2 border-b-[var(--palette-baltic-sea)] font-roboto shadow-lg;
+}
+
+.navbar-content {
+  @apply flex flex-wrap justify-between p-2 pl-3 sm:items-center;
+}
+
+.navbar-title-wrapper {
+  @apply flex items-center;
+}
+
+.navbar-title {
+  @apply font-permanentmarker text-[1.5em] sm:text-[3em];
+}
+
+.navbar-burgermenu {
+  @apply inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm focus:outline-none active:bg-[var(--palette-water-blue)] md:hidden;
+}
+
+.navbar-link-container {
+  @apply hidden w-full md:block md:w-auto;
+}
+
+.navar-link-wrapper {
+  @apply flex flex-col items-center p-2 md:flex-row;
+}
+
+.navbar-link {
+  @apply block border-b-2 border-b-transparent py-2 pl-3 pr-4 hover:border-b-2 hover:border-b-[var(--text-light)] active:border-b-[var(--palette-water-blue)] active:text-[var(--palette-water-blue)];
+}
+/*#endregion*/

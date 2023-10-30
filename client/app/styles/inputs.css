@@ -1,0 +1,49 @@
+/*#region FilledTextArea.tsx*/
+.filled-textarea-main {
+  @apply relative my-3 mb-7 flex min-h-[54px] w-full flex-col justify-center bg-transparent;
+}
+
+.filled-textarea-textarea {
+  @apply relative z-30 h-full w-full resize rounded bg-[var(--palette-black-20)] p-[18px] pl-4 shadow-[0_1px_0_var(--palette-light-burgundy)] focus:shadow-[0_1px_0_var(--text-light)] focus:outline-none;
+}
+
+.filled-textarea-error {
+  @apply absolute bottom-[-25px] left-[5px] text-[var(--error)];
+}
+/*#endregion*/
+
+/*#region FilledTextField.tsx*/
+.filled-textfield-main {
+  @apply relative mb-7 flex max-h-[54px] w-full flex-col justify-center bg-transparent;
+}
+
+.filled-textfield-input {
+  @apply relative z-30 h-full w-full rounded bg-[var(--palette-black-20)] p-[18px] pb-[14px] pl-4 shadow-[0_1px_0_var(--palette-light-burgundy)] focus:shadow-[0_1px_0_var(--text-light)] focus:outline-none;
+}
+
+.filled-textfield-error {
+  @apply absolute bottom-[-25px] left-[5px] text-[var(--error)];
+}
+/*#endregion*/
+
+/*#region SearchableSelection.tsx*/
+.searchable-selection-main {
+  @apply relative mb-7 flex max-h-[54px] w-full flex-col justify-center bg-transparent;
+}
+
+.searchable-selection-input {
+  @apply relative z-30 h-full w-full rounded bg-[var(--palette-black-20)] p-[18px] pb-[14px] pl-4 shadow-[0_1px_0_var(--palette-light-burgundy)] focus:shadow-[0_1px_0_var(--text-light)] focus:outline-none;
+}
+
+.searchable-selection-menu {
+  @apply absolute top-[60px] z-50 w-full rounded bg-[var(--palette-baltic-sea)];
+}
+
+.searchable-selection-menu-list {
+  @apply max-h-[300px] overflow-y-auto;
+}
+
+.searchable-selection-error {
+  @apply absolute bottom-[-25px] left-[5px] text-[var(--error)];
+}
+/*#endregion*/

@@ -1,0 +1,33 @@
+/*#region RoleButton.tsx*/
+.role-button-main {
+  @apply block px-5 sm:inline-block;
+}
+
+.role-button-container {
+  @apply flex flex-col items-center;
+}
+
+.role-button-controls {
+  @apply flex items-center;
+}
+
+.role-button-adjust-button {
+  @apply w-[24px] rounded bg-[var(--palette-baltic-sea)] shadow shadow-[var(--palette-dark-jungle-green)] selection:bg-transparent active:translate-y-1;
+}
+
+.role-button-name-and-icon {
+  @apply m-2 flex min-w-[200px] items-center justify-between rounded bg-[var(--palette-baltic-sea)] px-5 py-1 text-xl shadow shadow-[var(--palette-dark-jungle-green)] sm:min-w-[230px];
+}
+/*#endregion*/
+
+/*#region RoundedButton.tsx*/
+.rounded-button-main {
+  @apply m-2 w-[156px] rounded-full border-[1px] bg-[var(--palette-black-50)] p-2 px-7 text-[var(--palette-light-burgundy)] shadow-md hover:bg-[var(--palette-black-65)] active:animate-press sm:text-[1.2em];
+}
+/*#endregion*/
+
+/*#region SquaredButton.tsx*/
+.squared-button-main {
+  @apply m-2 flex w-[156px] justify-center rounded border-[1px] p-2 px-7 text-[var(--palette-light-burgundy)] shadow-md hover:border-[var(--palette-ebony-clay)] hover:bg-[var(--palette-water-blue)] hover:text-[var(--text-light)] active:animate-press sm:text-[1.3em];
+}
+/*#endregion*/

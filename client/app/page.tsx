@@ -3,8 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
-import AuthContainer from '@/components/AuthContainer';
-import LandingTitle from '@/components/LandingTitle';
+import AuthContainer from '@/app/components/AuthContainer';
+import LandingTitle from '@/app/components/LandingTitle';
 
 export default function Home() {
   const { status } = useSession();

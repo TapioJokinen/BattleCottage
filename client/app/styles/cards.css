@@ -1,0 +1,31 @@
+/*#region SquaredCard.tsx*/
+.squared-card-main {
+  @apply m-2 flex w-full max-w-[300px] justify-start rounded border-2 p-2 pl-3 text-[var(--text-light)] shadow hover:border-[var(--palette-light-burgundy)] hover:bg-[var(--palette-water-blue)] hover:text-[var(--text-light)] active:animate-press sm:text-[1.3em];
+}
+
+.squared-card-content {
+  @apply flex h-full w-full flex-col items-start p-2;
+}
+
+.squared-card-title {
+  @apply py-1;
+}
+
+.squared-card-divider {
+  @apply w-full border-[1px] border-[var(--palette-light-burgundy-35)];
+}
+
+.squared-card-description-wrapper {
+  @apply flex justify-start pt-1 text-sm text-[var(--palette-mid-grey)];
+}
+
+.squared-card-description {
+  @apply text-left;
+}
+/*#endregion*/
+
+/*#region ActionCardContainer.tsx*/
+.action-card-container-main {
+  @apply flex w-full items-center justify-center p-5;
+}
+/*#endregion*/

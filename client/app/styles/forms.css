@@ -1,0 +1,19 @@
+/*#region SignInForm.tsx*/
+.sign-in-form-main {
+  @apply mt-10 flex w-full flex-col items-center;
+}
+
+.sign-in-form-error {
+  @apply flex h-[32px] items-center text-[var(--error)];
+}
+/*#endregion*/
+
+/*#region RegisterForm.tsx*/
+.register-form-main {
+  @apply mt-10 flex w-full flex-col items-center;
+}
+
+.register-form-error {
+  @apply flex h-[32px] items-center text-[var(--error)];
+}
+/*#endregion*/

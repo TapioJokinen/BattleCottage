@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import './globals.css';
+import '@/app/styles/globals.css';
 import { Roboto, Permanent_Marker } from 'next/font/google';
-import Providers from '@/context/Providers';
+import Providers from '@/app/context/Providers';
 
 const permanent_marker = Permanent_Marker({
   subsets: ['latin'],

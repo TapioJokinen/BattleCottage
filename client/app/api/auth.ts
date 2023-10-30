@@ -1,12 +1,12 @@
-import { BASE_URL } from '@/lib/utils/urls';
+import { BASE_URL } from '@/app/lib/utils/urls';
 import {
   LoginResponseType,
   RefreshResponse,
   RegisterResponseType,
   RevokeResponseType,
   VerifyResponseType,
-} from '@/lib/types/api';
-import { LoginCredentialType, RegisterCredentialType, Tokens } from '@/lib/types/auth';
+} from '@/app/lib/types/api';
+import { LoginCredentialType, RegisterCredentialType, Tokens } from '@/app/lib/types/auth';
 import { handleResponse, makeRequestHeaders } from './base';
 
 export async function authLogin(credentials: LoginCredentialType) {
