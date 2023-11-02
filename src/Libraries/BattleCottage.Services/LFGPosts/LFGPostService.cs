@@ -64,9 +64,10 @@ namespace BattleCottage.Services.LFGPosts
                 var lfgPost = new LFGPost
                 {
                     UserId = user.Id,
-                    Title = formInput.Title ?? throw new ArgumentNullException(nameof(formInput), "Title"),
+                    Title = formInput.Title ?? throw new ArgumentNullException(nameof(formInput.Title), "Title"),
                     Description =
-                        formInput.Description ?? throw new ArgumentNullException(nameof(formInput), "Description"),
+                        formInput.Description
+                        ?? throw new ArgumentNullException(nameof(formInput.Description), "Description"),
                     DurationInMinutesId = formInput.DurationId,
                     GameId = formInput.GameId,
                     GameModeId = formInput.GameModeId,
@@ -90,7 +91,7 @@ namespace BattleCottage.Services.LFGPosts
                                     DateUpdated = DateTime.UtcNow
                                 }
                         )
-                    ) ?? throw new ArgumentNullException(nameof(formInput), "GameRoleIds");
+                    ) ?? throw new ArgumentNullException(nameof(formInput.GameRoleIds), "GameRoleIds");
 
                 await _lfgPostGameRoleRepository.AddRangeAsync(lfgPostGameRoles);
                 await _context.SaveChangesAsync();
@@ -115,44 +116,44 @@ namespace BattleCottage.Services.LFGPosts
         {
             if (formInput.Title == null || formInput.Title.Length < 3)
             {
-                throw new ArgumentException("Title must be at least 3 characters long.", nameof(formInput));
+                throw new ArgumentException("Title must be at least 3 characters long.");
             }
 
             if (formInput.Description == null || formInput.Description.Length < 3)
             {
-                throw new ArgumentException("Description must be at least 3 characters long.", nameof(formInput));
+                throw new ArgumentException("Description must be at least 3 characters long.");
             }
 
             if (await _lfgPostDurationRepository.FindByIdAsync(formInput.DurationId) == null)
             {
-                throw new ObjectNotFoundException($"Given duration not found.");
+                throw new ObjectNotFoundException("Given duration not found.");
             }
 
             if (await _gameRepository.FindByIdAsync(formInput.GameId) == null)
             {
-                throw new ObjectNotFoundException($"Given game not found.");
+                throw new ObjectNotFoundException("Given game not found.");
             }
 
             if (await _gameModeRepository.FindByIdAsync(formInput.GameModeId) == null)
             {
-                throw new ObjectNotFoundException($"Given game mode not found.");
+                throw new ObjectNotFoundException("Given game mode not found.");
             }
 
             if (await _gameStyleRepository.FindByIdAsync(formInput.GameStyleId) == null)
             {
-                throw new ObjectNotFoundException($"Given game style not found.");
+                throw new ObjectNotFoundException("Given game style not found.");
             }
 
             if (formInput.GameRoleIds == null || formInput.GameRoleIds.Length == 0)
             {
-                throw new ArgumentException("At least one game role must be selected.", nameof(formInput));
+                throw new ArgumentException("At least one game role must be selected.");
             }
 
             var gameRoles = await _gameRoleRepository.Filter(x => formInput.GameRoleIds.Contains(x.Id));
 
             if (gameRoles == null || gameRoles.Count != formInput.GameRoleIds.Distinct().Count())
             {
-                throw new ObjectNotFoundException($"One or more game roles were not found.");
+                throw new ObjectNotFoundException("One or more game roles were not found.");
             }
         }
 

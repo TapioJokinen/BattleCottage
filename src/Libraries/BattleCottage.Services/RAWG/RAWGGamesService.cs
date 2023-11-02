@@ -34,7 +34,7 @@ namespace BattleCottage.Services.RAWG
         {
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
             {
-                _logger.LogInformation("Dev environment, do not run work.");
+                _logger.LogInformation("Dev environment, do not work.");
                 return;
             }
 
