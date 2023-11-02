@@ -1,3 +1,7 @@
+/**
+ * All types related to authentication can be found here.
+ */
+
 export interface LoginCredentialType {
   email?: string;
   password?: string;

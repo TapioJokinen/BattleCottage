@@ -1,20 +1,25 @@
 'use client';
 
-import { SearchableSelectionOptionType } from '@/app/lib/types/components';
+import { SearchSelectInputOptionType } from '@/app/lib/types/components';
 import { useState } from 'react';
 
 interface FilledTextFieldProps {
   label?: string;
   value?: string;
-  options?: SearchableSelectionOptionType[];
+  options?: SearchSelectInputOptionType[];
   className?: string;
   autocomplete?: string;
   onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onMenuSelection: (option: SearchableSelectionOptionType) => void;
+  onMenuSelection: (option: SearchSelectInputOptionType) => void;
   error?: string;
 }
 
-export default function SearchableSelection({
+export const SSIDefaultOption: SearchSelectInputOptionType = {
+  itemId: -1,
+  label: '',
+};
+
+export default function SearchSelectInput({
   label,
   value,
   options,

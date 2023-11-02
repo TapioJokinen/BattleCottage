@@ -6,43 +6,59 @@ import {
   GameModeOptionType,
   GameOptionType,
   GameStyleOptionType,
-  SearchableSelectionOptionType,
+  LFGPostFormOptionsType,
+  SearchSelectInputOptionType,
 } from '@/app/lib/types/components';
 import FilledTextArea from '@/app/components/inputs/FilledTextArea';
 import FilledTextField from '@/app/components/inputs/FilledTextField';
-import SearchableSelection from '@/app/components/inputs/SearchableSelection';
+import SearchSelectInput, { SSIDefaultOption } from '@/app/components/inputs/SearchSelectInput';
 import { useSession } from 'next-auth/react';
-import { Dispatch, SetStateAction, useState } from 'react';
-import {
-  searchableSelectionDefaultOption,
-  durationOptions,
-  gameModeOptions,
-  gameStyleOptions,
-} from '@/app/lib/utils/options';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+
 import { roles } from '@/app/lib/utils/roles';
 import RoleButton from '@/app/components/buttons/RoleButton';
 import SquaredButton from '@/app/components/buttons/SquaredButton';
-import { LFGPost } from '../lib/types/api';
+import { LFGPost } from '../lib/types/components';
+import { lfgPostCreate, lfgPostGetFormOptions } from '../api/lfgpost';
 
 export default function CreateLFGPostContainer() {
   const session = useSession();
 
-  /* SearchableSelection options */
+  /* SearchSelectInput default options */
+  const [gameModeOptions, setGameModeOptions] = useState<GameModeOptionType[]>([]);
+  const [gameStyleOptions, setGameStyleOptions] = useState<GameStyleOptionType[]>([]);
+  const [durationOptions, setDurationOptions] = useState<DurationOptionType[]>([]);
+
+  /* SearchSelectInput filtered options */
   const [gameOptions, setGameOptions] = useState<GameOptionType[]>([]);
-  const [durationChoices, setDurationChoices] = useState<DurationOptionType[]>(durationOptions);
-  const [gameModeChoices, setGameModeChoices] = useState<GameModeOptionType[]>(gameModeOptions);
-  const [gameStyleChoices, setGameStyleChoices] = useState<GameStyleOptionType[]>(gameStyleOptions);
+  const [durationChoices, setDurationChoices] = useState<DurationOptionType[]>([]);
+  const [gameModeChoices, setGameModeChoices] = useState<GameModeOptionType[]>([]);
+  const [gameStyleChoices, setGameStyleChoices] = useState<GameStyleOptionType[]>([]);
 
   /* Form values */
-  const [game, setGame] = useState<GameOptionType>(searchableSelectionDefaultOption);
+  const [game, setGame] = useState<GameOptionType>(SSIDefaultOption);
   const [title, setTitle] = useState<string>('');
   const [titleError, setTitleError] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [descriptionError, setDescriptionError] = useState<string>('');
-  const [duration, setDuration] = useState<DurationOptionType>(searchableSelectionDefaultOption);
-  const [gameMode, setGameMode] = useState<GameModeOptionType>(searchableSelectionDefaultOption);
-  const [gameStyle, setGameStyle] = useState<GameStyleOptionType>(searchableSelectionDefaultOption);
+  const [duration, setDuration] = useState<DurationOptionType>(SSIDefaultOption);
+  const [gameMode, setGameMode] = useState<GameModeOptionType>(SSIDefaultOption);
+  const [gameStyle, setGameStyle] = useState<GameStyleOptionType>(SSIDefaultOption);
   const [playerRoles, setPlayerRoles] = useState<number[]>([]);
+
+  useEffect(() => {
+    async function fetchFormOptions() {
+      const data = await lfgPostGetFormOptions(session.data?.accessToken);
+
+      if (data.responseOk) {
+        setGameModeOptions(data.gameModes.map((o) => ({ label: o.name, itemId: o.id })));
+        setGameStyleOptions(data.gameStyles.map((o) => ({ label: o.name, itemId: o.id })));
+        setDurationOptions(data.durationsInMinutes.map((o) => ({ label: o.name, itemId: o.id })));
+      }
+    }
+
+    fetchFormOptions();
+  }, []);
 
   /**
    * Handles the selection of a menu option.
@@ -50,7 +66,7 @@ export default function CreateLFGPostContainer() {
    * @param {T} option - The selected option.
    * @param {Dispatch<SetStateAction<T>>} setOption - The callback function to update the state with the selected option.
    */
-  function handleMenuSelection<T extends SearchableSelectionOptionType>(
+  function handleMenuSelection<T extends SearchSelectInputOptionType>(
     option: T,
     setOption: Dispatch<SetStateAction<T>>,
   ) {
@@ -118,7 +134,7 @@ export default function CreateLFGPostContainer() {
    * @param {React.Dispatch<React.SetStateAction<T[]>>} setOptions - The state setter for the available options.
    * @param {T[]} defaultOptions - The default options for the searchable selection.
    */
-  function handleInputChange<T extends SearchableSelectionOptionType>(
+  function handleInputChange<T extends SearchSelectInputOptionType>(
     event: React.ChangeEvent<HTMLInputElement>,
     setOption: React.Dispatch<React.SetStateAction<T>>,
     setOptions: React.Dispatch<React.SetStateAction<T[]>>,
@@ -173,16 +189,24 @@ export default function CreateLFGPostContainer() {
     }
   }
 
-  function handleFormSubmit() {
+  async function handleFormSubmit() {
     const post: LFGPost = {
-      title: title,
-      description: description,
+      title,
+      description,
       gameId: game.itemId,
       gameModeId: gameMode.itemId,
       gameStyleId: gameStyle.itemId,
       durationId: duration.itemId,
       gameRoleIds: playerRoles,
     };
+
+    const data = await lfgPostCreate(post, session.data?.accessToken);
+
+    if (data.responseOk) {
+      console.log(data);
+    } else {
+      console.log(data.message);
+    }
   }
 
   return (
@@ -190,7 +214,7 @@ export default function CreateLFGPostContainer() {
       <div className="h-fit w-3/4 max-w-[1440px] border-2 border-[var(--palette-baltic-sea)] bg-[var(--palette-dark-jungle-green)] p-5 shadow-md">
         <div className="grid h-fit w-full grid-cols-1 place-items-start justify-items-center sm:grid-cols-2 sm:gap-4">
           <div className="flex w-full flex-col items-center">
-            <SearchableSelection
+            <SearchSelectInput
               label="Choose a game"
               value={game?.label}
               options={gameOptions}
@@ -212,10 +236,10 @@ export default function CreateLFGPostContainer() {
             />
           </div>
           <div className="flex w-full flex-col items-center">
-            <SearchableSelection
+            <SearchSelectInput
               label="Choose a game mode"
               value={gameMode?.label}
-              options={gameModeChoices}
+              options={gameMode?.label ? gameModeChoices : gameModeOptions}
               onInputChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 handleInputChange(event, setGameMode, setGameModeChoices, gameModeOptions)
               }
@@ -223,21 +247,21 @@ export default function CreateLFGPostContainer() {
                 handleMenuSelection(option, setGameMode)
               }
             />
-            <SearchableSelection
+            <SearchSelectInput
               label="Choose a gaming style"
               value={gameStyle?.label}
-              options={gameStyleChoices}
+              options={gameStyle?.label ? gameStyleChoices : gameStyleOptions}
               onInputChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                handleInputChange(event, setGameStyle, setGameStyleChoices, durationOptions)
+                handleInputChange(event, setGameStyle, setGameStyleChoices, gameStyleOptions)
               }
               onMenuSelection={(option: GameStyleOptionType) =>
                 handleMenuSelection(option, setGameStyle)
               }
             />
-            <SearchableSelection
+            <SearchSelectInput
               label="Choose a duration for post"
               value={duration?.label}
-              options={durationChoices}
+              options={duration?.label ? durationChoices : durationOptions}
               onInputChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 handleInputChange(event, setDuration, setDurationChoices, durationOptions)
               }
@@ -268,7 +292,7 @@ export default function CreateLFGPostContainer() {
             text="Create Post"
             isActive={true}
             loading={false}
-            onClick={() => {}}
+            onClick={handleFormSubmit}
           />
         </div>
       </div>

@@ -1,4 +1,9 @@
+/**
+ * All API response types and types related to responses can be found here.
+ */
+
 import { Tokens } from '@/app/lib/types/auth';
+import { LFGPostFormOptionsType } from './components';
 
 export interface APIBaseResponseType {
   responseOk: boolean;
@@ -29,10 +34,10 @@ export interface RefreshResponse extends APIBaseResponseType, APIMessageResponse
 export interface GamesResponseType extends APIBaseResponseType, APIMessageResponseType {
   next: string;
   previous: string;
-  results: Array<Game>;
+  results: Array<GameFullResponseType>;
 }
 
-export interface Game {
+export interface GameFullResponseType {
   name: string;
   backgroundImage: string;
   id: number;
@@ -40,7 +45,7 @@ export interface Game {
   dateUpdated: string;
 }
 
-export interface GameRole {
+export interface GameRoleRepsonseType {
   gameRoleId: number;
   gameRole: string;
 }
@@ -58,15 +63,10 @@ export interface LFGPostCreateResponseType extends APIBaseResponseType, APIMessa
   gameStyle: string;
   title: string;
   userId: string;
-  gameRoles: Array<GameRole>;
+  gameRoles: Array<GameRoleRepsonseType>;
 }
 
-export interface LFGPost {
-  title: string;
-  description: string;
-  durationId: number;
-  gameId: number;
-  gameModeId: number;
-  gameStyleId: number;
-  gameRoleIds: Array<number>;
-}
+export interface LFGPostFormOptionsResponseType
+  extends LFGPostFormOptionsType,
+    APIBaseResponseType,
+    APIMessageResponseType {}

@@ -44,7 +44,7 @@ namespace BattleCottage.Web.Controllers.LFGPostController
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Route("/api/[controller]/options")]
+        [Route("/api/[controller]/form-options")]
         public async Task<IActionResult> GetLFGPostFormOptions()
         {
             var options = await _lfgPostService.GetLFGPostFormOptions();
