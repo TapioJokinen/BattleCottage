@@ -7,8 +7,8 @@ using BattleCottage.Tests;
 
 namespace BattleCottage.Services.Tests
 {
-    public class ServicesWebApplicationFactory<TProgram>
-    : WebApplicationFactory<TProgram> where TProgram : class
+    public class ServicesWebApplicationFactory<TProgram> : WebApplicationFactory<TProgram>
+        where TProgram : class
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -16,15 +16,18 @@ namespace BattleCottage.Services.Tests
             {
                 // Remove ApplicationDbContext
                 ServiceDescriptor? descriptor = services.SingleOrDefault(
-                    d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
+                    d => d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>)
+                );
 
-                if (descriptor != null) services.Remove(descriptor);
+                if (descriptor != null)
+                    services.Remove(descriptor);
 
-                services.AddDbContext<ApplicationDbContext>(
-                    options =>
-                    {
-                        options.UseNpgsql("Host=localhost; Database=thimylife_test; Username=BattleCottage_admin; Password=foobar123");
-                    });
+                services.AddDbContext<ApplicationDbContext>(options =>
+                {
+                    options.UseNpgsql(
+                        "Host=localhost; Database=thimylife_test; Username=BattleCottage_admin; Password=foobar123"
+                    );
+                });
 
                 // Ensure schema gets created
                 ServiceProvider serviceProvider = services.BuildServiceProvider();

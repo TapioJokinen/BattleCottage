@@ -28,7 +28,7 @@ namespace BattleCottage.Services.Token
                 expires: GetAccessTokenExpiryTime(),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                );
+            );
 
             return token;
         }
@@ -45,7 +45,8 @@ namespace BattleCottage.Services.Token
 
         private string GetSecret()
         {
-            return _configuration.GetValue<string>("JWT:Secret") ?? throw new ArgumentException("JWT:Secret was not found.");
+            return _configuration.GetValue<string>("JWT:Secret")
+                ?? throw new ArgumentException("JWT:Secret was not found.");
         }
 
         public SymmetricSecurityKey GetSymmetricSecurityKey()
@@ -74,9 +75,19 @@ namespace BattleCottage.Services.Token
 
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            ClaimsPrincipal principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+            ClaimsPrincipal principal = tokenHandler.ValidateToken(
+                token,
+                tokenValidationParameters,
+                out SecurityToken securityToken
+            );
 
-            if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+            if (
+                securityToken is not JwtSecurityToken jwtSecurityToken
+                || !jwtSecurityToken.Header.Alg.Equals(
+                    SecurityAlgorithms.HmacSha256,
+                    StringComparison.InvariantCultureIgnoreCase
+                )
+            )
                 throw new SecurityTokenException("Invalid token");
 
             return principal;

@@ -22,5 +22,4 @@ namespace BattleCottage.Services.Token
 
         SymmetricSecurityKey GetSymmetricSecurityKey();
     }
-
 }

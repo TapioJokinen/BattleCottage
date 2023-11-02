@@ -1,20 +1,17 @@
 using System.Data;
 using BattleCottage.Core.Exceptions;
-using BattleCottage.Services.ObjectResults;
-using BattleCottage.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
-namespace BattleCottage.Services
+namespace BattleCottage.Web.ExceptionFilter
 {
     public class BaseExceptionFilterAttribute : ExceptionFilterAttribute
     {
         public override void OnException(ExceptionContext context)
         {
-            if (context.Exception is ArgumentException ||
-                context.Exception is RegisterException)
+            if (context.Exception is ArgumentException || context.Exception is RegisterException)
             {
                 context.Result = new BadRequestObjectResult(new MessageResponse(context.Exception.Message));
             }
@@ -26,9 +23,11 @@ namespace BattleCottage.Services
             {
                 context.Result = new UnauthorizedObjectResult(new MessageResponse(context.Exception.Message));
             }
-            else if (context.Exception is OperationCanceledException ||
-                    context.Exception is DbUpdateException ||
-                    context.Exception is DBConcurrencyException)
+            else if (
+                context.Exception is OperationCanceledException
+                || context.Exception is DbUpdateException
+                || context.Exception is DBConcurrencyException
+            )
             {
                 context.Result = new DatabaseErrorObjectResult("Database operation failed. We are so sorry :(");
             }

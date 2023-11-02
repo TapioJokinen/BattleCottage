@@ -25,7 +25,9 @@ namespace BattleCottage.Services.Games
                 throw new ArgumentNullException(nameof(name));
             }
 
-            IList<Game>? games = await _gameRepository.Filter(game => game.Name != null && game.Name.ToLower().Contains(name.ToLower()));
+            IList<Game>? games = await _gameRepository.Filter(
+                game => game.Name != null && game.Name.ToLower().Contains(name.ToLower())
+            );
 
             if (games == null || games.Count == 0)
             {

@@ -17,7 +17,6 @@ namespace BattleCottage.Web.Controllers.AuthController
             _authService = authService;
             _userRepository = userRepository;
             _tokenService = tokenService;
-
         }
 
         [HttpPost]

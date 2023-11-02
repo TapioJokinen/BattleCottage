@@ -3,7 +3,5 @@
 namespace BattleCottage.Web.Controllers
 {
     [ApiController]
-    public class APIControllerBase : ControllerBase
-    {
-    }
+    public class APIControllerBase : ControllerBase { }
 }

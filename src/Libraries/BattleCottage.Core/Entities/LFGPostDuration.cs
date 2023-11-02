@@ -2,8 +2,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BattleCottage.Core.Entities
 {
-    public class GameStyle : BaseEntity
+    public class LFGPostDuration : BaseEntity
     {
+        [Required]
+        public required int DurationInMinutes { get; set; }
+
         [Required]
         public required string Name { get; set; }
 

@@ -1,9 +1,9 @@
-﻿
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace BattleCottage.Data.Repositories
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<TEntity>
+        where TEntity : class
     {
         Task<TEntity> AddAsync(TEntity entity);
 

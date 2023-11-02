@@ -27,9 +27,7 @@ namespace BattleCottage.Services.RAWG
             _logger.LogInformation("Consume Scoped Service Hosted Service is working.");
 
             using var scope = Services.CreateScope();
-            var rawgGamesService =
-                scope.ServiceProvider
-                    .GetRequiredService<IRAWGGamesService>();
+            var rawgGamesService = scope.ServiceProvider.GetRequiredService<IRAWGGamesService>();
 
             await rawgGamesService.DoWork(cancellationToken);
         }

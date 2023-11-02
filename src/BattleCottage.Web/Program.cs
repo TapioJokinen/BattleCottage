@@ -2,13 +2,13 @@ using BattleCottage.Core.Entities;
 using BattleCottage.Data;
 using BattleCottage.Data.Repositories;
 using BattleCottage.Data.Repositories.UserRepository;
-using BattleCottage.Services;
 using BattleCottage.Services.Authentication;
 using BattleCottage.Services.Games;
 using BattleCottage.Services.HealthCheck;
 using BattleCottage.Services.LFGPosts;
 using BattleCottage.Services.RAWG;
 using BattleCottage.Services.Token;
+using BattleCottage.Web.ExceptionFilter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
@@ -26,19 +26,24 @@ builder.Services.AddCors(options =>
         name: MyAllowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000", "https://localhost:7069", "https://battlecottage.com", "https://www.battlecottage.com")
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials();
-        });
+            policy
+                .WithOrigins(
+                    "http://localhost:3000",
+                    "https://localhost:7069",
+                    "https://battlecottage.com",
+                    "https://www.battlecottage.com"
+                )
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();
+        }
+    );
 });
 
 // Filters
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add(new BaseExceptionFilterAttribute());
-
-
 });
 
 // Database context
@@ -54,7 +59,8 @@ builder.Services.Configure<RouteOptions>(options =>
 });
 
 // Identity
-builder.Services.AddIdentity<User, IdentityRole>(options =>
+builder.Services
+    .AddIdentity<User, IdentityRole>(options =>
     {
         options.User.RequireUniqueEmail = true;
     })
@@ -62,13 +68,13 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     .AddDefaultTokenProviders();
 
 // Authentication
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
     // Adding Jwt Bearer
     .AddJwtBearer(options =>
     {
@@ -80,8 +86,11 @@ builder.Services.AddAuthentication(options =>
             ValidateAudience = true,
             ValidAudience = builder.Configuration["JWT:ValidAudience"],
             ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]
-                                ?? throw new ArgumentException("JWT Secret not found."))),
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(
+                    builder.Configuration["JWT:Secret"] ?? throw new ArgumentException("JWT Secret not found.")
+                )
+            ),
             ClockSkew = TimeSpan.Zero,
             ValidateLifetime = true,
         };
@@ -90,8 +99,10 @@ builder.Services.AddAuthentication(options =>
 // Redis
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-    options.Configuration = builder.Configuration.GetConnectionString(builder.Configuration["ConnectionStrings:Redis"]
-                            ?? throw new ArgumentException("Redis connection string not found."));
+    options.Configuration = builder.Configuration.GetConnectionString(
+        builder.Configuration["ConnectionStrings:Redis"]
+            ?? throw new ArgumentException("Redis connection string not found.")
+    );
     options.InstanceName = "BattleCottage";
 });
 
@@ -124,13 +135,13 @@ if (app.Environment.IsDevelopment())
 
 if (!app.Environment.IsDevelopment())
 {
-
-    app.UseForwardedHeaders(new ForwardedHeadersOptions
-    {
-        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-    });
+    app.UseForwardedHeaders(
+        new ForwardedHeadersOptions
+        {
+            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+        }
+    );
 }
-
 
 app.UseCors(MyAllowSpecificOrigins);
 

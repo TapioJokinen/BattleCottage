@@ -22,120 +22,121 @@ import SwordIcon from '@/app/components/icons/SwordIcon';
 import TankIcon from '@/app/components/icons/TankIcon';
 import TopLaneIcon from '@/app/components/icons/TopLaneIcon';
 
+//TODO: Get these from the API?
 export const roles = [
   {
     label: 'Tank',
-    value: 'tank',
+    id: 1,
     icon: TankIcon,
   },
   {
     label: 'Healer',
-    value: 'healer',
+    id: 2,
     icon: HealerIcon,
   },
   {
     label: 'DPS',
-    value: 'dps',
+    id: 3,
     icon: SwordIcon,
   },
   {
     label: 'Top Lane',
-    value: 'top_lane',
+    id: 4,
     icon: TopLaneIcon,
   },
   {
     label: 'Bottom Lane',
-    value: 'bottom_lane',
+    id: 5,
     icon: BottomLaneIcon,
   },
   {
     label: 'Mid Lane',
-    value: 'mid_lane',
+    id: 6,
     icon: MidLaneIcon,
   },
   {
     label: 'Jungle',
-    value: 'jungle',
+    id: 7,
     icon: JungleIcon,
   },
   {
     label: 'Support',
-    value: 'support',
+    id: 8,
     icon: SupportIcon,
   },
   {
     label: 'Entry Fragger',
-    value: 'entry_fragger',
+    id: 9,
     icon: EntryFraggerIcon,
   },
   {
     label: 'Refragger',
-    value: 're_fragger',
+    id: 10,
     icon: RefraggerIcon,
   },
   {
     label: 'Strategy Caller',
-    value: 'strategy_caller',
+    id: 11,
     icon: StrategyCallerIcon,
   },
   {
     label: 'Lurker',
-    value: 'lurker',
+    id: 12,
     icon: LurkerIcon,
   },
   {
     label: 'AWPer',
-    value: 'awper',
+    id: 13,
     icon: AWPerIcon,
   },
   {
     label: 'Combat Support',
-    value: 'combat_support',
+    id: 14,
     icon: CombatSupportIcon,
   },
   {
     label: 'Medic',
-    value: 'medic',
+    id: 15,
     icon: MedicIcon,
   },
   {
     label: 'Assault',
-    value: 'assault',
+    id: 16,
     icon: AssaultIcon,
   },
   {
     label: 'Recon',
-    value: 'recon',
+    id: 17,
     icon: ReconIcon,
   },
   {
     label: 'Friendly',
-    value: 'friendly',
+    id: 18,
     icon: FriendlyFaceIcon,
   },
   {
     label: 'Funny',
-    value: 'funny',
+    id: 19,
     icon: FunnyFaceIcon,
   },
   {
     label: 'Serious',
-    value: 'serious',
+    id: 20,
     icon: SeriousFaceIcon,
   },
   {
     label: 'e-Girl',
-    value: 'e_girl',
+    id: 21,
     icon: EGirlIcon,
   },
   {
     label: 'Silent',
-    value: 'silent',
+    id: 22,
     icon: SilentIcon,
   },
   {
     label: 'Carry',
-    value: 'carry',
+    id: 23,
     icon: CarryIcon,
   },
 ];

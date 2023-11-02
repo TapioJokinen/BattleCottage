@@ -15,7 +15,8 @@ namespace BattleCottage.Core.Entities
         public required string Description { get; set; }
 
         [Required]
-        public int DurationInMinutes { get; set; }
+        public int DurationInMinutesId { get; set; }
+        public LFGPostDuration DurationInMinutes { get; set; } = null!;
 
         [Required]
         public int GameModeId { get; set; }

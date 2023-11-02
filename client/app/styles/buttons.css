@@ -28,6 +28,6 @@
 
 /*#region SquaredButton.tsx*/
 .squared-button-main {
-  @apply m-2 flex w-[156px] justify-center rounded border-[1px] p-2 px-7 text-[var(--palette-light-burgundy)] shadow-md hover:border-[var(--palette-ebony-clay)] hover:bg-[var(--palette-water-blue)] hover:text-[var(--text-light)] active:animate-press sm:text-[1.3em];
+  @apply m-2 flex w-fit min-w-[156px] justify-center rounded border-[1px] p-2 px-7 text-[var(--palette-light-burgundy)] shadow-md hover:border-[var(--palette-ebony-clay)] hover:bg-[var(--palette-water-blue)] hover:text-[var(--text-light)] active:animate-press sm:text-[1.3em];
 }
 /*#endregion*/

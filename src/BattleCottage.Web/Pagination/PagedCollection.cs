@@ -26,8 +26,8 @@ namespace BattleCottage.Core.Pagination
 
             PageSize =
                 pageSize != null && pageSize > 0 && pageSize <= PageSettings.MaxPageSize
-                ? pageSize.Value
-                : PageSettings.MaxPageSize;
+                    ? pageSize.Value
+                    : PageSettings.MaxPageSize;
 
             TotalPages = (int)Math.Ceiling(values.Count / (double)PageSize);
 
@@ -65,7 +65,8 @@ namespace BattleCottage.Core.Pagination
             }
             else
             {
-                if (!queryString.EndsWith("?") && !queryString.EndsWith("&")) queryString += "&";
+                if (!queryString.EndsWith("?") && !queryString.EndsWith("&"))
+                    queryString += "&";
                 queryString += $"{key}={value}";
             }
         }

@@ -1,14 +1,18 @@
 import { MouseEventHandler, useState } from 'react';
 
 interface RoleButtonProps {
-  role: { label: string; icon: React.ComponentType; value: string };
+  label: string;
+  roleId: number;
+  Icon: React.ComponentType;
   numOfSelected: number;
   handleAdd: MouseEventHandler<HTMLDivElement>;
   handleRemove: MouseEventHandler<HTMLDivElement>;
 }
 
 export default function RoleButton({
-  role,
+  label,
+  roleId,
+  Icon,
   numOfSelected,
   handleAdd,
   handleRemove,
@@ -62,7 +66,7 @@ export default function RoleButton({
         <span>{numOfSelected}</span>
         <div className="role-button-controls">
           <div
-            id={role.value}
+            id={roleId.toString()}
             role="button"
             className="role-button-adjust-button"
             onMouseDown={handleRemoveMouseDown}
@@ -70,12 +74,12 @@ export default function RoleButton({
           >
             -
           </div>
-          <div id={role.value} className="role-button-name-and-icon">
-            <span className="mr-2">{role.label}</span>
-            <role.icon />
+          <div id={roleId.toString()} className="role-button-name-and-icon">
+            <span className="mr-2">{label}</span>
+            <Icon />
           </div>
           <div
-            id={role.value}
+            id={roleId.toString()}
             role="button"
             className="role-button-adjust-button"
             onMouseDown={handleAddMouseDown}

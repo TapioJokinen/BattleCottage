@@ -31,12 +31,15 @@ namespace BattleCottage.Core.Caching
 
         public async Task Set<T>(string key, T value)
         {
-            await _cache.SetAsync(key, Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value)), new DistributedCacheEntryOptions
-            {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1),
-                SlidingExpiration = TimeSpan.FromMinutes(10)
-
-            });
+            await _cache.SetAsync(
+                key,
+                Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value)),
+                new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1),
+                    SlidingExpiration = TimeSpan.FromMinutes(10)
+                }
+            );
         }
     }
 }

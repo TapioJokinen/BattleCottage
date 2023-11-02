@@ -22,7 +22,7 @@ namespace BattleCottage.Services.RAWG
             IConfiguration configuration,
             IRepository<Game> gameRepository,
             IHttpClientFactory httpClientFactory
-            )
+        )
         {
             _logger = logger;
             _configuration = configuration;
@@ -70,10 +70,8 @@ namespace BattleCottage.Services.RAWG
                     {
                         RAWGGamesResult? result = JsonSerializer.Deserialize<RAWGGamesResult>(
                             stringResponse,
-                            new JsonSerializerOptions()
-                            {
-                                PropertyNamingPolicy = SnakeCaseNamingPolicy.Instance
-                            });
+                            new JsonSerializerOptions() { PropertyNamingPolicy = SnakeCaseNamingPolicy.Instance }
+                        );
 
                         if (result != null && result.Results != null)
                         {
@@ -121,7 +119,8 @@ namespace BattleCottage.Services.RAWG
                 else
                 {
                     // Get names of the Games in 'gamesInDb' list.
-                    IList<string> gameNamesInDb = gamesInDb != null ? gamesInDb.Select(x => x.Name).ToList() : new List<string>();
+                    IList<string> gameNamesInDb =
+                        gamesInDb != null ? gamesInDb.Select(x => x.Name).ToList() : new List<string>();
 
                     // Filter out all games which are not in the database yet.
                     List<Game> gamesNotInDb = games.Where(x => !gameNamesInDb.Contains(x.Name)).ToList();

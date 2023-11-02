@@ -14,10 +14,11 @@ namespace BattleCottage.Tests
 
         public void TruncateDatabase()
         {
-            IList<string?> tableNames = _context.Model.GetEntityTypes()
-                            .Select(t => t.GetTableName())
-                            .Distinct()
-                            .ToList();
+            IList<string?> tableNames = _context.Model
+                .GetEntityTypes()
+                .Select(t => t.GetTableName())
+                .Distinct()
+                .ToList();
 
             if (tableNames.Count > 0)
             {

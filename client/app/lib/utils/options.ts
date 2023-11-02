@@ -22,9 +22,9 @@ export const gameModeOptions: SearchableSelectionOptionType[] = [
   { label: 'PvP', itemId: 1 },
   { label: 'PvE', itemId: 2 },
   { label: 'Co-op', itemId: 3 },
-  { label: 'Multiplayer', itemId: 5 },
-  { label: 'Battle Royale', itemId: 7 },
-  { label: 'Other', itemId: 8 },
+  { label: 'Multiplayer', itemId: 4 },
+  { label: 'Battle Royale', itemId: 5 },
+  { label: 'Other', itemId: 6 },
 ];
 
 export const gameStyleOptions: SearchableSelectionOptionType[] = [

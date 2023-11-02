@@ -19,7 +19,9 @@ namespace BattleCottage.Services.HealthCheck
             var response = new HealthCheckResult()
             {
                 BackendStatus = HealthCheckStatus.Healthy.ToString(),
-                DatabaseStatus = canConnect ? HealthCheckStatus.Healthy.ToString() : HealthCheckStatus.NotHealthy.ToString(),
+                DatabaseStatus = canConnect
+                    ? HealthCheckStatus.Healthy.ToString()
+                    : HealthCheckStatus.NotHealthy.ToString(),
                 CurrentTime = DateTime.UtcNow,
             };
 

@@ -26,7 +26,7 @@ export interface RefreshResponse extends APIBaseResponseType, APIMessageResponse
   refreshTokenExpiration?: string;
 }
 
-export interface GamesResponseType extends APIBaseResponseType {
+export interface GamesResponseType extends APIBaseResponseType, APIMessageResponseType {
   next: string;
   previous: string;
   results: Array<Game>;
@@ -38,4 +38,35 @@ export interface Game {
   id: number;
   dateAdded: string;
   dateUpdated: string;
+}
+
+export interface GameRole {
+  gameRoleId: number;
+  gameRole: string;
+}
+
+export interface LFGPostCreateResponseType extends APIBaseResponseType, APIMessageResponseType {
+  id: number;
+  dateAdded: string;
+  description: string;
+  durationInMinutes: number;
+  gameId: number;
+  gameName: string;
+  gameModeId: number;
+  gameMode: string;
+  gameStyleId: number;
+  gameStyle: string;
+  title: string;
+  userId: string;
+  gameRoles: Array<GameRole>;
+}
+
+export interface LFGPost {
+  title: string;
+  description: string;
+  durationId: number;
+  gameId: number;
+  gameModeId: number;
+  gameStyleId: number;
+  gameRoleIds: Array<number>;
 }

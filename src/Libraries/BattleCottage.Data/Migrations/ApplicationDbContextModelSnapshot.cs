@@ -80,16 +80,44 @@ namespace BattleCottage.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(8904),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(8904),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4457),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4458),
                             Name = "PvP"
                         },
                         new
                         {
                             Id = 2,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(8905),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(8905),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4459),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4459),
                             Name = "PvE"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4460),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4460),
+                            Name = "Co-op"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4461),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4462),
+                            Name = "Multiplayer"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4462),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4463),
+                            Name = "Battle Royale"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4464),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4464),
+                            Name = "Other"
                         });
                 });
 
@@ -122,162 +150,162 @@ namespace BattleCottage.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9062),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9063),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4625),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4625),
                             Name = "Tank"
                         },
                         new
                         {
                             Id = 2,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9064),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9064),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4627),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4627),
                             Name = "Healer"
                         },
                         new
                         {
                             Id = 3,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9065),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9065),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4628),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4629),
                             Name = "DPS"
                         },
                         new
                         {
                             Id = 4,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9066),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9067),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4630),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4630),
                             Name = "Top Lane"
                         },
                         new
                         {
                             Id = 5,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9068),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9068),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4631),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4631),
                             Name = "Bottom Lane"
                         },
                         new
                         {
                             Id = 6,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9069),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9069),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4632),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4633),
                             Name = "Mid Lane"
                         },
                         new
                         {
                             Id = 7,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9070),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9071),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4634),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4634),
                             Name = "Jungle"
                         },
                         new
                         {
                             Id = 8,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9072),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9072),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4635),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4635),
                             Name = "Support"
                         },
                         new
                         {
                             Id = 9,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9073),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9073),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4636),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4637),
                             Name = "Entry Fragger"
                         },
                         new
                         {
                             Id = 10,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9074),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9075),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4638),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4638),
                             Name = "ReFragger"
                         },
                         new
                         {
                             Id = 11,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9075),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9076),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4639),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4639),
                             Name = "Strategy Caller"
                         },
                         new
                         {
                             Id = 12,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9077),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9077),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4640),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4641),
                             Name = "Lurker"
                         },
                         new
                         {
                             Id = 13,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9078),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9078),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4641),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4642),
                             Name = "Awper"
                         },
                         new
                         {
                             Id = 14,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9079),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9080),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4643),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4643),
                             Name = "Combat Support"
                         },
                         new
                         {
                             Id = 15,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9081),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9081),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4644),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4644),
                             Name = "Medic"
                         },
                         new
                         {
                             Id = 16,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9082),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9082),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4645),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4646),
                             Name = "Assault"
                         },
                         new
                         {
                             Id = 17,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9083),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9084),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4647),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4647),
                             Name = "Recon"
                         },
                         new
                         {
                             Id = 18,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9085),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9085),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4648),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4648),
                             Name = "Friendly"
                         },
                         new
                         {
                             Id = 19,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9086),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9086),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4649),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4650),
                             Name = "Funny"
                         },
                         new
                         {
                             Id = 20,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9087),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9088),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4650),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4651),
                             Name = "Serious"
                         },
                         new
                         {
                             Id = 21,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9089),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9089),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4652),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4652),
                             Name = "e-Girl"
                         },
                         new
                         {
                             Id = 22,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9090),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9090),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4653),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4653),
                             Name = "Silent"
                         },
                         new
                         {
                             Id = 23,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9091),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9091),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4654),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4655),
                             Name = "Carry"
                         });
                 });
@@ -311,16 +339,23 @@ namespace BattleCottage.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9047),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9048),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4610),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4611),
                             Name = "Casual"
                         },
                         new
                         {
                             Id = 2,
-                            DateAdded = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9049),
-                            DateUpdated = new DateTime(2023, 10, 4, 18, 44, 11, 107, DateTimeKind.Utc).AddTicks(9049),
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4612),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4612),
                             Name = "Competitive"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4613),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4613),
+                            Name = "Other"
                         });
                 });
 
@@ -342,7 +377,7 @@ namespace BattleCottage.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("DurationInMinutes")
+                    b.Property<int>("DurationInMinutesId")
                         .HasColumnType("integer");
 
                     b.Property<int>("GameId")
@@ -364,6 +399,8 @@ namespace BattleCottage.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DurationInMinutesId");
+
                     b.HasIndex("GameId");
 
                     b.HasIndex("GameModeId");
@@ -373,6 +410,101 @@ namespace BattleCottage.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("LFGPosts");
+                });
+
+            modelBuilder.Entity("BattleCottage.Core.Entities.LFGPostDuration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("DurationInMinutes")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DurationInMinutes")
+                        .IsUnique();
+
+                    b.ToTable("LFGPostDurations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4674),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4675),
+                            DurationInMinutes = 60,
+                            Name = "1 hour"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4676),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4676),
+                            DurationInMinutes = 120,
+                            Name = "2 hour"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4677),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4677),
+                            DurationInMinutes = 300,
+                            Name = "5 hour"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4678),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4679),
+                            DurationInMinutes = 720,
+                            Name = "12 hour"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4680),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4680),
+                            DurationInMinutes = 1440,
+                            Name = "1 day"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4681),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4681),
+                            DurationInMinutes = 4320,
+                            Name = "3 days"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4682),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4683),
+                            DurationInMinutes = 10080,
+                            Name = "7 days"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DateAdded = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4683),
+                            DateUpdated = new DateTime(2023, 11, 2, 17, 14, 17, 975, DateTimeKind.Utc).AddTicks(4684),
+                            DurationInMinutes = 43200,
+                            Name = "30 days"
+                        });
                 });
 
             modelBuilder.Entity("BattleCottage.Core.Entities.LFGPostGameRole", b =>
@@ -608,6 +740,12 @@ namespace BattleCottage.Data.Migrations
 
             modelBuilder.Entity("BattleCottage.Core.Entities.LFGPost", b =>
                 {
+                    b.HasOne("BattleCottage.Core.Entities.LFGPostDuration", "DurationInMinutes")
+                        .WithMany("LFGPosts")
+                        .HasForeignKey("DurationInMinutesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BattleCottage.Core.Entities.Game", "Game")
                         .WithMany("LFGPosts")
                         .HasForeignKey("GameId")
@@ -631,6 +769,8 @@ namespace BattleCottage.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("DurationInMinutes");
 
                     b.Navigation("Game");
 
@@ -734,6 +874,11 @@ namespace BattleCottage.Data.Migrations
             modelBuilder.Entity("BattleCottage.Core.Entities.LFGPost", b =>
                 {
                     b.Navigation("LFGPostGameRoles");
+                });
+
+            modelBuilder.Entity("BattleCottage.Core.Entities.LFGPostDuration", b =>
+                {
+                    b.Navigation("LFGPosts");
                 });
 #pragma warning restore 612, 618
         }

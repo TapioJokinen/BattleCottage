@@ -25,11 +25,16 @@ namespace BattleCottage.Services.Authentication
             if (string.IsNullOrEmpty(credentials.Email) || string.IsNullOrEmpty(credentials.Password))
             {
                 throw new ArgumentException("Email and password cannot be empty.");
-            };
+            }
+            ;
 
             User? user = await _userRepository.FindByEmailAsync(credentials.Email);
 
-            if (user != null && user.Email != null && await _userRepository.CheckPasswordAsync(user, credentials.Password))
+            if (
+                user != null
+                && user.Email != null
+                && await _userRepository.CheckPasswordAsync(user, credentials.Password)
+            )
             {
                 ICollection<string> userRoles = await _userRepository.GetUserRolesAsync(user);
 
@@ -75,7 +80,8 @@ namespace BattleCottage.Services.Authentication
             string? accessToken = tokens.AccessToken;
             string? refreshToken = tokens.RefreshToken;
 
-            ClaimsPrincipal? principal = _tokenService.GetPrincipalFromExpiredToken(accessToken) ?? throw new TokenException("Invalid token.");
+            ClaimsPrincipal? principal =
+                _tokenService.GetPrincipalFromExpiredToken(accessToken) ?? throw new TokenException("Invalid token.");
 
             if (principal.Identity == null || principal.Identity.Name == null)
             {
@@ -104,7 +110,8 @@ namespace BattleCottage.Services.Authentication
 
         public async Task Register(RegisterCredentials credentials)
         {
-            if (!Validator.ValidateEmail(credentials.Email)) throw new RegisterException("The provided email was not in correct format.");
+            if (!Validator.ValidateEmail(credentials.Email))
+                throw new RegisterException("The provided email was not in correct format.");
 
             if (string.IsNullOrEmpty(credentials.Password) || string.IsNullOrEmpty(credentials.PasswordAgain))
                 throw new RegisterException("Password must not be empty.");

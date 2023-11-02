@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BattleCottage.Data.Repositories
 {
-    public class EntityRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
+    public class EntityRepository<TEntity> : IRepository<TEntity>
+        where TEntity : BaseEntity
     {
         private readonly ApplicationDbContext _context;
 
@@ -13,20 +14,29 @@ namespace BattleCottage.Data.Repositories
             _context = context;
         }
 
+        /// <summary>
+        /// Adds a new entity to the repository.
+        /// </summary>
+        /// <param name="entity">The entity to add.</param>
+        /// <returns>The added entity.</returns>
         public async Task<TEntity> AddAsync(TEntity entity)
         {
             await _context.Set<TEntity>().AddAsync(entity);
             return entity;
         }
 
+        /// <summary>
+        /// Deletes the specified entity from the database.
+        /// </summary>
+        /// <param name="entity">The entity to delete.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the deleted entity.</returns>
         public Task<TEntity> DeleteAsync(TEntity entity)
         {
             throw new NotImplementedException();
         }
 
-
         /// <summary>
-        /// Filters the entities in the repository based on the given filter expression.
+        /// Filters the entities in the database based on the given filter expression.
         /// </summary>
         /// <param name="filter">The filter expression to apply to the entities.</param>
         /// <returns>A list of entities that match the filter expression, or null if no entities match.</returns>
@@ -38,16 +48,30 @@ namespace BattleCottage.Data.Repositories
             return entities.Count == 0 ? null : entities;
         }
 
+        /// <summary>
+        /// Retrieves all entities of type TEntity from the database.
+        /// </summary>
+        /// <returns>A list of all entities of type TEntity, or null if none are found.</returns>
         public async Task<IList<TEntity>?> GetAllAsync()
         {
             return await _context.Set<TEntity>().ToListAsync();
         }
 
+        /// <summary>
+        /// Finds an entity by its ID asynchronously.
+        /// </summary>
+        /// <param name="id">The ID of the entity to find.</param>
+        /// <returns>The entity with the specified ID, or null if not found.</returns>
         public async Task<TEntity?> FindByIdAsync(int id)
         {
             return await _context.Set<TEntity>().FindAsync(id);
         }
 
+        /// <summary>
+        /// Updates an entity asynchronously.
+        /// </summary>
+        /// <param name="entity">The entity to update.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
         public Task<TEntity> UpdateEntityAsync(TEntity entity)
         {
             throw new NotImplementedException();
@@ -63,7 +87,7 @@ namespace BattleCottage.Data.Repositories
         }
 
         /// <summary>
-        /// Adds a range of entities to the repository asynchronously.
+        /// Adds a range of entities to the database asynchronously.
         /// </summary>
         /// <param name="entities">The entities to add.</param>
         /// <returns>A list of added entities.</returns>

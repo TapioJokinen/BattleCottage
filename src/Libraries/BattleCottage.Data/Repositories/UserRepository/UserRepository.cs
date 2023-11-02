@@ -17,7 +17,8 @@ namespace BattleCottage.Data.Repositories.UserRepository
 
         public async Task<IdentityResult> AddUserAsync(User user, string? password)
         {
-            if (string.IsNullOrEmpty(password)) return IdentityResult.Failed();
+            if (string.IsNullOrEmpty(password))
+                return IdentityResult.Failed();
 
             IdentityResult result = await _userManager.CreateAsync(user, password);
 
@@ -26,24 +27,25 @@ namespace BattleCottage.Data.Repositories.UserRepository
 
         public async Task<bool> CheckPasswordAsync(User user, string? password)
         {
-            if (user == null) throw new ArgumentNullException(nameof(user));
-            if (password == null) throw new ArgumentNullException(nameof(password));
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+            if (password == null)
+                throw new ArgumentNullException(nameof(password));
 
             return await _userManager.CheckPasswordAsync(user, password);
         }
 
         public async Task<User?> FindByEmailAsync(string? email)
         {
-            User? user = await _context.Users
-                .Where(u => u.Email == email)
-                .FirstOrDefaultAsync();
+            User? user = await _context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
 
             return user;
         }
 
         public async Task<ICollection<string>> GetUserRolesAsync(User user)
         {
-            if (user == null) throw new ArgumentNullException(nameof(user));
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
 
             return await _userManager.GetRolesAsync(user);
         }
