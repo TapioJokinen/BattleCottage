@@ -2,6 +2,7 @@
 
 import { ReactNode } from 'react';
 import { SessionProvider } from 'next-auth/react';
+import { AlertProvider } from './AlertProvider';
 
 export default function Providers({ children }: { children: ReactNode }) {
   return (
@@ -10,7 +11,7 @@ export default function Providers({ children }: { children: ReactNode }) {
       refetchOnWindowFocus={typeof navigator !== 'undefined' && navigator.onLine}
       refetchWhenOffline={false}
     >
-      {children}
+      <AlertProvider>{children}</AlertProvider>
     </SessionProvider>
   );
 }

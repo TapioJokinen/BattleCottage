@@ -26,7 +26,10 @@
   --palette-black-50: #00000080;
   --palette-black-20: #00000033;
   --text-light: #e7e7e7;
-  --error: #f44336;
+  --error: #d32f2f;
+  --success: #388e3c;
+  --info: #0288d1;
+  --warning: #f57c00;
 }
 
 html {

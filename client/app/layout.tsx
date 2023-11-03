@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import '@/app/styles/globals.css';
 import { Roboto, Permanent_Marker } from 'next/font/google';
 import Providers from '@/app/context/Providers';
+import Alert from './components/Alert';
 
 const permanent_marker = Permanent_Marker({
   subsets: ['latin'],
@@ -28,7 +29,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         suppressHydrationWarning={true}
         className={`${roboto.variable} ${permanent_marker.variable} font-opensans`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <Alert />
+          {children}
+        </Providers>
       </body>
     </html>
   );

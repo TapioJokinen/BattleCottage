@@ -18,11 +18,17 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { roles } from '@/app/lib/utils/roles';
 import RoleButton from '@/app/components/buttons/RoleButton';
 import SquaredButton from '@/app/components/buttons/SquaredButton';
-import { LFGPost } from '../lib/types/components';
-import { lfgPostCreate, lfgPostGetFormOptions } from '../api/lfgpost';
+import { LFGPost } from '@/app/lib/types/components';
+import { lfgPostCreate, lfgPostGetFormOptions } from '@/app/api/lfgpost';
+import useAlert from '@/app/hooks/useAlert';
+import { useRouter } from 'next/navigation';
+
+const MAX_ROLE_SELECTIONS = 100;
 
 export default function CreateLFGPostContainer() {
   const session = useSession();
+  const router = useRouter();
+  const alert = useAlert();
 
   /* SearchSelectInput default options */
   const [gameModeOptions, setGameModeOptions] = useState<GameModeOptionType[]>([]);
@@ -46,19 +52,28 @@ export default function CreateLFGPostContainer() {
   const [gameStyle, setGameStyle] = useState<GameStyleOptionType>(SSIDefaultOption);
   const [playerRoles, setPlayerRoles] = useState<number[]>([]);
 
+  /* Others */
+  const [loading, setLoading] = useState<boolean>(false);
+
   useEffect(() => {
     async function fetchFormOptions() {
-      const data = await lfgPostGetFormOptions(session.data?.accessToken);
+      if (session.data?.accessToken) {
+        setLoading(true);
+        const data = await lfgPostGetFormOptions(session.data?.accessToken);
 
-      if (data.responseOk) {
-        setGameModeOptions(data.gameModes.map((o) => ({ label: o.name, itemId: o.id })));
-        setGameStyleOptions(data.gameStyles.map((o) => ({ label: o.name, itemId: o.id })));
-        setDurationOptions(data.durationsInMinutes.map((o) => ({ label: o.name, itemId: o.id })));
+        if (data.responseOk) {
+          setGameModeOptions(data.gameModes.map((o) => ({ label: o.name, itemId: o.id })));
+          setGameStyleOptions(data.gameStyles.map((o) => ({ label: o.name, itemId: o.id })));
+          setDurationOptions(data.durationsInMinutes.map((o) => ({ label: o.name, itemId: o.id })));
+        } else {
+          alert.raiseAlert(data.message, 'error');
+        }
+        setLoading(false);
       }
     }
 
     fetchFormOptions();
-  }, []);
+  }, [session.data?.accessToken]);
 
   /**
    * Handles the selection of a menu option.
@@ -127,32 +142,6 @@ export default function CreateLFGPostContainer() {
   }
 
   /**
-   * Handles input change for searchable selection component.
-   * @template T - The type of the searchable selection option.
-   * @param {React.ChangeEvent<HTMLInputElement>} event - The input change event.
-   * @param {React.Dispatch<React.SetStateAction<T>>} setOption - The state setter for the selected option.
-   * @param {React.Dispatch<React.SetStateAction<T[]>>} setOptions - The state setter for the available options.
-   * @param {T[]} defaultOptions - The default options for the searchable selection.
-   */
-  function handleInputChange<T extends SearchSelectInputOptionType>(
-    event: React.ChangeEvent<HTMLInputElement>,
-    setOption: React.Dispatch<React.SetStateAction<T>>,
-    setOptions: React.Dispatch<React.SetStateAction<T[]>>,
-    defaultOptions: T[],
-  ) {
-    const value = event.target.value;
-    setOption({ label: value, itemId: -1 } as T);
-
-    const options = defaultOptions.filter((option) => option.label.includes(value));
-
-    if (value.length < 1) {
-      setOptions(defaultOptions);
-    } else {
-      setOptions(options);
-    }
-  }
-
-  /**
    * Handles the addition of a role to the LFG form.
    * @param event - The mouse event that triggered the role addition.
    */
@@ -161,7 +150,7 @@ export default function CreateLFGPostContainer() {
     const roleId = target.id;
     if (roleId !== null) {
       setPlayerRoles((prev) => {
-        if (prev.length < 101) {
+        if (prev.length < MAX_ROLE_SELECTIONS) {
           return [...prev, parseInt(roleId)];
         }
         return [...prev];
@@ -190,23 +179,40 @@ export default function CreateLFGPostContainer() {
   }
 
   async function handleFormSubmit() {
-    const post: LFGPost = {
-      title,
-      description,
-      gameId: game.itemId,
-      gameModeId: gameMode.itemId,
-      gameStyleId: gameStyle.itemId,
-      durationId: duration.itemId,
-      gameRoleIds: playerRoles,
-    };
+    setLoading(true);
 
-    const data = await lfgPostCreate(post, session.data?.accessToken);
-
-    if (data.responseOk) {
-      console.log(data);
+    if (
+      title.length < 3 ||
+      description.length < 3 ||
+      playerRoles.length === 0 ||
+      !game.itemId ||
+      !gameMode.itemId ||
+      !gameStyle.itemId ||
+      !duration.itemId
+    ) {
+      alert.raiseAlert('Please fill in all fields.', 'error');
     } else {
-      console.log(data.message);
+      const post: LFGPost = {
+        title,
+        description,
+        gameId: game.itemId,
+        gameModeId: gameMode.itemId,
+        gameStyleId: gameStyle.itemId,
+        durationId: duration.itemId,
+        gameRoleIds: playerRoles,
+      };
+
+      const data = await lfgPostCreate(post, session.data?.accessToken);
+
+      if (data.responseOk) {
+        alert.raiseAlert('LFG post created!', 'success');
+        router.push('/cottage');
+      } else {
+        alert.raiseAlert(data.message, 'error');
+      }
     }
+
+    setLoading(false);
   }
 
   return (
@@ -239,10 +245,8 @@ export default function CreateLFGPostContainer() {
             <SearchSelectInput
               label="Choose a game mode"
               value={gameMode?.label}
-              options={gameMode?.label ? gameModeChoices : gameModeOptions}
-              onInputChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                handleInputChange(event, setGameMode, setGameModeChoices, gameModeOptions)
-              }
+              options={gameModeOptions}
+              onInputChange={() => {}}
               onMenuSelection={(option: GameModeOptionType) =>
                 handleMenuSelection(option, setGameMode)
               }
@@ -250,10 +254,8 @@ export default function CreateLFGPostContainer() {
             <SearchSelectInput
               label="Choose a gaming style"
               value={gameStyle?.label}
-              options={gameStyle?.label ? gameStyleChoices : gameStyleOptions}
-              onInputChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                handleInputChange(event, setGameStyle, setGameStyleChoices, gameStyleOptions)
-              }
+              options={gameStyleOptions}
+              onInputChange={() => {}}
               onMenuSelection={(option: GameStyleOptionType) =>
                 handleMenuSelection(option, setGameStyle)
               }
@@ -261,10 +263,8 @@ export default function CreateLFGPostContainer() {
             <SearchSelectInput
               label="Choose a duration for post"
               value={duration?.label}
-              options={duration?.label ? durationChoices : durationOptions}
-              onInputChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                handleInputChange(event, setDuration, setDurationChoices, durationOptions)
-              }
+              options={durationOptions}
+              onInputChange={() => {}}
               onMenuSelection={(option: DurationOptionType) =>
                 handleMenuSelection(option, setDuration)
               }
@@ -272,6 +272,9 @@ export default function CreateLFGPostContainer() {
           </div>
         </div>
         <div>
+          <span className="font-permanentmarker text-2xl text-[var(--palette-light-burgundy)]">
+            Roles: {playerRoles.length} / {MAX_ROLE_SELECTIONS}
+          </span>
           <div className="inline-block w-full text-center">
             {roles.map((role) => (
               <RoleButton

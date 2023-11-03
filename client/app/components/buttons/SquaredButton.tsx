@@ -32,6 +32,7 @@ export default function SquaredButton({
   return (
     <button
       type={type}
+      disabled={loading}
       onClick={onClick}
       /* For some reason bg-color has to be set here and not in .css file. If set in file it gets
       overridden to transparent */
