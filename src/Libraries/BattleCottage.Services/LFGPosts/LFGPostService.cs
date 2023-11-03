@@ -119,9 +119,19 @@ namespace BattleCottage.Services.LFGPosts
                 throw new ArgumentException("Title must be at least 3 characters long.");
             }
 
+            if (formInput.Title.Length > 50)
+            {
+                throw new ArgumentException("Title must be at at most 50 characters long.");
+            }
+
             if (formInput.Description == null || formInput.Description.Length < 3)
             {
                 throw new ArgumentException("Description must be at least 3 characters long.");
+            }
+
+            if (formInput.Description.Length > 250)
+            {
+                throw new ArgumentException("Description must be at most 250 characters long.");
             }
 
             if (await _lfgPostDurationRepository.FindByIdAsync(formInput.DurationId) == null)

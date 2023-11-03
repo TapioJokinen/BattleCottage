@@ -6,9 +6,11 @@ import { useSession } from 'next-auth/react';
 import SquaredButton from './buttons/SquaredButton';
 import { useState } from 'react';
 import Link from 'next/link';
+import useAlert from '@/app/hooks/useAlert';
 
 export default function NavBar() {
   const session = useSession();
+  const alert = useAlert();
 
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -28,10 +30,15 @@ export default function NavBar() {
     const revokeResponse = await authRevoke(session.data?.accessToken);
 
     if (!revokeResponse.responseOk) {
-      console.error(revokeResponse.message);
+      alert.raiseAlert(
+        'Something failed while signing out. You should be good though :)',
+        'warning',
+      );
     }
 
     await signOut({ callbackUrl: '/' });
+
+    alert.raiseAlert('You have been signed out.', 'info');
 
     setLoading(false);
   }

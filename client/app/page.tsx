@@ -11,8 +11,6 @@ export default function Home() {
   const { status } = useSession();
   const router = useRouter();
 
-  console.log(status);
-
   useEffect(() => {
     if (status === 'authenticated') {
       router.push('/cottage');
