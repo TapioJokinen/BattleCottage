@@ -16,7 +16,7 @@
 }
 
 .role-button-name-and-icon {
-  @apply m-2 flex min-w-[200px] items-center justify-between rounded bg-[var(--palette-baltic-sea)] px-5 py-1 text-xl shadow shadow-[var(--palette-dark-jungle-green)] sm:min-w-[230px];
+  @apply m-2 flex min-w-[200px] items-center justify-between rounded bg-[var(--palette-baltic-sea)] px-5 py-1 text-[18px] shadow shadow-[var(--palette-dark-jungle-green)] sm:min-w-[230px];
 }
 /*#endregion*/
 

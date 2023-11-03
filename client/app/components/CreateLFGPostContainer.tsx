@@ -217,11 +217,11 @@ export default function CreateLFGPostContainer() {
 
   return (
     <div className="flex h-full flex-col items-center">
-      <div className="h-fit w-3/4 max-w-[1440px] border-2 border-[var(--palette-baltic-sea)] bg-[var(--palette-dark-jungle-green)] p-5 shadow-md">
+      <div className="h-fit w-11/12 max-w-[1440px] border-2 border-[var(--palette-baltic-sea)] bg-[var(--palette-dark-jungle-green)] p-5 shadow-md sm:w-3/4">
         <div className="grid h-fit w-full grid-cols-1 place-items-start justify-items-center sm:grid-cols-2 sm:gap-4">
           <div className="flex w-full flex-col items-center">
             <SearchSelectInput
-              label="Choose a game"
+              label={game?.label ? 'Choose a game' : 'Choose a game (type to search)'}
               value={game?.label}
               options={gameOptions}
               onInputChange={handleGameInputChange}

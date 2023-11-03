@@ -59,7 +59,7 @@ body {
     #712c3a
   );
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: scroll;
 }
 
 input:-webkit-autofill,

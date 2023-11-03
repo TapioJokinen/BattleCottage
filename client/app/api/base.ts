@@ -1,6 +1,6 @@
 export async function handleResponse<T>(response: Response): Promise<T> {
   if (response.status === 401) {
-    window.location.href = '/login';
+    window.location.href = '/';
   }
   const contentType = response.headers.get('Content-Type') || '';
   const isJson = contentType.includes('application/json');
