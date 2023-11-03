@@ -73,18 +73,13 @@ export default function SearchSelectInput({
                     : 'bg-[var(--palette-darkest-grey)]'
                 } ${index === 0 ? 'rounded-t-lg' : ''} ${
                   index === options.length - 1 ? 'rounded-b-lg' : ''
-                } p-2 hover:bg-[var(--palette-water-blue)]`}
+                } cursor-pointer p-2 hover:bg-[var(--palette-water-blue)]`}
+                onMouseDown={() => {
+                  setMenuOpen(false);
+                  onMenuSelection(option);
+                }}
               >
-                <button
-                  type="button"
-                  className="w-full text-left"
-                  onMouseDown={() => {
-                    setMenuOpen(false);
-                    onMenuSelection(option);
-                  }}
-                >
-                  {option.label}
-                </button>
+                <span className="w-full text-left">{option.label}</span>
               </li>
             ))}
           </ul>

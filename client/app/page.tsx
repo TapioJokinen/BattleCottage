@@ -5,18 +5,23 @@ import { useSession } from 'next-auth/react';
 
 import AuthContainer from '@/app/components/AuthContainer';
 import LandingTitle from '@/app/components/LandingTitle';
+import { useEffect } from 'react';
 
 export default function Home() {
   const { status } = useSession();
   const router = useRouter();
 
-  if (status === 'authenticated') {
-    router.push('/cottage');
-  }
+  console.log(status);
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.push('/cottage');
+    }
+  }, [status]);
 
   return (
     <main className="main">
-      {status !== 'authenticated' && (
+      {status === 'unauthenticated' && (
         <div className="h-full w-full">
           <LandingTitle />
           <AuthContainer />
