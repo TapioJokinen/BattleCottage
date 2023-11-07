@@ -11,7 +11,9 @@ namespace BattleCottage.Data.Repositories
 
         Task<TEntity> DeleteAsync(TEntity entity);
 
-        Task<TEntity?> FindByIdAsync(int id);
+        Task<TEntity?> GetByIdAsync(int id);
+
+        Task<IList<TEntity>?> GetByIdsAsync(params int[] ids);
 
         Task<TEntity> UpdateEntityAsync(TEntity entity);
 

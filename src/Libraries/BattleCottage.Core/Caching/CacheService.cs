@@ -1,64 +1,29 @@
-using System.Text;
-using System.Text.Json;
-using Microsoft.Extensions.Caching.Distributed;
+using BattleCottage.Core.Utils;
 
 namespace BattleCottage.Core.Caching
 {
-    public class CacheService : ICacheService
+    public abstract class CacheService : ICacheService
     {
-        private readonly IDistributedCache _cache;
-
-        public CacheService(IDistributedCache cache)
+        public string GenerateCacheKeyHash(object parameter)
         {
-            _cache = cache;
-        }
-
-        /// <summary>
-        /// Gets the value associated with the specified key from the cache.
-        /// </summary>
-        /// <typeparam name="T">The type of the value to get.</typeparam>
-        /// <param name="key">The key of the value to get.</param>
-        /// <returns>The value associated with the specified key, or the default value of <typeparamref name="T"/> if the key is not found in the cache.</returns>
-        public async Task<T?> Get<T>(string key)
-        {
-            byte[]? value = await _cache.GetAsync(key);
-
-            if (value != null)
+            return parameter switch
             {
-                return JsonSerializer.Deserialize<T>(Encoding.UTF8.GetString(value));
-            }
-            return default;
+                null => "",
+                int id => id.ToString(),
+                IEnumerable<int> ids => HashHelper.GenerateSHA265Hash(string.Join(",", ids.OrderBy(id => id))),
+                _ => parameter.ToString() ?? string.Empty,
+            };
         }
 
         /// <summary>
-        /// Sets a value in the cache with the specified key and expiration options.
+        /// Generates a default cache key based on the provided key and prefixes.
         /// </summary>
-        /// <typeparam name="T">The type of the value to be cached.</typeparam>
-        /// <param name="key">The cache key.</param>
-        /// <param name="value">The value to be cached.</param>
-        /// <returns>A task that represents the asynchronous operation.</returns>
-        public async Task Set<T>(string key, T value)
+        /// <param name="key">The base cache key.</param>
+        /// <param name="prefixes">The prefixes to add to the cache key.</param>
+        /// <returns>The generated cache key.</returns>
+        public virtual CacheKey GenerateDefaultCacheKey(CacheKey key, params object[] prefixes)
         {
-            await _cache.SetAsync(
-                key,
-                Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value)),
-                new DistributedCacheEntryOptions
-                {
-                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(
-                        CacheOptions.AbsoluteExpirationRelativeToNowInMinutes
-                    ),
-                    SlidingExpiration = TimeSpan.FromMinutes(CacheOptions.SlidingExpirationInMinutes)
-                }
-            );
-        }
-
-        /// <summary>
-        /// Removes the cached item with the specified key.
-        /// </summary>
-        /// <param name="key">The key of the cached item to remove.</param>
-        public async Task Remove(string key)
-        {
-            await _cache.RemoveAsync(key);
+            // TODO
         }
     }
 }

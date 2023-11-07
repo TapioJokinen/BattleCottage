@@ -1,3 +1,4 @@
+using BattleCottage.Core.Caching;
 using BattleCottage.Core.Entities;
 using BattleCottage.Data;
 using BattleCottage.Data.Repositories;
@@ -118,6 +119,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRAWGGamesService, RAWGGamesService>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<ILFGPostService, LFGPostService>();
+
+builder.Services.AddScoped<ICacheManager, RedisCacheManager>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

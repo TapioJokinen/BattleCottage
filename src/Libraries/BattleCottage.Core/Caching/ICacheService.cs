@@ -2,8 +2,7 @@ namespace BattleCottage.Core.Caching
 {
     public interface ICacheService
     {
-        Task<T?> Get<T>(string key);
-        Task Set<T>(string key, T value);
-        Task Remove(string key);
+        CacheKey GenerateDefaultCacheKey(CacheKey key, params object[] prefixes);
+        string GenerateCacheKeyHash(object parameter);
     }
 }

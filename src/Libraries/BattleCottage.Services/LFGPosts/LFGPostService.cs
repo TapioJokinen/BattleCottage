@@ -134,22 +134,22 @@ namespace BattleCottage.Services.LFGPosts
                 throw new ArgumentException("Description must be at most 250 characters long.");
             }
 
-            if (await _lfgPostDurationRepository.FindByIdAsync(formInput.DurationId) == null)
+            if (await _lfgPostDurationRepository.GetByIdAsync(formInput.DurationId) == null)
             {
                 throw new ObjectNotFoundException("Given duration not found.");
             }
 
-            if (await _gameRepository.FindByIdAsync(formInput.GameId) == null)
+            if (await _gameRepository.GetByIdAsync(formInput.GameId) == null)
             {
                 throw new ObjectNotFoundException("Given game not found.");
             }
 
-            if (await _gameModeRepository.FindByIdAsync(formInput.GameModeId) == null)
+            if (await _gameModeRepository.GetByIdAsync(formInput.GameModeId) == null)
             {
                 throw new ObjectNotFoundException("Given game mode not found.");
             }
 
-            if (await _gameStyleRepository.FindByIdAsync(formInput.GameStyleId) == null)
+            if (await _gameStyleRepository.GetByIdAsync(formInput.GameStyleId) == null)
             {
                 throw new ObjectNotFoundException("Given game style not found.");
             }
