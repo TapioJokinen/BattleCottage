@@ -11,5 +11,7 @@ namespace BattleCottage.Core.Caching
         }
 
         public string Key { get; set; }
+        public TimeSpan AbsoluteExpirationRelativeToNow { get; set; } = TimeSpan.FromMinutes(60);
+        public TimeSpan SlidingExpiration { get; set; } = TimeSpan.FromMinutes(10);
     }
 }

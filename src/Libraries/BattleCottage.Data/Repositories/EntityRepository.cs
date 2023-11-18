@@ -68,6 +68,7 @@ namespace BattleCottage.Data.Repositories
         public async Task<TEntity?> GetByIdAsync(int id)
         {
             var cacheKey = _cacheManager.GenerateDefaultCacheKey(EntityCacheDefaults<TEntity>.ByIdCacheKey, id);
+
             return await _context.Set<TEntity>().FindAsync(id);
         }
 
@@ -76,7 +77,7 @@ namespace BattleCottage.Data.Repositories
         /// </summary>
         /// <param name="ids">The IDs of the entities to retrieve.</param>
         /// <returns>The retrieved entities, or null if they do not exist.</returns>
-        public Task<IList<TEntity>?> GetByIdsAsync(params int[] ids)
+        public Task<IList<TEntity>?> GetByIdsAsync(IEnumerable<int> ids)
         {
             throw new NotImplementedException();
         }

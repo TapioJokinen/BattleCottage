@@ -23,7 +23,8 @@ namespace BattleCottage.Core.Caching
         /// <returns>The generated cache key.</returns>
         public virtual CacheKey GenerateDefaultCacheKey(CacheKey key, params object[] prefixes)
         {
-            // TODO
+            key.Key = string.Format(key.Key, prefixes.Select(GenerateCacheKeyHash).ToArray());
+            return key;
         }
     }
 }
