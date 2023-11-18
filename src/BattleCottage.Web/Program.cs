@@ -1,4 +1,4 @@
-using BattleCottage.Core.Caching;
+using System.Text;
 using BattleCottage.Core.Entities;
 using BattleCottage.Data;
 using BattleCottage.Data.Repositories;
@@ -14,9 +14,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+const string myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +23,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
-        name: MyAllowSpecificOrigins,
+        myAllowSpecificOrigins,
         policy =>
         {
             policy
@@ -42,10 +41,7 @@ builder.Services.AddCors(options =>
 });
 
 // Filters
-builder.Services.AddControllers(options =>
-{
-    options.Filters.Add(new BaseExceptionFilterAttribute());
-});
+builder.Services.AddControllers(options => { options.Filters.Add(new BaseExceptionFilterAttribute()); });
 
 // Database context
 builder.Services.AddDbContext<ApplicationDbContext>();
@@ -54,17 +50,11 @@ builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EntityRepository<>));
 
 // Routes
-builder.Services.Configure<RouteOptions>(options =>
-{
-    options.LowercaseUrls = true;
-});
+builder.Services.Configure<RouteOptions>(options => { options.LowercaseUrls = true; });
 
 // Identity
 builder.Services
-    .AddIdentity<User, IdentityRole>(options =>
-    {
-        options.User.RequireUniqueEmail = true;
-    })
+    .AddIdentity<User, IdentityRole>(options => { options.User.RequireUniqueEmail = true; })
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
@@ -81,7 +71,7 @@ builder.Services
     {
         options.SaveToken = true;
         options.RequireHttpsMetadata = false;
-        options.TokenValidationParameters = new TokenValidationParameters()
+        options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
@@ -93,7 +83,7 @@ builder.Services
                 )
             ),
             ClockSkew = TimeSpan.Zero,
-            ValidateLifetime = true,
+            ValidateLifetime = true
         };
     });
 
@@ -102,7 +92,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString(
         builder.Configuration["ConnectionStrings:Redis"]
-            ?? throw new ArgumentException("Redis connection string not found.")
+        ?? throw new ArgumentException("Redis connection string not found.")
     );
     options.InstanceName = "BattleCottage";
 });
@@ -120,8 +110,6 @@ builder.Services.AddScoped<IRAWGGamesService, RAWGGamesService>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<ILFGPostService, LFGPostService>();
 
-builder.Services.AddScoped<ICacheManager, RedisCacheManager>();
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -137,16 +125,14 @@ if (app.Environment.IsDevelopment())
 }
 
 if (!app.Environment.IsDevelopment())
-{
     app.UseForwardedHeaders(
         new ForwardedHeadersOptions
         {
             ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
         }
     );
-}
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors(myAllowSpecificOrigins);
 
 app.UseAuthentication();
 
@@ -156,4 +142,6 @@ app.MapControllers();
 
 app.Run();
 
-public partial class Program { }
+public partial class Program
+{
+}
