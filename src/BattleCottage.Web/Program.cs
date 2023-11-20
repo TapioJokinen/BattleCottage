@@ -1,4 +1,5 @@
 using System.Text;
+using BattleCottage.Core.Caching;
 using BattleCottage.Core.Entities;
 using BattleCottage.Data;
 using BattleCottage.Data.Repositories;
@@ -39,6 +40,9 @@ builder.Services.AddCors(options =>
         }
     );
 });
+
+// Cache
+builder.Services.AddTransient(typeof(IConcurrentCollection<>), typeof(ConcurrentTrie<>));
 
 // Filters
 builder.Services.AddControllers(options => { options.Filters.Add(new BaseExceptionFilterAttribute()); });

@@ -2,14 +2,22 @@
 
 public class CacheKeyManager : ICacheKeyManager
 {
+    // This is type byte because we don't need to store any values.
+    private readonly IConcurrentCollection<byte> _keys;
+
+    public CacheKeyManager(IConcurrentCollection<byte> keys)
+    {
+        _keys = keys;
+    }
+
     public void AddKey(string key)
     {
-        throw new NotImplementedException();
+        _keys.Add(key, default);
     }
 
     public void RemoveKey(string key)
     {
-        throw new NotImplementedException();
+        _keys.Remove(key);
     }
 
     public void Clear()
