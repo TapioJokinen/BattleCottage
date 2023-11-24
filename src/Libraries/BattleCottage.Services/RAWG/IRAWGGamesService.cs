@@ -1,7 +1,7 @@
-﻿namespace BattleCottage.Services.RAWG
+﻿namespace BattleCottage.Services.RAWG;
+
+// ReSharper disable once InconsistentNaming
+public interface IRAWGGamesService
 {
-    public interface IRAWGGamesService
-    {
-        Task DoWork(CancellationToken cancellationToken);
-    }
+    Task DoWork(CancellationToken cancellationToken);
 }

@@ -2,34 +2,34 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace BattleCottage.Services.RAWG
+namespace BattleCottage.Services.RAWG;
+
+// ReSharper disable once InconsistentNaming
+public class ConsumeRAWGGamesService : BackgroundService
 {
-    public class ConsumeRAWGGamesService : BackgroundService
+    private readonly ILogger<ConsumeRAWGGamesService> _logger;
+
+    public ConsumeRAWGGamesService(ILogger<ConsumeRAWGGamesService> logger, IServiceProvider services)
     {
-        private readonly ILogger<ConsumeRAWGGamesService> _logger;
+        _logger = logger;
+        Services = services;
+    }
 
-        public ConsumeRAWGGamesService(ILogger<ConsumeRAWGGamesService> logger, IServiceProvider services)
-        {
-            _logger = logger;
-            Services = services;
-        }
+    private IServiceProvider Services { get; }
 
-        public IServiceProvider Services { get; }
+    protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("ConsumeRAWGGamesService is working.");
+        await DoWork(cancellationToken);
+    }
 
-        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
-        {
-            _logger.LogInformation("ConsumeRAWGGamesService is working.");
-            await DoWork(cancellationToken);
-        }
+    private async Task DoWork(CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("Consume Scoped Service Hosted Service is working.");
 
-        private async Task DoWork(CancellationToken cancellationToken)
-        {
-            _logger.LogInformation("Consume Scoped Service Hosted Service is working.");
+        using var scope = Services.CreateScope();
+        var rawgGamesService = scope.ServiceProvider.GetRequiredService<IRAWGGamesService>();
 
-            using var scope = Services.CreateScope();
-            var rawgGamesService = scope.ServiceProvider.GetRequiredService<IRAWGGamesService>();
-
-            await rawgGamesService.DoWork(cancellationToken);
-        }
+        await rawgGamesService.DoWork(cancellationToken);
     }
 }
