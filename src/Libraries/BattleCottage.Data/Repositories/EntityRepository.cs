@@ -57,7 +57,14 @@ public class EntityRepository<TEntity> : IRepository<TEntity>
     /// <returns>A list of all entities of type TEntity, or null if none are found.</returns>
     public async Task<IList<TEntity>?> GetAllAsync()
     {
-        return await _context.Set<TEntity>().ToListAsync();
+        var cacheKey = _cacheManager.PrepareCacheKey(CacheDefaults<TEntity>.AllValuesCacheKey);
+
+        return await _cacheManager.GetAsync(cacheKey, GetAllEntities);
+
+        async Task<IList<TEntity>?> GetAllEntities()
+        {
+            return await _context.Set<TEntity>().ToListAsync();
+        }
     }
 
     /// <summary>

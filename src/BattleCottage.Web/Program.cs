@@ -43,7 +43,7 @@ builder.Services.AddCors(options =>
 });
 
 // Cache
-builder.Services.AddTransient(typeof(IConcurrentTrie<>), typeof(ConcurrentTrie<>));
+builder.Services.AddSingleton(typeof(IConcurrentTrie<>), typeof(ConcurrentTrie<>));
 
 // Filters
 builder.Services.AddControllers(options => { options.Filters.Add(new BaseExceptionFilterAttribute()); });
@@ -95,10 +95,7 @@ builder.Services
 // Redis
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-    options.Configuration = builder.Configuration.GetConnectionString(
-        builder.Configuration["ConnectionStrings:Redis"]
-        ?? throw new ArgumentException("Redis connection string not found.")
-    );
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
     options.InstanceName = "BattleCottage";
 });
 
