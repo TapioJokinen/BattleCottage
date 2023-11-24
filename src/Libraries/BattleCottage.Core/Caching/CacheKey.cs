@@ -2,14 +2,27 @@
 
 public class CacheKey
 {
-    public CacheKey(string key, string prefix)
+    public TimeSpan AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60);
+    public TimeSpan SlidingExpiration = TimeSpan.FromMinutes(1);
+
+    public CacheKey(string key, params string[] prefixes)
     {
-        Prefix = prefix;
-        Key = $"{Prefix}:{Key}";
+        Key = key;
+        Prefixes.AddRange(prefixes.Where(p => !string.IsNullOrEmpty(p)));
     }
 
-    public string Key { get; }
-    public string Prefix { get; }
+    public string Key { get; set; }
+    public List<string> Prefixes { get; set; } = new();
 
-    public TimeSpan Expiration { get; set; } = TimeSpan.FromMinutes(60);
+    public CacheKey Create(string keyParameter)
+    {
+        var cacheKey = new CacheKey(Key, Prefixes.ToArray());
+
+        cacheKey.Key = string.Format(cacheKey.Key, keyParameter);
+
+        for (var i = 0; i < cacheKey.Prefixes.Count; i++)
+            cacheKey.Prefixes[i] = string.Format(cacheKey.Prefixes[i], keyParameter);
+
+        return cacheKey;
+    }
 }

@@ -1,8 +1,6 @@
-﻿using BattleCottage.Core.Caching;
+﻿namespace BattleCottage.Core.Infrastructure;
 
-namespace BattleCottage.Data;
-
-public class ConcurrentTrie<TValue> : IConcurrentCollection<TValue>
+public class ConcurrentTrie<TValue> : IConcurrentTrie<TValue>
 {
     // The locking could be fine-tuned to allow for more concurrency with lock striping.
     // Unfortunately I'm too lazy (too bad) at the moment to do it.

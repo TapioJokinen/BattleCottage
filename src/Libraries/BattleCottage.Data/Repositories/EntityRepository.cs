@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using BattleCottage.Core.Caching;
 using BattleCottage.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,11 +8,13 @@ namespace BattleCottage.Data.Repositories;
 public class EntityRepository<TEntity> : IRepository<TEntity>
     where TEntity : BaseEntity
 {
+    private readonly ICacheManager _cacheManager;
     private readonly ApplicationDbContext _context;
 
-    public EntityRepository(ApplicationDbContext context)
+    public EntityRepository(ApplicationDbContext context, ICacheManager cacheManager)
     {
         _context = context;
+        _cacheManager = cacheManager;
     }
 
     /// <summary>
@@ -64,7 +67,14 @@ public class EntityRepository<TEntity> : IRepository<TEntity>
     /// <returns>The entity with the specified ID, or null if not found.</returns>
     public async Task<TEntity?> GetByIdAsync(int id)
     {
-        return await _context.Set<TEntity>().FindAsync(id);
+        var cacheKey = _cacheManager.PrepareCacheKey(CacheDefaults<TEntity>.ByIdCacheKey, id);
+
+        return await _cacheManager.GetAsync(cacheKey, GetEntity);
+
+        async Task<TEntity?> GetEntity()
+        {
+            return await _context.Set<TEntity>().FindAsync(id);
+        }
     }
 
     public Task<IList<TEntity>?> GetByIdsAsync(params int[] ids)

@@ -1,6 +1,7 @@
 using System.Text;
 using BattleCottage.Core.Caching;
 using BattleCottage.Core.Entities;
+using BattleCottage.Core.Infrastructure;
 using BattleCottage.Data;
 using BattleCottage.Data.Repositories;
 using BattleCottage.Data.Repositories.UserRepository;
@@ -42,7 +43,7 @@ builder.Services.AddCors(options =>
 });
 
 // Cache
-builder.Services.AddTransient(typeof(IConcurrentCollection<>), typeof(ConcurrentTrie<>));
+builder.Services.AddTransient(typeof(IConcurrentTrie<>), typeof(ConcurrentTrie<>));
 
 // Filters
 builder.Services.AddControllers(options => { options.Filters.Add(new BaseExceptionFilterAttribute()); });
@@ -103,9 +104,10 @@ builder.Services.AddStackExchangeRedisCache(options =>
 
 builder.Services.AddHttpClient();
 
-// Services
+// Background Services
 builder.Services.AddHostedService<ConsumeRAWGGamesService>();
 
+// Services
 builder.Services.AddScoped<IHealthCheckService, HealthCheckService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
@@ -113,6 +115,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRAWGGamesService, RAWGGamesService>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<ILFGPostService, LFGPostService>();
+builder.Services.AddScoped<ICacheManager, CacheManager>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

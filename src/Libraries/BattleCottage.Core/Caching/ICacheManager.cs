@@ -1,10 +1,8 @@
 ﻿namespace BattleCottage.Core.Caching;
 
-public interface ICacheManager
+public interface ICacheManager : IDisposable, ICacheKeyService
 {
-    Task<(bool, T? item)> TryGetDataAsync<T>(string key);
-    Task<T?> GetAsync<T>(CacheKey key, Func<Task<T>> acquire);
-    Task RemoveAsync(CacheKey key);
-
-    void SetLocal(string key, object? data);
+    Task<T?> GetAsync<T>(CacheKey key, Func<Task<T>> getData);
+    Task<(bool, T?)> TryGetItemAsync<T>(string key);
+    void SetLocal(string key, object? value);
 }
