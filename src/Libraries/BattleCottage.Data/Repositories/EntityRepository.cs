@@ -61,7 +61,7 @@ public class EntityRepository<TEntity> : IRepository<TEntity>
 
         return await _cacheManager.GetAsync(cacheKey, GetAllEntities);
 
-        async Task<IList<TEntity>?> GetAllEntities()
+        async Task<IList<TEntity>> GetAllEntities()
         {
             return await _context.Set<TEntity>().ToListAsync();
         }

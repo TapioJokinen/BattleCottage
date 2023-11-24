@@ -8,7 +8,7 @@ public class ConcurrentTrie<TValue> : IConcurrentTrie<TValue>
     private readonly TrieNode _root = new();
     private readonly ReaderWriterLockSlim _structureLock = new();
 
-    public void Add(string key, TValue value)
+    public void Add(string key, TValue? value)
     {
         _structureLock.EnterWriteLock();
         try
@@ -30,7 +30,7 @@ public class ConcurrentTrie<TValue> : IConcurrentTrie<TValue>
         }
     }
 
-    public bool TryGetValue(string key, out TValue value)
+    public bool TryGetValue(string key, out TValue? value)
     {
         _structureLock.EnterReadLock();
         try
@@ -90,7 +90,7 @@ public class ConcurrentTrie<TValue> : IConcurrentTrie<TValue>
 
     private class TrieNode
     {
-        public TValue Value { get; set; } = default!;
+        public TValue? Value { get; set; }
         public bool IsWord { get; set; }
         public Dictionary<char, TrieNode> Children { get; } = new();
     }

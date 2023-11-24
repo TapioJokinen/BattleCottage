@@ -11,7 +11,7 @@ public class CacheKey
         Prefixes.AddRange(prefixes.Where(p => !string.IsNullOrEmpty(p)));
     }
 
-    public string Key { get; set; }
+    public string Key { get; private set; }
     public List<string> Prefixes { get; set; } = new();
 
     public CacheKey Create(string keyParameter)

@@ -11,7 +11,7 @@ public class CacheKeyService : ICacheKeyService
         return cacheKey;
     }
 
-    public string CreateHashForIds(params int[] ids)
+    private static string CreateHashForIds(params int[] ids)
     {
         var sortedIdsAsString = string.Join(",", ids.OrderBy(i => i).ToArray());
         return Hash.GetSha256Hash(sortedIdsAsString);
